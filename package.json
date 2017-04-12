@@ -1,22 +1,7 @@
 {
   "name": "project-management-learning",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Ostrovskiyan/project-management-learning.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/Ostrovskiyan/project-management-learning/issues"
-  },
-  "homepage": "https://github.com/Ostrovskiyan/project-management-learning#readme",
+  "version": "0.1.0",
+  "private": true,
   "dependencies": {
     "react": "^15.5.4",
     "react-dom": "^15.5.4",
@@ -27,6 +12,13 @@
     "babel-cli": "^6.24.1",
     "babel-core": "^6.24.1",
     "babel-preset-es2015": "^6.24.1",
-    "babel-preset-react": "^6.24.1"
+    "babel-preset-react": "^6.24.1",
+    "react-scripts": "0.9.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
   }
 }
