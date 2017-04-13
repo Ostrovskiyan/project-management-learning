@@ -8,11 +8,17 @@ class LoginForm extends Component {
         return (
             <Form>
                 <Logo/>
+                <FormGroup className="Note">
+                    Введите действующий адрес эл. почты.
+                </FormGroup>
                 <FormGroup>
+                    <div className="TipWrapper">
+                        <div className="Tip"/>
+                    </div>
                     <input type="email" className="form-control LoginInput" placeholder="Эл. почта"/>
                 </FormGroup>
                 <FormGroup className="form-group">
-                    <input type="password" className="form-control LoginInput" placeholder="Пароль"/>
+                    <input type="password" className="form-control LoginInput Backlight" placeholder="Пароль"/>
                 </FormGroup>
                 <LoginFooter/>
             </Form>

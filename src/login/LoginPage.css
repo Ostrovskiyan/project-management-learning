@@ -24,12 +24,44 @@
 
 .LoginInput {
     height: 40px;
+    color: #000000;
+    font-size: 16px;
 }
 
 .LoginInput::-webkit-input-placeholder {
-    color:#666666;
+    color:#888888;
 }
 
 .LoginBoxBody {
-    border:1px solid #DDDDDD
+    border:1px solid #DDDDDD;
+    padding: 30px;
+}
+
+.LoginBox {
+    width: 400px;
+}
+
+.Tip {
+    height: 40px;
+    width: 10px;
+    background-color: #DFFFBF;
+    position: absolute;
+    right: 5px;
+}
+
+.TipWrapper {
+    position: absolute;
+}
+
+.Note {
+    background-color: #DFFFBF;
+    text-align: center;
+    height: 40px;
+    padding: 10px;
+    font-size: 16px;
+    color: #888888;
+}
+
+input.Backlight {
+    background-color: #FAFFBD;
 }
