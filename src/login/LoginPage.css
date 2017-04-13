@@ -1,7 +1,35 @@
 .Background {
     background: #F3F3F5;
+    height: 100%;
+    width: 100%;
 }
 
 .LoginForm {
     background: #FFFFFF;
+}
+
+.EmptyLoginBlock {
+    height: 7%;
+}
+
+.LoginButton {
+    background-image: none;
+    background-color: #507CAB;
+    height: 40px;
+}
+
+.LoginButton:hover, .LoginButton:active, .LoginButton:active {
+    background-color: #507CAB;
+}
+
+.LoginInput {
+    height: 40px;
+}
+
+.LoginInput::-webkit-input-placeholder {
+    color:#666666;
+}
+
+.LoginBoxBody {
+    border:1px solid #DDDDDD
 }
