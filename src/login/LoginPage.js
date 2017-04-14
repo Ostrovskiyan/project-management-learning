@@ -7,8 +7,7 @@ class LoginPage extends Component {
     render() {
         return (
             <div className="Background">
-                <div className="EmptyLoginBlock">
-                </div>
+                <div className="EmptyLoginBlock"/>
                 <LoginBox/>
             </div>
         )
