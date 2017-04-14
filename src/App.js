@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import LoginPage from './login/LoginPage';
+import PageTemplate from "./common/PageTemplate";
 
 class App extends Component {
   // render() {
@@ -18,7 +19,8 @@ class App extends Component {
   // }
     render() {
         return(
-            <LoginPage />
+            <PageTemplate/>
+            // <LoginPage />
         )
     }
 }

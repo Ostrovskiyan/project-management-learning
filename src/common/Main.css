@@ -1,0 +1,43 @@
+.Background {
+    background: #434B56;
+    height: 100%;
+    width: 100%;
+}
+
+.container {
+    margin: 0 0 0 0;
+    padding: 0 15px 0 15px;
+    width: 100%;
+}
+
+.navbar-collapse.collapse {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.navbar-form.navbar-left {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.navbar-inverse {
+    background-color: inherit;
+    background-image: none;
+    border: none;
+}
+
+.NavbarSearch, .NavbarSearch:focus {
+    color: #FFFFFF;
+    background-color: #434B56;
+    border-color: #AAAAAA;
+    border-radius: 4px;
+}
+
+.NavbarSearch::-webkit-input-placeholder {
+    color: #cccccc;
+    font-size: 12px;
+}
+
+.NavbarSearchIcon {
+    color: #FFFFFF;
+}
