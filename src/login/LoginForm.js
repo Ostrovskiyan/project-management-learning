@@ -2,23 +2,25 @@ import React, {Component} from 'react';
 import {Form, FormGroup} from "react-bootstrap";
 import Logo from "./Logo"
 import LoginFooter from "./LoginFooter"
+import LoginMessage from "./LoginMessage";
 
 class LoginForm extends Component {
     render() {
+        let message = this.props.error && <LoginMessage message="Введите действующий адрес эл. почты."/>;
+        let inputLight = this.props.error &&
+                            (<div className="InputLightWrapper">
+                                <div className="InputLight"/>
+                            </div>);
         return (
             <Form>
                 <Logo/>
-                <FormGroup className="Note">
-                    Введите действующий адрес эл. почты.
-                </FormGroup>
+                {message}
                 <FormGroup>
-                    <div className="TipWrapper">
-                        <div className="Tip"/>
-                    </div>
-                    <input type="email" className="form-control LoginInput" placeholder="Эл. почта"/>
+                    {inputLight}
+                    <input type="email" className="form-control LoginInput" placeholder="Эл. почта" defaultValue={this.props.email}/>
                 </FormGroup>
                 <FormGroup className="form-group">
-                    <input type="password" className="form-control LoginInput Backlight" placeholder="Пароль"/>
+                    <input type="password" className={"form-control LoginInput " + (this.props.password && "Backlight")} placeholder="Пароль" defaultValue={this.props.password}/>
                 </FormGroup>
                 <LoginFooter/>
             </Form>

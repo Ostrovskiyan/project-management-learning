@@ -6,7 +6,7 @@ class LoginBox extends Component {
         return (
             <div className="login-box LoginBox">
                 <div className="login-box-body LoginBoxBody">
-                    <LoginForm/>
+                    <LoginForm error password="111" email="Vlad"/>
                 </div>
             </div>
         )

@@ -41,7 +41,7 @@
     width: 400px;
 }
 
-.Tip {
+.InputLight {
     height: 40px;
     width: 10px;
     background-color: #DFFFBF;
@@ -49,7 +49,7 @@
     right: 5px;
 }
 
-.TipWrapper {
+.InputLightWrapper {
     position: absolute;
 }
 
