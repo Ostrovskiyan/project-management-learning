@@ -6,7 +6,7 @@ import "./LoginPage.css";
 class LoginPage extends Component {
     render() {
         return (
-            <div className="Background">
+            <div className="LoginBackground">
                 <div className="EmptyLoginBlock"/>
                 <LoginBox/>
             </div>

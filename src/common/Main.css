@@ -20,6 +20,10 @@
     padding-right: 0;
 }
 
+.navbar-right {
+    padding-right: 5px;
+}
+
 .navbar-inverse {
     background-color: inherit;
     background-image: none;
@@ -40,4 +44,39 @@
 
 .NavbarSearchIcon {
     color: #FFFFFF;
+}
+
+.LogoutDropdownAvatar {
+    height: 35px;
+    margin-right: 8px;
+}
+
+.LogoutMenuAvatarWrapper {
+    padding-left: 10px;
+}
+
+.LogoutMenuAvatar {
+    height: 50px;
+    width: 50px;
+    margin-right: 8px;
+}
+
+.LogoutDropdown {
+    color: #ffffff !important;
+}
+
+.LogoutMenu {
+    border-radius: 0;
+    top: 80%;
+    width: 250px;
+}
+
+.LogoutDivider {
+    margin: 10px 0 0 0 !important;
+    height: 5px !important;;
+}
+
+.LogoutButton {
+    font-size: 12px;
+    padding-top: 3px;
 }
