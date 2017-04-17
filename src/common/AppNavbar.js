@@ -6,9 +6,9 @@ import {
 class AppNavbar extends Component {
     render() {
         return (
-            <Navbar inverse>
-                <Navbar.Form pullLeft>
-                    <FormGroup>
+            <Navbar inverse className="AppNavbar">
+                <Navbar.Form pullLeft className="NavbarSearchWrapper">
+                    <FormGroup className="NavbarSearchFormGroup">
                         <FormControl className="NavbarSearch" type="text" placeholder="Поиск задач"/>
                         <FormControl.Feedback>
                             <Glyphicon glyph="glyphicon glyphicon-search" className="NavbarSearchIcon"/>

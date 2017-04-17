@@ -30,7 +30,20 @@
     border: none;
 }
 
+.AppNavbar {
+    margin-bottom: 0;
+}
+
+.NavbarSearchWrapper {
+    width: 19%;
+}
+
+.NavbarSearchFormGroup {
+    width: 100%;
+}
+
 .NavbarSearch, .NavbarSearch:focus {
+    width: 100% !important;
     color: #FFFFFF;
     background-color: #434B56;
     border-color: #AAAAAA;
@@ -79,4 +92,26 @@
 .LogoutButton {
     font-size: 12px;
     padding-top: 3px;
+}
+
+.Main {
+    height: 92%;
+    padding-left: 28px;
+    padding-right: 5px;
+}
+
+.FullHeight {
+    height: 100%;
+}
+
+.Menu {
+    background-color: #4B5966;
+    width: 19%;
+    margin-right: 10px;
+}
+
+.WorkFrame {
+    background-color: #FFFFFF;
+    width: 39%;
+    margin-right: 10px;
 }

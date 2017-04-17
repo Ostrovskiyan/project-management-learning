@@ -8,10 +8,10 @@ class PageTemplate extends Component {
         return (
             <div className="Background">
                 <AppNavbar/>
-                <Row>
-                    <Col xs={2}>first</Col>
-                    <Col xs={5}>second</Col>
-                    <Col xs={5}>third</Col>
+                <Row className="Main">
+                    <Col xs={2} className="FullHeight Menu">first</Col>
+                    <Col xs={5} className="FullHeight WorkFrame">second</Col>
+                    <Col xs={5} className="FullHeight WorkFrame">third</Col>
                 </Row>
             </div>
         )
