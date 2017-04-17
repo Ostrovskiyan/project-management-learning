@@ -107,11 +107,34 @@
 .Menu {
     background-color: #4B5966;
     width: 19%;
-    margin-right: 10px;
+    margin-right: 0.7%;
+    padding: 0;
+    color: #ffffff;
 }
 
 .WorkFrame {
     background-color: #FFFFFF;
     width: 39%;
-    margin-right: 10px;
+    margin-right: 0.7%;
+}
+
+.MenuButton {
+    color: #DDDDDD;
+    margin: 0;
+    text-align: left;
+    border-radius: 0;
+    height: 40px;
+    background-color: #52606D;
+    padding: 10px 10px 10px 20px;
+}
+
+.MenuButton.Selected {
+    background-color: #5590CC;
+}
+
+.ProjectPlus {
+    float: right;
+    font-family: verdana;
+    font-size: 18px;
+    color: #93A3B4;
 }
