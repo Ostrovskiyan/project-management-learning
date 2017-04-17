@@ -112,10 +112,26 @@
     color: #ffffff;
 }
 
-.WorkFrame {
+.Content {
     background-color: #FFFFFF;
-    width: 39%;
     margin-right: 0.7%;
+    padding: 0;
+}
+
+.FullContent {
+    width: 78.7%;
+}
+
+.HalfContent {
+    width: 39%;
+}
+
+.ThirdContent {
+    width: 26%;
+}
+
+.DoubleThirdContent {
+    width: 52%;
 }
 
 .MenuButton {
