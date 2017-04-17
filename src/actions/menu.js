@@ -1,8 +1,22 @@
-export const CLICK_MENU_ITEM = "CLICK_MENU_ITEM";
+export const SELECT_MY_WORK = "SELECT_MY_WORK";
+export const SELECT_PROJECTS_TAB = "SELECT_PROJECTS_TAB";
+export const SELECT_PROJECT = "SELECT_PROJECT";
 
-export const clickMenuItem = (id) => {
+export const selectMyWork = () => {
     return {
-        type: CLICK_MENU_ITEM,
+        type: SELECT_MY_WORK
+    }
+};
+
+export const selectProjectsTab = () => {
+    return {
+        type: SELECT_PROJECTS_TAB
+    }
+};
+
+export const selectProject = (id) => {
+    return {
+        type: SELECT_PROJECT,
         selectedItemId: id
     }
 };

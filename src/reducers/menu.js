@@ -1,10 +1,14 @@
-import {CLICK_MENU_ITEM} from "../actions/menu";
+import {SELECT_MY_WORK, SELECT_PROJECTS_TAB} from "../actions/menu";
 
 const menu = (state = {}, action) => {
     switch (action.type) {
-        case CLICK_MENU_ITEM:
+        case SELECT_MY_WORK:
             return {
-                selectedItemId: action.selectedItemId
+                myWorkSelected: true
+            };
+        case SELECT_PROJECTS_TAB:
+            return {
+                projectsTabSelected: true
             };
         default:
             return state;

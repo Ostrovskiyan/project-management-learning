@@ -3,33 +3,37 @@ import "./Main.css";
 import AppNavbar from "./AppNavbar";
 import {Button, Col, Glyphicon, Row} from "react-bootstrap";
 import {connect} from "react-redux";
-import {clickMenuItem} from "../actions/menu";
+import {selectMyWork, selectProjectsTab} from "../actions/menu";
 
 class AppMenu extends Component {
 
     constructor(props) {
         super(props);
-        this.handleClick = this.handleClick.bind(this);
-
+        this.handleMyWorkClick = this.handleMyWorkClick.bind(this);
+        this.handleProjectsClick = this.handleProjectsClick.bind(this);
     }
 
-    handleClick(event) {
-        this.props.dispatch(clickMenuItem(event.target.getAttribute('id')));
+    handleMyWorkClick(event) {
+        this.props.dispatch(selectMyWork());
+        event.preventDefault();
+    }
+
+    handleProjectsClick(event) {
+        this.props.dispatch(selectProjectsTab());
         event.preventDefault();
     }
 
     render() {
         let myWorkId = "my-work";
         let projectsId = "projects";
-        let selectedId = this.props.selectedId;
         return (
             <div>
-                <div id={myWorkId} className={`MenuButton ${selectedId === myWorkId && "Selected"}`}
-                     onClick={this.handleClick}>
+                <div id={myWorkId} className={`MenuButton ${this.props.myWorkSelected && "Selected"}`}
+                     onClick={this.handleMyWorkClick}>
                     МОЯ РАБОТА
                 </div>
-                <div id={projectsId} className={`MenuButton ${selectedId === projectsId && "Selected"}`}
-                     onClick={this.handleClick}>
+                <div id={projectsId} className={`MenuButton ${this.props.projectsTabSelected && "Selected"}`}
+                     onClick={this.handleProjectsClick}>
                     ПРОЕКТЫ
                     <Glyphicon className="ProjectPlus" glyph="glyphicon glyphicon-plus"/>
                 </div>
@@ -40,7 +44,8 @@ class AppMenu extends Component {
 
 function mapStateToProps(state) {
     return {
-        selectedId: state.menu.selectedItemId,
+        myWorkSelected: state.menu.myWorkSelected,
+        projectsTabSelected: state.menu.projectsTabSelected
     }
 }
 
