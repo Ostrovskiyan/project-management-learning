@@ -2,8 +2,21 @@ import React, {Component} from 'react';
 import {
     Dropdown, FormControl, FormGroup, Glyphicon, MenuItem, Nav, Navbar
 } from "react-bootstrap";
+import {logout} from "../actions/profile";
+import {connect} from "react-redux";
 
 class AppNavbar extends Component {
+
+    constructor(props) {
+        super(props);
+        this.handleLogout = this.handleLogout.bind(this);
+    }
+
+    handleLogout(event) {
+        this.props.dispatch(logout());
+        event.preventDefault();
+    }
+
     render() {
         return (
             <Navbar inverse className="AppNavbar">
@@ -27,7 +40,7 @@ class AppNavbar extends Component {
                                 johan doe
                             </MenuItem>
                             <MenuItem divider className="LogoutDivider"/>
-                            <MenuItem className="LogoutButton">Выйти</MenuItem>
+                            <MenuItem className="LogoutButton" onClick={this.handleLogout}>Выйти</MenuItem>
                         </Dropdown.Menu>
                     </Dropdown>
                 </Nav>
@@ -36,4 +49,4 @@ class AppNavbar extends Component {
     }
 }
 
-export default AppNavbar;
+export default connect()(AppNavbar);

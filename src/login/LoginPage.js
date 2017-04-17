@@ -1,14 +1,18 @@
 import React, {Component} from 'react';
 
-import LoginBox from "./LoginBox"
 import "./LoginPage.css";
+import LoginForm from "./LoginForm";
 
 class LoginPage extends Component {
     render() {
         return (
             <div className="LoginBackground">
                 <div className="EmptyLoginBlock"/>
-                <LoginBox/>
+                <div className="login-box LoginBox">
+                    <div className="login-box-body LoginBoxBody">
+                        <LoginForm/>
+                    </div>
+                </div>
             </div>
         )
     }

@@ -1,28 +1,21 @@
-import React, { Component } from 'react';
-import './App.css';
+import React, {Component} from 'react';
 import LoginPage from './login/LoginPage';
 import PageTemplate from "./common/PageTemplate";
+import {connect} from "react-redux";
 
 class App extends Component {
-  // render() {
-  //   return (
-  //     <div className="App">
-  //       <div className="App-header">
-  //         <img src={logo} className="App-logo" alt="logo" />
-  //         <h2>Hello world</h2>
-  //       </div>
-  //       <p className="App-intro">
-  //         Future for project-management
-  //       </p>
-  //     </div>
-  //   );
-  // }
     render() {
-        return(
-            <PageTemplate/>
-            // <LoginPage />
-        )
+        if (this.props.authorized) {
+            return <PageTemplate/>;
+        }
+        return <LoginPage />;
     }
 }
 
-export default App;
+function mapStateToProps(state) {
+    return {
+        authorized: state.profile.authorized
+    }
+}
+
+export default connect(mapStateToProps)(App)
