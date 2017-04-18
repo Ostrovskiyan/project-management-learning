@@ -29,7 +29,7 @@ class AppNavbar extends Component {
                     </FormGroup>
                 </Navbar.Form>
                 <Nav pullRight>
-                    <Dropdown bsStyle="link">
+                    <Dropdown id="logout-dropdown" bsStyle="link">
                         <Dropdown.Toggle bsStyle="link" className="LogoutDropdown">
                             <img className="LogoutDropdownAvatar" src="/images/avatars/example.jpg"/>
                             johan

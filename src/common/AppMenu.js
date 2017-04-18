@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import "./Main.css";
-import AppNavbar from "./AppNavbar";
-import {Button, Col, Glyphicon, Row} from "react-bootstrap";
+import {Glyphicon} from "react-bootstrap";
 import {connect} from "react-redux";
 import {selectMyWork, selectProjectsTab} from "../actions/menu";
 

@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
-import {Badge, Col, Row} from "react-bootstrap";
+import {Badge} from "react-bootstrap";
 
 class IssueTimeHeader extends Component {
 
     render() {
         let dateLabel = this.props.startDate;
-        if(this.props.endDate) {
+        if (this.props.endDate) {
             dateLabel += (" - " + this.props.endDate);
         }
         return (
