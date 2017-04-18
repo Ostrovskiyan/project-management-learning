@@ -6,6 +6,7 @@ import NewTaskButton from "./NewTaskButton";
 import AddIssueInput from "./AddIssueInput";
 import {connect} from "react-redux";
 import {addIssueEnd, clickAddIssue, processAddIssue} from "../actions/issues";
+import {getThreeLetterMonth, getTwoDigitDay} from "../util/date-util";
 
 class Issues extends Component {
 
@@ -30,20 +31,33 @@ class Issues extends Component {
         event.preventDefault();
     }
 
+    toTitleDate(date) {
+        return `${getThreeLetterMonth(date)} ${getTwoDigitDay(date)}`;
+    }
+
     render() {
+        let now = new Date();
+        let weekEnd = new Date();
+        weekEnd.setDate(now.getDate() + 6);
+        let nextWeekStart = new Date();
+        nextWeekStart.setDate(now.getDate() + 7);
+        let nextWeekEnd = new Date();
+        nextWeekEnd.setDate(now.getDate() + 13);
+
+
         let addIssueComponent = this.props.addingIssue ? <AddIssueInput handleFocusEnd={this.handleStopFocus} handleSubmit={this.handleAddIssue}/> :
             <NewTaskButton handleClick={this.handleClickNewTask}/>;
         return (
             <Row className="Main">
                 {this.props.menu}
                 <Col xs={5} className="FullHeight Content DoubleThirdContent">
-                    <IssueTimeHeader title="НА СЕГОДНЯ" startDate="Окт 09" issueCount={0}/>
+                    <IssueTimeHeader title="НА СЕГОДНЯ" startDate={this.toTitleDate(now)} issueCount={0}/>
                     {addIssueComponent}
                 </Col>
                 <Col xs={5} className="FullHeight Content ThirdContent">
-                    <IssueTimeHeader title="НА ЭТУ НЕДЕЛЮ" startDate="Окт 09" endDate="Окт 15" issueCount={0}/>
-                    <IssueTimeHeader title="НА СЛЕД. НЕДЕЛЮ" startDate="Окт 16" endDate="Окт 22" issueCount={0}/>
-                    <IssueTimeHeader title="ПОЗЖЕ" startDate="После Окт 22" issueCount={0}/>
+                    <IssueTimeHeader title="НА ЭТУ НЕДЕЛЮ" startDate={this.toTitleDate(now)} endDate={this.toTitleDate(weekEnd)} issueCount={0}/>
+                    <IssueTimeHeader title="НА СЛЕД. НЕДЕЛЮ" startDate={this.toTitleDate(nextWeekStart)} endDate={this.toTitleDate(nextWeekEnd)} issueCount={0}/>
+                    <IssueTimeHeader title="ПОЗЖЕ" startDate={`После ${this.toTitleDate(nextWeekEnd)}`} issueCount={0}/>
                 </Col>
             </Row>
         )
