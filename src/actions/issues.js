@@ -15,7 +15,7 @@ const addIssue = (issueName) => {
     }
 };
 
-const addIssueEnd = () => {
+export const addIssueEnd = () => {
     return {
         type: ADD_ISSUE_END
     }
@@ -25,6 +25,7 @@ export function processAddIssue(issueName) {
     return dispatch => {
         dispatch(addIssueEnd());
         if (issueName !== "") {
+            console.log(issueName);
             dispatch(addIssue(issueName));
         }
     }

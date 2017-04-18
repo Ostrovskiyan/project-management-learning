@@ -5,7 +5,7 @@ import IssueTimeHeader from "./IssueTimeHeader";
 import NewTaskButton from "./NewTaskButton";
 import AddIssueInput from "./AddIssueInput";
 import {connect} from "react-redux";
-import {clickAddIssue, processAddIssue} from "../actions/issues";
+import {addIssueEnd, clickAddIssue, processAddIssue} from "../actions/issues";
 
 class Issues extends Component {
 
@@ -13,6 +13,7 @@ class Issues extends Component {
         super(props);
         this.handleClickNewTask = this.handleClickNewTask.bind(this);
         this.handleAddIssue = this.handleAddIssue.bind(this);
+        this.handleStopFocus = this.handleStopFocus.bind(this);
     }
 
     handleClickNewTask(event) {
@@ -24,8 +25,13 @@ class Issues extends Component {
         this.props.dispatch(processAddIssue(issueName));
     }
 
+    handleStopFocus(event) {
+        this.props.dispatch(addIssueEnd());
+        event.preventDefault();
+    }
+
     render() {
-        let addIssueComponent = this.props.addingIssue ? <AddIssueInput handleFocusEnd={this.handleAddIssue}/> :
+        let addIssueComponent = this.props.addingIssue ? <AddIssueInput handleFocusEnd={this.handleStopFocus} handleSubmit={this.handleAddIssue}/> :
             <NewTaskButton handleClick={this.handleClickNewTask}/>;
         return (
             <Row className="Main">

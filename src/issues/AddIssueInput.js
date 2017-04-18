@@ -9,21 +9,20 @@ class AddIssueInput extends Component {
     }
 
     componentDidMount(){
-        console.log(this.issueInput);
         this.issueInput.focus();
     }
 
     handleFocusEnd(event) {
-        this.props.handleFocusEnd(this.issueInput.value);
+        this.props.handleSubmit(this.issueInput.value);
         event.preventDefault();
     }
 
     render() {
         let avatarSrc = "/images/avatars/example.jpg";
         return (
-            <Form inline className="AddIssueForm">
+            <Form inline className="AddIssueForm" onSubmit={this.handleFocusEnd}>
                 <img src={avatarSrc} className="AddIssueAvatar"/>
-                <input type="text" className="form-control AddIssueInput" ref={(input) => {this.issueInput = input}} onBlur={this.handleFocusEnd}/>
+                <input type="text" className="form-control AddIssueInput" ref={(input) => {this.issueInput = input}} onBlur={this.props.handleFocusEnd}/>
             </Form>
         )
     }
