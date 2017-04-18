@@ -18,6 +18,7 @@ class AppNavbar extends Component {
     }
 
     render() {
+        let avatarSrc = "/images/avatars/example.jpg";
         return (
             <Navbar inverse className="AppNavbar">
                 <Navbar.Form pullLeft className="NavbarSearchWrapper">
@@ -31,12 +32,12 @@ class AppNavbar extends Component {
                 <Nav pullRight>
                     <Dropdown id="logout-dropdown" bsStyle="link">
                         <Dropdown.Toggle bsStyle="link" className="LogoutDropdown">
-                            <img className="LogoutDropdownAvatar" src="/images/avatars/example.jpg"/>
+                            <img className="LogoutDropdownAvatar" src={avatarSrc}/>
                             johan
                         </Dropdown.Toggle>
                         <Dropdown.Menu className="LogoutMenu">
                             <MenuItem header className="LogoutMenuAvatarWrapper">
-                                <img className="LogoutMenuAvatar" src="/images/avatars/example.jpg"/>
+                                <img className="LogoutMenuAvatar" src={avatarSrc}/>
                                 johan doe
                             </MenuItem>
                             <MenuItem divider className="LogoutDivider"/>

@@ -33,3 +33,20 @@
 .NewTaskPlus {
     margin-right: 10px;
 }
+
+.AddIssueAvatar {
+    height: 35px;
+    border-radius: 5px;
+    width: 4%
+}
+
+.AddIssueInput {
+    margin-left: 2%;
+    width: 93% !important;
+    border-radius: 3px;
+    font-size: 18px;
+}
+
+.AddIssueForm {
+    margin: 10px 5px 5px 20px;
+}

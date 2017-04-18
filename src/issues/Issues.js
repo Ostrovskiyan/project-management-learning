@@ -1,22 +1,38 @@
-import React, {Component} from 'react';
-import {Button, Col, Glyphicon, Row} from "react-bootstrap";
-import "./Issues.css"
+import React, {Component} from "react";
+import {Col, Row} from "react-bootstrap";
+import "./Issues.css";
 import IssueTimeHeader from "./IssueTimeHeader";
+import NewTaskButton from "./NewTaskButton";
+import AddIssueInput from "./AddIssueInput";
+import {connect} from "react-redux";
+import {clickAddIssue, processAddIssue} from "../actions/issues";
 
 class Issues extends Component {
 
+    constructor(props) {
+        super(props);
+        this.handleClickNewTask = this.handleClickNewTask.bind(this);
+        this.handleAddIssue = this.handleAddIssue.bind(this);
+    }
+
+    handleClickNewTask(event) {
+        this.props.dispatch(clickAddIssue());
+        event.preventDefault();
+    }
+
+    handleAddIssue(issueName) {
+        this.props.dispatch(processAddIssue(issueName));
+    }
+
     render() {
+        let addIssueComponent = this.props.addingIssue ? <AddIssueInput handleFocusEnd={this.handleAddIssue}/> :
+            <NewTaskButton handleClick={this.handleClickNewTask}/>;
         return (
             <Row className="Main">
                 {this.props.menu}
                 <Col xs={5} className="FullHeight Content DoubleThirdContent">
                     <IssueTimeHeader title="НА СЕГОДНЯ" startDate="Окт 09" issueCount={0}/>
-                    <div>
-                        <Button bsStyle="link" className="NewTask">
-                            <Glyphicon glyph="glyphicon glyphicon-plus" className="NewTaskPlus"/>
-                            Новая задача
-                        </Button>
-                    </div>
+                    {addIssueComponent}
                 </Col>
                 <Col xs={5} className="FullHeight Content ThirdContent">
                     <IssueTimeHeader title="НА ЭТУ НЕДЕЛЮ" startDate="Окт 09" endDate="Окт 15" issueCount={0}/>
@@ -28,4 +44,10 @@ class Issues extends Component {
     }
 }
 
-export default Issues;
+function mapStateToProps(state) {
+    return {
+        addingIssue: state.issues.addingIssue,
+    }
+}
+
+export default connect(mapStateToProps)(Issues);
