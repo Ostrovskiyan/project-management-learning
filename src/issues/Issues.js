@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Col, Row} from "react-bootstrap";
+import {Button, Col, Glyphicon, Row} from "react-bootstrap";
 import "./Issues.css"
 import IssueTimeHeader from "./IssueTimeHeader";
 
@@ -11,6 +11,12 @@ class Issues extends Component {
                 {this.props.menu}
                 <Col xs={5} className="FullHeight Content DoubleThirdContent">
                     <IssueTimeHeader title="НА СЕГОДНЯ" startDate="Окт 09" issueCount={0}/>
+                    <div>
+                        <Button bsStyle="link" className="NewTask">
+                            <Glyphicon glyph="glyphicon glyphicon-plus" className="NewTaskPlus"/>
+                            Новая задача
+                        </Button>
+                    </div>
                 </Col>
                 <Col xs={5} className="FullHeight Content ThirdContent">
                     <IssueTimeHeader title="НА ЭТУ НЕДЕЛЮ" startDate="Окт 09" endDate="Окт 15" issueCount={0}/>

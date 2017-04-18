@@ -25,3 +25,11 @@
     width: 17px;
     padding: 3px 0;
 }
+
+.NewTask {
+    margin: 15px 10px 15px 10px;
+}
+
+.NewTaskPlus {
+    margin-right: 10px;
+}
