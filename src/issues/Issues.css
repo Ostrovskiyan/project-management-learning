@@ -50,3 +50,13 @@
 .AddIssueForm {
     margin: 10px 5px 5px 20px;
 }
+
+.IssueDoneIcon {
+    color: #58B55D;
+    margin-right: 10px;
+}
+
+.FloatDown {
+    position: absolute;
+    bottom: 0;
+}

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Col, Row} from "react-bootstrap";
+import {Col, Glyphicon, Row} from "react-bootstrap";
 import "./Issues.css";
 import IssueTimeHeader from "./IssueTimeHeader";
 import NewTaskButton from "./NewTaskButton";
@@ -47,12 +47,15 @@ class Issues extends Component {
 
         let addIssueComponent = this.props.addingIssue ? <AddIssueInput handleFocusEnd={this.handleStopFocus} handleSubmit={this.handleAddIssue}/> :
             <NewTaskButton handleClick={this.handleClickNewTask}/>;
+
+        let issueDoneIcon = <Glyphicon className="IssueDoneIcon" glyph="glyphicon glyphicon-ok"/>;
         return (
             <Row className="Main">
                 {this.props.menu}
                 <Col xs={5} className="FullHeight Content DoubleThirdContent">
                     <IssueTimeHeader title="НА СЕГОДНЯ" startDate={this.toTitleDate(now)} issueCount={0}/>
                     {addIssueComponent}
+                    <IssueTimeHeader className="FloatDown" icon={issueDoneIcon} title="ЗАВЕРШЕНА" issueCount={0}/>
                 </Col>
                 <Col xs={5} className="FullHeight Content ThirdContent">
                     <IssueTimeHeader title="НА ЭТУ НЕДЕЛЮ" startDate={this.toTitleDate(now)} endDate={this.toTitleDate(weekEnd)} issueCount={0}/>

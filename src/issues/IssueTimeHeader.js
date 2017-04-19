@@ -4,14 +4,19 @@ import {Badge} from "react-bootstrap";
 class IssueTimeHeader extends Component {
 
     render() {
-        let dateLabel = this.props.startDate;
-        if (this.props.endDate) {
-            dateLabel += (" - " + this.props.endDate);
+        let dateLabel;
+        if(this.props.startDate) {
+            dateLabel = this.props.startDate;
+            if (this.props.endDate) {
+                dateLabel += (" - " + this.props.endDate);
+            }
+            dateLabel = <span className="IssueTimeHeaderDates">{dateLabel}</span>;
         }
         return (
-            <div className="IssueTimeHeader">
+            <div className={`IssueTimeHeader ${this.props.className}`}>
+                {this.props.icon}
                 <span className="IssueTimeHeaderTitle">{this.props.title}</span>
-                <span className="IssueTimeHeaderDates">{dateLabel}</span>
+                {dateLabel}
                 <Badge className="IssueTimeHeaderCount" pullRight>{this.props.issueCount}</Badge>
             </div>
         )

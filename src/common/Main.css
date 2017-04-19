@@ -149,7 +149,11 @@
     background-color: #5590CC;
 }
 
-.ProjectPlus {
+.ProjectPlus:hover {
+color: #ffffff;
+}
+
+.ProjectPlus, .ProjectPlus:active  {
     float: right;
     font-family: verdana;
     font-size: 18px;
