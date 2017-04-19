@@ -24,6 +24,7 @@ const unsuccessLogin = () => {
 };
 
 export const logout = () => {
+    localStorage.removeItem("authToken");
     return {
         type: LOGOUT
     }
@@ -34,6 +35,7 @@ export function proccessLogining(loginValue, passwordValue) {
         dispatch(login(loginValue, passwordValue));
         setTimeout(() => {
             if (loginValue === "alik" && passwordValue === "1234") {
+                localStorage.setItem("authToken", "sometoken");
                 dispatch(successLogin());
             } else {
                 dispatch(unsuccessLogin());

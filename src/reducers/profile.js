@@ -1,34 +1,39 @@
 import {LOGIN, LOGOUT, SUCCESS_LOGIN, UNSUCCESS_LOGIN} from "../actions/profile";
 
 const profile = (state = {}, action) => {
+    let authorized = !!localStorage.getItem("authToken");
     switch (action.type) {
         case LOGIN:
             return {
                 ...state,
                 login: action.login,
                 password: action.password,
-                logining: true
+                logining: true,
+                authorized : false
             };
         case SUCCESS_LOGIN:
             return {
                 login: state.login,
                 password: state.password,
-                authorized: true,
-                logining: false
+                logining: false,
+                authorized: true
             };
         case UNSUCCESS_LOGIN:
             return {
                 login: state.login,
                 password: state.password,
                 loginFailMessage: "Введите действующий адрес эл. почты.",
-                logining: false
+                logining: false,
+                authorized: false
             };
         case LOGOUT:
             return {
-              authorized: false
+                authorized: false
             };
         default:
-            return state;
+            return {
+                authorized
+            };
     }
 };
 
