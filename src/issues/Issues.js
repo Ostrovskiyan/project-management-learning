@@ -7,6 +7,7 @@ import AddIssueInput from "./AddIssueInput";
 import {connect} from "react-redux";
 import {addIssueEnd, clickAddIssue, processAddIssue} from "../actions/issues";
 import {getThreeLetterMonth, getTwoDigitDay} from "../util/date-util";
+import Issue from "./Issue";
 
 class Issues extends Component {
 
@@ -47,16 +48,27 @@ class Issues extends Component {
         let nextWeekStart = this.getNowPlusDays(7);
         let nextWeekEnd = this.getNowPlusDays(13);
 
-        let addIssueComponent = this.props.addingIssue ? <AddIssueInput handleFocusEnd={this.handleStopFocus} handleSubmit={this.handleAddIssue}/> :
+        let addIssueComponent = this.props.addingIssue ? <AddIssueInput handleFocusEnd={this.handleStopFocus} handleSubmit={this.handleAddIssue} userAvatar={this.props.userAvatar}/> :
             <NewTaskButton handleClick={this.handleClickNewTask}/>;
 
         let issueDoneIcon = <Glyphicon className="IssueDoneIcon" glyph="glyphicon glyphicon-ok"/>;
+
+        let issue = {
+            name:"New Issues",
+            date:"Окт. 10",
+            authorAvatar: "/images/avatars/example.jpg",
+            // authorAvatar: this.props.userAvatar,
+            // assignedAvatar: this.props.userAvatar
+            assignedAvatar: "/images/avatars/example.jpg"
+        };
         return (
             <Row className="Main">
                 {this.props.menu}
                 <Col xs={5} className="FullHeight Content DoubleThirdContent">
                     <IssueTimeHeader title="НА СЕГОДНЯ" startDate={this.toTitleDate(now)} issueCount={0}/>
                     {addIssueComponent}
+                    <Issue issue={issue}/>
+                    <Issue issue={issue}/>
                     <IssueTimeHeader className="FloatDown" icon={issueDoneIcon} title="ЗАВЕРШЕНА" issueCount={0}/>
                 </Col>
                 <Col xs={5} className="FullHeight Content ThirdContent">
@@ -72,6 +84,7 @@ class Issues extends Component {
 function mapStateToProps(state) {
     return {
         addingIssue: state.issues.addingIssue,
+        userAvatar: state.profile.avatar
     }
 }
 
