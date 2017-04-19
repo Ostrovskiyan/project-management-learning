@@ -18,7 +18,6 @@ class AppNavbar extends Component {
     }
 
     render() {
-        let avatarSrc = "/images/avatars/example.jpg";
         return (
             <Navbar inverse className="AppNavbar">
                 <Navbar.Form pullLeft className="NavbarSearchWrapper">
@@ -32,13 +31,13 @@ class AppNavbar extends Component {
                 <Nav pullRight>
                     <Dropdown id="logout-dropdown" bsStyle="link">
                         <Dropdown.Toggle bsStyle="link" className="LogoutDropdown">
-                            <img className="LogoutDropdownAvatar" src={avatarSrc}/>
-                            johan
+                            <img className="LogoutDropdownAvatar" src={this.props.userAvatar}/>
+                            {`${this.props.userName}`}
                         </Dropdown.Toggle>
                         <Dropdown.Menu className="LogoutMenu">
                             <MenuItem header className="LogoutMenuAvatarWrapper">
-                                <img className="LogoutMenuAvatar" src={avatarSrc}/>
-                                johan doe
+                                <img className="LogoutMenuAvatar" src={this.props.userAvatar}/>
+                                {`${this.props.userName} ${this.props.userSurname}`}
                             </MenuItem>
                             <MenuItem divider className="LogoutDivider"/>
                             <MenuItem className="LogoutButton" onClick={this.handleLogout}>Выйти</MenuItem>
@@ -50,4 +49,12 @@ class AppNavbar extends Component {
     }
 }
 
-export default connect()(AppNavbar);
+function mapStateToProps(state) {
+    return {
+        userName: state.profile.name,
+        userSurname: state.profile.surname,
+        userAvatar: state.profile.avatar
+    }
+}
+
+export default connect(mapStateToProps)(AppNavbar);

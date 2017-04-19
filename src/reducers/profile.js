@@ -16,7 +16,10 @@ const profile = (state = {}, action) => {
                 login: state.login,
                 password: state.password,
                 logining: false,
-                authorized: true
+                authorized: true,
+                name: action.name,
+                surname: action.surname,
+                avatar: action.avatar
             };
         case UNSUCCESS_LOGIN:
             return {
@@ -32,6 +35,7 @@ const profile = (state = {}, action) => {
             };
         default:
             return {
+                ...state,
                 authorized
             };
     }

@@ -35,15 +35,17 @@ class Issues extends Component {
         return `${getThreeLetterMonth(date)} ${getTwoDigitDay(date)}`;
     }
 
-    render() {
-        let now = new Date();
-        let weekEnd = new Date();
-        weekEnd.setDate(now.getDate() + 6);
-        let nextWeekStart = new Date();
-        nextWeekStart.setDate(now.getDate() + 7);
-        let nextWeekEnd = new Date();
-        nextWeekEnd.setDate(now.getDate() + 13);
+    getNowPlusDays(days) {
+        let result = new Date();
+        result.setDate(result.getDate() + days);
+        return result;
+    }
 
+    render() {
+        let now = this.getNowPlusDays(0);
+        let weekEnd = this.getNowPlusDays(6);
+        let nextWeekStart = this.getNowPlusDays(7);
+        let nextWeekEnd = this.getNowPlusDays(13);
 
         let addIssueComponent = this.props.addingIssue ? <AddIssueInput handleFocusEnd={this.handleStopFocus} handleSubmit={this.handleAddIssue}/> :
             <NewTaskButton handleClick={this.handleClickNewTask}/>;
