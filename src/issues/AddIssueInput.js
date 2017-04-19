@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Form, FormControl} from "react-bootstrap";
+import {Form} from "react-bootstrap";
 
 class AddIssueInput extends Component {
 

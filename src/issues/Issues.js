@@ -68,11 +68,12 @@ class Issues extends Component {
                     <IssueTimeHeader title="НА СЕГОДНЯ" startDate={this.toTitleDate(now)} issueCount={0}/>
                     {addIssueComponent}
                     <Issue issue={issue}/>
-                    <Issue issue={issue}/>
+                    <Issue issue={{...issue, selected:true}}/>
                     <IssueTimeHeader className="FloatDown" icon={issueDoneIcon} title="ЗАВЕРШЕНА" issueCount={0}/>
                 </Col>
                 <Col xs={5} className="FullHeight Content ThirdContent">
                     <IssueTimeHeader title="НА ЭТУ НЕДЕЛЮ" startDate={this.toTitleDate(now)} endDate={this.toTitleDate(weekEnd)} issueCount={0}/>
+                    <Issue issue={issue}/>
                     <IssueTimeHeader title="НА СЛЕД. НЕДЕЛЮ" startDate={this.toTitleDate(nextWeekStart)} endDate={this.toTitleDate(nextWeekEnd)} issueCount={0}/>
                     <IssueTimeHeader title="ПОЗЖЕ" startDate={`После ${this.toTitleDate(nextWeekEnd)}`} issueCount={0}/>
                 </Col>

@@ -63,12 +63,21 @@
 
 .Issue {
     margin-bottom: 1px;
-    padding: 5px 5px 5px 5px;
+    padding: 10px;
+}
+
+.Issue:hover {
+    background-color: #ddeaff
+}
+
+.Issue.Selected {
+    background-color: #A9C6EE;
 }
 
 .IssueName {
-    margin-left: 13%;
+    margin-left: 10%;
     vertical-align: top;
+    font-weight: bold;
 }
 
 .IssueDates {
