@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {Component} from "react";
 import {Badge} from "react-bootstrap";
 
 class IssueTimeHeader extends Component {

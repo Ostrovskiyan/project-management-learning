@@ -1,5 +1,4 @@
 import React, {Component} from "react";
-import {Form, FormControl} from "react-bootstrap";
 
 class IssueDoubleImage extends Component {
 
