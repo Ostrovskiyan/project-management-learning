@@ -1,4 +1,4 @@
-import {ADD_ISSUE_END, CLICK_ADD_ISSUE} from "../actions/issues";
+import {ADD_ISSUE, ADD_ISSUE_END, CLICK_ADD_ISSUE} from "../actions/issues";
 
 const issues = (state = {}, action) => {
     switch (action.type) {
@@ -9,6 +9,18 @@ const issues = (state = {}, action) => {
         case ADD_ISSUE_END:
             return {
                 addingIssue: false
+            };
+        case ADD_ISSUE:
+            return {
+                ...state,
+                list: [
+                    ...state.list,
+                    {
+                        name: action.issueName,
+                        startDate: new Date(),
+                        endDate: new Date()
+                    }
+                ]
             };
         default:
             return state;

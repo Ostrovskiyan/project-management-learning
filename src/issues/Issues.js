@@ -8,6 +8,7 @@ import {connect} from "react-redux";
 import {addIssueEnd, clickAddIssue, processAddIssue} from "../actions/issues";
 import {getThreeLetterMonth, getTwoDigitDay} from "../util/date-util";
 import Issue from "./Issue";
+import {getUser} from "../api/api";
 
 class Issues extends Component {
 
@@ -16,6 +17,10 @@ class Issues extends Component {
         this.handleClickNewTask = this.handleClickNewTask.bind(this);
         this.handleAddIssue = this.handleAddIssue.bind(this);
         this.handleStopFocus = this.handleStopFocus.bind(this);
+    }
+
+    componentWillMount() {
+        this.user = getUser();
     }
 
     handleClickNewTask(event) {
@@ -48,7 +53,7 @@ class Issues extends Component {
         let nextWeekStart = this.getNowPlusDays(7);
         let nextWeekEnd = this.getNowPlusDays(13);
 
-        let addIssueComponent = this.props.addingIssue ? <AddIssueInput handleFocusEnd={this.handleStopFocus} handleSubmit={this.handleAddIssue} userAvatar={this.props.userAvatar}/> :
+        let addIssueComponent = this.props.addingIssue ? <AddIssueInput handleFocusEnd={this.handleStopFocus} handleSubmit={this.handleAddIssue} userAvatar={this.user.avatar}/> :
             <NewTaskButton handleClick={this.handleClickNewTask}/>;
 
         let issueDoneIcon = <Glyphicon className="IssueDoneIcon" glyph="glyphicon glyphicon-ok"/>;
@@ -57,8 +62,8 @@ class Issues extends Component {
             name:"New Issues",
             date:"Окт. 10",
             authorAvatar: "/images/avatars/example.jpg",
-            // authorAvatar: this.props.userAvatar,
-            // assignedAvatar: this.props.userAvatar
+            // authorAvatar: this.user.avatar,
+            // assignedAvatar: this.user.avatar
             assignedAvatar: "/images/avatars/example.jpg"
         };
         return (
@@ -85,7 +90,6 @@ class Issues extends Component {
 function mapStateToProps(state) {
     return {
         addingIssue: state.issues.addingIssue,
-        userAvatar: state.profile.avatar
     }
 }
 

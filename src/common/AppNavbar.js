@@ -3,6 +3,7 @@ import {
     Dropdown, FormControl, FormGroup, Glyphicon, MenuItem, Nav, Navbar
 } from "react-bootstrap";
 import {logout} from "../actions/profile";
+import {getUser} from "../api/api";
 import {connect} from "react-redux";
 
 class AppNavbar extends Component {
@@ -10,6 +11,10 @@ class AppNavbar extends Component {
     constructor(props) {
         super(props);
         this.handleLogout = this.handleLogout.bind(this);
+    }
+
+    componentWillMount() {
+        this.user = getUser();
     }
 
     handleLogout(event) {
@@ -31,13 +36,13 @@ class AppNavbar extends Component {
                 <Nav pullRight>
                     <Dropdown id="logout-dropdown" bsStyle="link">
                         <Dropdown.Toggle bsStyle="link" className="LogoutDropdown">
-                            <img className="LogoutDropdownAvatar" src={this.props.userAvatar}/>
-                            {`${this.props.userName}`}
+                            <img className="LogoutDropdownAvatar" src={this.user.avatar}/>
+                            {`${this.user.name}`}
                         </Dropdown.Toggle>
                         <Dropdown.Menu className="LogoutMenu">
                             <MenuItem header className="LogoutMenuAvatarWrapper">
-                                <img className="LogoutMenuAvatar" src={this.props.userAvatar}/>
-                                {`${this.props.userName} ${this.props.userSurname}`}
+                                <img className="LogoutMenuAvatar" src={this.user.avatar}/>
+                                {`${this.user.name} ${this.user.surname}`}
                             </MenuItem>
                             <MenuItem divider className="LogoutDivider"/>
                             <MenuItem className="LogoutButton" onClick={this.handleLogout}>Выйти</MenuItem>
@@ -49,12 +54,5 @@ class AppNavbar extends Component {
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        userName: state.profile.name,
-        userSurname: state.profile.surname,
-        userAvatar: state.profile.avatar
-    }
-}
 
-export default connect(mapStateToProps)(AppNavbar);
+export default connect()(AppNavbar);

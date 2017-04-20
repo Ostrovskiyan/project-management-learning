@@ -23,10 +23,10 @@ export const addIssueEnd = () => {
 
 export function processAddIssue(issueName) {
     return dispatch => {
-        dispatch(addIssueEnd());
         if (issueName !== "") {
             console.log(issueName);
             dispatch(addIssue(issueName));
         }
+        dispatch(addIssueEnd());
     }
 }
