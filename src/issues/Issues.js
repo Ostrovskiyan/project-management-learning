@@ -5,7 +5,7 @@ import IssueTimeHeader from "./IssueTimeHeader";
 import NewTaskButton from "./NewTaskButton";
 import AddIssueInput from "./AddIssueInput";
 import {connect} from "react-redux";
-import {addIssueEnd, clickAddIssue, processAddIssue} from "../actions/issues";
+import {addIssueEnd, clickAddIssue, processAddIssue, selectIssuue} from "../actions/issues";
 import Issue from "./Issue";
 import {getUser} from "../api/api";
 import {toTitleDate} from "../util/date-util";
@@ -17,6 +17,7 @@ class Issues extends Component {
         this.handleClickNewTask = this.handleClickNewTask.bind(this);
         this.handleAddIssue = this.handleAddIssue.bind(this);
         this.handleStopFocus = this.handleStopFocus.bind(this);
+        this.handleSelectIssue = this.handleSelectIssue.bind(this);
     }
 
     componentWillMount() {
@@ -35,6 +36,10 @@ class Issues extends Component {
     handleStopFocus(event) {
         this.props.dispatch(addIssueEnd());
         event.preventDefault();
+    }
+
+    handleSelectIssue(id) {
+        this.props.dispatch(selectIssuue(id))
     }
 
     static getNowPlusDays(days) {
@@ -63,7 +68,7 @@ class Issues extends Component {
             assignedAvatar: "/images/avatars/example.jpg"
         };
 
-        let issues = this.props.issues.map(issue => <Issue key={issue.id} issue={issue}/>);
+        let issues = this.props.issues.map(issue => <Issue onClick={this.handleSelectIssue} key={issue.id} issue={issue} selected={issue.id === this.props.selectedIssue}/>);
 
         return (
             <Row className="Main">
@@ -88,7 +93,8 @@ class Issues extends Component {
 function mapStateToProps(state) {
     return {
         addingIssue: state.issues.addingIssue,
-        issues: state.issues.list
+        issues: state.issues.list,
+        selectedIssue: state.issues.selectedIssue
     }
 }
 

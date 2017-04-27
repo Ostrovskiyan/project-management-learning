@@ -1,4 +1,4 @@
-import {ADD_ISSUE, ADD_ISSUE_END, CLICK_ADD_ISSUE} from "../actions/issues";
+import {ADD_ISSUE, ADD_ISSUE_END, CLICK_ADD_ISSUE, SELECT_ISSUE} from "../actions/issues";
 
 let initialIssueId = 0;
 
@@ -28,6 +28,11 @@ const issues = (state = {list: []}, action) => {
                         assignedAvatar: action.assignedAvatar
                     }
                 ]
+            };
+        case SELECT_ISSUE:
+            return {
+                ...state,
+                selectedIssue : action.id
             };
         default:
             return state;

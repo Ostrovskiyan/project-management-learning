@@ -2,6 +2,7 @@ import {getUser} from "../api/api";
 export const CLICK_ADD_ISSUE = "CLICK_ADD_ISSUE";
 export const ADD_ISSUE = "ADD_ISSUE";
 export const ADD_ISSUE_END = "ADD_ISSUE_END";
+export const SELECT_ISSUE = "SELECT_ISSUE";
 
 export const clickAddIssue = () => {
     return {
@@ -11,7 +12,7 @@ export const clickAddIssue = () => {
 
 const addIssue = (issueName) => {
     let user = getUser();
-    let authorAvatar =  user.avatar;
+    let authorAvatar = user.avatar;
     let assignedAvatar = user.avatar;
     return {
         type: ADD_ISSUE,
@@ -35,3 +36,10 @@ export function processAddIssue(issueName) {
         dispatch(addIssueEnd());
     }
 }
+
+export const selectIssuue = (id) => {
+    return {
+        type: SELECT_ISSUE,
+        id
+    }
+};
