@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import IssueDoubleImage from "./IssueDoubleImage";
+import {toTitleDate} from "../util/date-util";
 
 class Issue extends Component {
 
@@ -10,9 +11,10 @@ class Issue extends Component {
     render() {
         return (
             <div className={`Issue ${this.props.issue.selected && "Selected"}`}>
-                <IssueDoubleImage bottomAvatar={this.props.issue.authorAvatar} topAvatar={this.props.issue.assignedAvatar}/>
+                <IssueDoubleImage bottomAvatar={this.props.issue.authorAvatar}
+                                  topAvatar={this.props.issue.assignedAvatar}/>
                 <span className="IssueName">{this.props.issue.name}</span>
-                <span className="IssueDates">{this.props.issue.date}</span>
+                <span className="IssueDates">{toTitleDate(this.props.issue.startDate)}</span>
             </div>
         )
     }

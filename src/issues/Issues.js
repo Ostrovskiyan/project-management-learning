@@ -6,9 +6,9 @@ import NewTaskButton from "./NewTaskButton";
 import AddIssueInput from "./AddIssueInput";
 import {connect} from "react-redux";
 import {addIssueEnd, clickAddIssue, processAddIssue} from "../actions/issues";
-import {getThreeLetterMonth, getTwoDigitDay} from "../util/date-util";
 import Issue from "./Issue";
 import {getUser} from "../api/api";
+import {toTitleDate} from "../util/date-util";
 
 class Issues extends Component {
 
@@ -37,21 +37,17 @@ class Issues extends Component {
         event.preventDefault();
     }
 
-    toTitleDate(date) {
-        return `${getThreeLetterMonth(date)} ${getTwoDigitDay(date)}`;
-    }
-
-    getNowPlusDays(days) {
+    static getNowPlusDays(days) {
         let result = new Date();
         result.setDate(result.getDate() + days);
         return result;
     }
 
     render() {
-        let now = this.getNowPlusDays(0);
-        let weekEnd = this.getNowPlusDays(6);
-        let nextWeekStart = this.getNowPlusDays(7);
-        let nextWeekEnd = this.getNowPlusDays(13);
+        let now = Issues.getNowPlusDays(0);
+        let weekEnd = Issues.getNowPlusDays(6);
+        let nextWeekStart = Issues.getNowPlusDays(7);
+        let nextWeekEnd = Issues.getNowPlusDays(13);
 
         let addIssueComponent = this.props.addingIssue ? <AddIssueInput handleFocusEnd={this.handleStopFocus} handleSubmit={this.handleAddIssue} userAvatar={this.user.avatar}/> :
             <NewTaskButton handleClick={this.handleClickNewTask}/>;
@@ -60,27 +56,29 @@ class Issues extends Component {
 
         let issue = {
             name:"New Issues",
-            date:"Окт. 10",
+            startDate:new Date(),
             authorAvatar: "/images/avatars/example.jpg",
             // authorAvatar: this.user.avatar,
             // assignedAvatar: this.user.avatar
             assignedAvatar: "/images/avatars/example.jpg"
         };
+
+        let issues = this.props.issues.map(issue => <Issue key={issue.id} issue={issue}/>);
+
         return (
             <Row className="Main">
                 {this.props.menu}
                 <Col xs={5} className="FullHeight Content DoubleThirdContent">
-                    <IssueTimeHeader title="НА СЕГОДНЯ" startDate={this.toTitleDate(now)} issueCount={0}/>
+                    <IssueTimeHeader title="НА СЕГОДНЯ" startDate={toTitleDate(now)} issueCount={0}/>
                     {addIssueComponent}
-                    <Issue issue={issue}/>
-                    <Issue issue={{...issue, selected:true}}/>
+                    {issues}
                     <IssueTimeHeader className="FloatDown" icon={issueDoneIcon} title="ЗАВЕРШЕНА" issueCount={0}/>
                 </Col>
                 <Col xs={5} className="FullHeight Content ThirdContent">
-                    <IssueTimeHeader title="НА ЭТУ НЕДЕЛЮ" startDate={this.toTitleDate(now)} endDate={this.toTitleDate(weekEnd)} issueCount={0}/>
+                    <IssueTimeHeader title="НА ЭТУ НЕДЕЛЮ" startDate={toTitleDate(now)} endDate={toTitleDate(weekEnd)} issueCount={0}/>
                     <Issue issue={issue}/>
-                    <IssueTimeHeader title="НА СЛЕД. НЕДЕЛЮ" startDate={this.toTitleDate(nextWeekStart)} endDate={this.toTitleDate(nextWeekEnd)} issueCount={0}/>
-                    <IssueTimeHeader title="ПОЗЖЕ" startDate={`После ${this.toTitleDate(nextWeekEnd)}`} issueCount={0}/>
+                    <IssueTimeHeader title="НА СЛЕД. НЕДЕЛЮ" startDate={toTitleDate(nextWeekStart)} endDate={toTitleDate(nextWeekEnd)} issueCount={0}/>
+                    <IssueTimeHeader title="ПОЗЖЕ" startDate={`После ${toTitleDate(nextWeekEnd)}`} issueCount={0}/>
                 </Col>
             </Row>
         )
@@ -90,6 +88,7 @@ class Issues extends Component {
 function mapStateToProps(state) {
     return {
         addingIssue: state.issues.addingIssue,
+        issues: state.issues.list
     }
 }
 

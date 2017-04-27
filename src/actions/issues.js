@@ -1,3 +1,4 @@
+import {getUser} from "../api/api";
 export const CLICK_ADD_ISSUE = "CLICK_ADD_ISSUE";
 export const ADD_ISSUE = "ADD_ISSUE";
 export const ADD_ISSUE_END = "ADD_ISSUE_END";
@@ -9,9 +10,14 @@ export const clickAddIssue = () => {
 };
 
 const addIssue = (issueName) => {
+    let user = getUser();
+    let authorAvatar =  user.avatar;
+    let assignedAvatar = user.avatar;
     return {
         type: ADD_ISSUE,
-        issueName
+        issueName,
+        authorAvatar,
+        assignedAvatar
     }
 };
 
@@ -24,7 +30,6 @@ export const addIssueEnd = () => {
 export function processAddIssue(issueName) {
     return dispatch => {
         if (issueName !== "") {
-            console.log(issueName);
             dispatch(addIssue(issueName));
         }
         dispatch(addIssueEnd());

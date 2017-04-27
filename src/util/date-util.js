@@ -9,3 +9,7 @@ export function getTwoDigitDay(date) {
     let locale = navigator.language;
     return date.toLocaleString(locale, { day: "2-digit"});
 }
+
+export function toTitleDate(date) {
+    return `${getThreeLetterMonth(date)} ${getTwoDigitDay(date)}`;
+}
