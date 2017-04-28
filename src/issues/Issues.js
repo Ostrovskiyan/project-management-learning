@@ -5,7 +5,7 @@ import IssueTimeHeader from "./IssueTimeHeader";
 import NewTaskButton from "./NewTaskButton";
 import AddIssueInput from "./AddIssueInput";
 import {connect} from "react-redux";
-import {addIssueEnd, clickAddIssue, processAddIssue, selectIssuue} from "../actions/issues";
+import {addIssueEnd, clickAddIssue, deselectIssue, processAddIssue, selectIssue} from "../actions/issues";
 import Issue from "./Issue";
 import {getUser} from "../api/api";
 import {toTitleDate} from "../util/date-util";
@@ -18,6 +18,7 @@ class Issues extends Component {
         this.handleAddIssue = this.handleAddIssue.bind(this);
         this.handleStopFocus = this.handleStopFocus.bind(this);
         this.handleSelectIssue = this.handleSelectIssue.bind(this);
+        this.handleDeselectIssue = this.handleDeselectIssue.bind(this);
     }
 
     componentWillMount() {
@@ -39,7 +40,12 @@ class Issues extends Component {
     }
 
     handleSelectIssue(id) {
-        this.props.dispatch(selectIssuue(id))
+        this.props.dispatch(selectIssue(id))
+    }
+
+    handleDeselectIssue(event) {
+        this.props.dispatch(deselectIssue());
+        event.preventDefault();
     }
 
     static getNowPlusDays(days) {
@@ -71,8 +77,7 @@ class Issues extends Component {
         let issues = this.props.issues.map(issue => <Issue onClick={this.handleSelectIssue} key={issue.id} issue={issue} selected={issue.id === this.props.selectedIssue}/>);
 
         return (
-            <Row className="Main">
-                {this.props.menu}
+            <div className="FullHeight" onClick={this.handleDeselectIssue}>
                 <Col xs={5} className="FullHeight Content DoubleThirdContent">
                     <IssueTimeHeader title="НА СЕГОДНЯ" startDate={toTitleDate(now)} issueCount={0}/>
                     {addIssueComponent}
@@ -85,7 +90,7 @@ class Issues extends Component {
                     <IssueTimeHeader title="НА СЛЕД. НЕДЕЛЮ" startDate={toTitleDate(nextWeekStart)} endDate={toTitleDate(nextWeekEnd)} issueCount={0}/>
                     <IssueTimeHeader title="ПОЗЖЕ" startDate={`После ${toTitleDate(nextWeekEnd)}`} issueCount={0}/>
                 </Col>
-            </Row>
+            </div>
         )
     }
 }

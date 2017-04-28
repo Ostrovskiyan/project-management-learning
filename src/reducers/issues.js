@@ -1,4 +1,4 @@
-import {ADD_ISSUE, ADD_ISSUE_END, CLICK_ADD_ISSUE, SELECT_ISSUE} from "../actions/issues";
+import {ADD_ISSUE, ADD_ISSUE_END, CLICK_ADD_ISSUE, DESELECT_ISSUE, SELECT_ISSUE} from "../actions/issues";
 
 let initialIssueId = 0;
 
@@ -33,6 +33,11 @@ const issues = (state = {list: []}, action) => {
             return {
                 ...state,
                 selectedIssue : action.id
+            };
+        case DESELECT_ISSUE:
+            return {
+                ...state,
+                selectedIssue : null
             };
         default:
             return state;

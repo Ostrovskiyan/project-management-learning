@@ -8,19 +8,20 @@ import {connect} from "react-redux";
 
 class PageTemplate extends Component {
     render() {
-        let menu =  <Col xs={2} className="FullHeight Menu">
+        let menu = (<Col xs={2} className="FullHeight Menu">
                         <AppMenu/>
-                    </Col>;
-        let content = <Row className="Main">
-                           {menu}
-                      </Row>;
-        if(this.props.myWorkSelected ) {
-            content = <Issues menu={menu}/>;
+                    </Col>);
+        let content = null;
+        if (this.props.myWorkSelected) {
+            content = <Issues/>;
         }
         return (
             <div className="Background">
                 <AppNavbar/>
-                {content}
+                <Row className="Main">
+                    {menu}
+                    {content}
+                </Row>
             </div>
         )
     }

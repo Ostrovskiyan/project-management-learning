@@ -10,8 +10,9 @@ class Issue extends Component {
     }
 
     handleClick(event) {
-        this.props.onClick(this.props.issue.id);
         event.preventDefault();
+        event.stopPropagation();
+        this.props.onClick(this.props.issue.id);
     }
 
     render() {
