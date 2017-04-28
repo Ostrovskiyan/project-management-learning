@@ -106,3 +106,106 @@
     width: 40px;
     height: 40px;
 }
+
+.AddInFolder {
+    margin-left: 0;
+    padding-left: 0;
+    margin-top: 0;
+    padding-top: 0;
+}
+
+.AddInFolderFont {
+    color: #777777;
+}
+
+.AddInFolderFontPlus {
+    color: #C1BFC3;
+    font-family: "Verdana";
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.IssueNameHeader {
+    font-size: 28px;
+    margin-top: 10px;
+    width: 50%;
+    display: inline-block;
+}
+
+.IssueDescription > div {
+    margin-left: 35px;
+}
+
+.IssueHeaderButtons {
+    margin-top: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    float: right;
+}
+
+.IssueHeaderOptions {
+    background: #ffffff;
+    font-size: 20px;
+    padding: 1px 7px;
+    color: #939193;
+    margin-right: 10px;
+}
+
+.LinkAwesomeIcon {
+    transform: rotate(135deg);
+}
+
+.IssueSubHeader {
+    margin-left: 0 !important;
+    padding-left: 35px;
+    border-top: solid 1px #cccccc;
+    border-bottom: solid 1px #cccccc;
+    height: 7%;
+}
+
+.MarkSuccessWrapper {
+    width: 10%;
+    border-right: dotted 1px #cccccc;
+    display: inline-block;
+    height: 100%;
+}
+
+.MarkSuccessWrapper input{
+    margin: 0;
+}
+
+.IssueParticipants {
+    width: 90%;
+    display: inline-block;
+    height: 100%;
+}
+
+.IssueAuthorWrapper {
+    display: inline-block;
+    height: 100%;
+    width: 50%;
+}
+
+.IssueAuthor {
+
+    color: #bbbbbb;
+}
+
+.IssueAuthorLink {
+    color: #0d6aad;
+}
+
+.IssueAuthorLink:hover {
+    cursor: pointer;
+}
+
+.IssueAssigners {
+    display: inline-block;
+    height: 100%;
+    width: 50%;
+}
+
+.IssueAssignedAvatar {
+    height: 45px;
+    margin-right: 8px;
+}

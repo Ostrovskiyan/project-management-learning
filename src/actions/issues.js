@@ -13,13 +13,17 @@ export const clickAddIssue = () => {
 
 const addIssue = (issueName) => {
     let user = getUser();
-    let authorAvatar = user.avatar;
-    let assignedAvatar = user.avatar;
+    let author = {
+        ...user
+    };
+    let assigned = {
+        ...user
+    };
     return {
         type: ADD_ISSUE,
         issueName,
-        authorAvatar,
-        assignedAvatar
+        author,
+        assigned
     }
 };
 

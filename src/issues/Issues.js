@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import {Col, Glyphicon} from "react-bootstrap";
 import "./Issues.css";
 import IssueTimeHeader from "./IssueTimeHeader";
-import NewTaskButton from "./NewTaskButton";
 import AddIssueInput from "./AddIssueInput";
 import {connect} from "react-redux";
 import {addIssueEnd, clickAddIssue, deselectIssue, processAddIssue, selectIssue} from "../actions/issues";
@@ -10,6 +9,7 @@ import {getUser} from "../api/api";
 import {toTitleDate} from "../util/date-util";
 import IssueItem from "./IssueItem";
 import IssueDescription from "./IssueDescription";
+import AddLinkButton from "./AddLinkButton";
 
 class Issues extends Component {
 
@@ -67,7 +67,7 @@ class Issues extends Component {
         let nextWeekEnd = Issues.getNowPlusDays(13);
 
         let addIssueComponent = this.props.addingIssue ? <AddIssueInput handleFocusEnd={this.handleStopFocus} handleSubmit={this.handleAddIssue} userAvatar={this.user.avatar}/> :
-            <NewTaskButton handleClick={this.handleClickNewTask}/>;
+            <AddLinkButton text="Новая задача" handleClick={this.handleClickNewTask}/>;
 
         let issueDoneIcon = <Glyphicon className="IssueDoneIcon" glyph="glyphicon glyphicon-ok"/>;
 

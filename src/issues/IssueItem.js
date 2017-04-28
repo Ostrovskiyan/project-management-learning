@@ -18,8 +18,8 @@ class IssueItem extends Component {
     render() {
         return (
             <div className={`Issue ${this.props.selected ? "Selected" : ""}`} onClick={this.handleClick}>
-                <IssueDoubleImage bottomAvatar={this.props.issue.authorAvatar}
-                                  topAvatar={this.props.issue.assignedAvatar}/>
+                <IssueDoubleImage bottomAvatar={this.props.issue.author.avatar}
+                                  topAvatar={this.props.issue.assigned.avatar}/>
                 <span className="IssueName">{this.props.issue.name}</span>
                 <span className="IssueDates">{toTitleDate(this.props.issue.startDate)}</span>
             </div>

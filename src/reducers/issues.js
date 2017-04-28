@@ -25,8 +25,9 @@ const issues = (state = {list: []}, action) => {
                         startDate: new Date(),
                         endDate: new Date(),
                         creatingDate: new Date(),
-                        authorAvatar: action.authorAvatar,
-                        assignedAvatar: action.assignedAvatar
+                        author: action.author,
+                        assigned: action.assigned,
+
                     }
                 ]
             };
