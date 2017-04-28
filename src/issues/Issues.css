@@ -164,6 +164,7 @@
 }
 
 .MarkSuccessWrapper {
+    vertical-align: top;
     width: 10%;
     border-right: dotted 1px #cccccc;
     display: inline-block;
@@ -183,11 +184,11 @@
 .IssueAuthorWrapper {
     display: inline-block;
     height: 100%;
-    width: 50%;
+    float:right;
+
 }
 
 .IssueAuthor {
-
     color: #bbbbbb;
 }
 
