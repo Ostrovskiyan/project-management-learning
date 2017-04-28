@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import IssueDoubleImage from "./IssueDoubleImage";
 import {toTitleDate} from "../util/date-util";
 
-class Issue extends Component {
+class IssueItem extends Component {
 
     constructor(props) {
         super(props);
@@ -27,4 +27,4 @@ class Issue extends Component {
     }
 }
 
-export default Issue;
+export default IssueItem;

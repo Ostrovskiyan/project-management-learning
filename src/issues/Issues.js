@@ -1,14 +1,14 @@
 import React, {Component} from "react";
-import {Col, Glyphicon, Row} from "react-bootstrap";
+import {Col, Glyphicon} from "react-bootstrap";
 import "./Issues.css";
 import IssueTimeHeader from "./IssueTimeHeader";
 import NewTaskButton from "./NewTaskButton";
 import AddIssueInput from "./AddIssueInput";
 import {connect} from "react-redux";
 import {addIssueEnd, clickAddIssue, deselectIssue, processAddIssue, selectIssue} from "../actions/issues";
-import Issue from "./Issue";
 import {getUser} from "../api/api";
 import {toTitleDate} from "../util/date-util";
+import IssueItem from "./Issue";
 
 class Issues extends Component {
 
@@ -50,8 +50,13 @@ class Issues extends Component {
 
     static getNowPlusDays(days) {
         let result = new Date();
+        result.setHours(0, 0, 0, 0);
         result.setDate(result.getDate() + days);
         return result;
+    }
+
+    toIssueItem(issue) {
+        return <IssueItem onClick={this.handleSelectIssue} key={issue.id} issue={issue} selected={issue.id === this.props.selectedIssue}/>;
     }
 
     render() {
@@ -65,33 +70,86 @@ class Issues extends Component {
 
         let issueDoneIcon = <Glyphicon className="IssueDoneIcon" glyph="glyphicon glyphicon-ok"/>;
 
-        let issue = {
-            name:"New Issues",
-            startDate:new Date(),
-            authorAvatar: "/images/avatars/example.jpg",
-            // authorAvatar: this.user.avatar,
-            // assignedAvatar: this.user.avatar
-            assignedAvatar: "/images/avatars/example.jpg"
-        };
+        let issuesToday = this.props.issues
+            .filter(issue => {
+                let issueDate = new Date(issue.startDate.getTime());
+                issueDate.setHours(0, 0, 0, 0);
+                return issueDate.getTime() === now.getTime();
+            })
+            .map(issue => this.toIssueItem(issue));
 
-        let issues = this.props.issues.map(issue => <Issue onClick={this.handleSelectIssue} key={issue.id} issue={issue} selected={issue.id === this.props.selectedIssue}/>);
+        let issueThisWeek = this.props.issues
+            .filter(issue => {
+                let issueDate = new Date(issue.startDate.getTime());
+                issueDate.setHours(0, 0, 0, 0);
+                return issueDate.getTime() > now.getTime() && issueDate.getTime() <= weekEnd.getTime();
+            })
+            .map(issue => this.toIssueItem(issue));
 
-        return (
-            <div className="FullHeight" onClick={this.handleDeselectIssue}>
-                <Col xs={5} className="FullHeight Content DoubleThirdContent">
-                    <IssueTimeHeader title="НА СЕГОДНЯ" startDate={toTitleDate(now)} issueCount={0}/>
-                    {addIssueComponent}
-                    {issues}
-                    <IssueTimeHeader className="FloatDown" icon={issueDoneIcon} title="ЗАВЕРШЕНА" issueCount={0}/>
-                </Col>
-                <Col xs={5} className="FullHeight Content ThirdContent">
-                    <IssueTimeHeader title="НА ЭТУ НЕДЕЛЮ" startDate={toTitleDate(now)} endDate={toTitleDate(weekEnd)} issueCount={0}/>
-                    <Issue issue={issue}/>
-                    <IssueTimeHeader title="НА СЛЕД. НЕДЕЛЮ" startDate={toTitleDate(nextWeekStart)} endDate={toTitleDate(nextWeekEnd)} issueCount={0}/>
-                    <IssueTimeHeader title="ПОЗЖЕ" startDate={`После ${toTitleDate(nextWeekEnd)}`} issueCount={0}/>
-                </Col>
-            </div>
-        )
+        let issueNextWeek = this.props.issues
+            .filter(issue => {
+                let issueDate = new Date(issue.startDate.getTime());
+                issueDate.setHours(0, 0, 0, 0);
+                return issueDate.getTime() >= nextWeekStart.getTime() && issueDate.getTime() <= nextWeekEnd.getTime();
+            })
+            .map(issue => this.toIssueItem(issue));
+
+        let issueLater = this.props.issues
+            .filter(issue => {
+                let issueDate = new Date(issue.startDate.getTime());
+                issueDate.setHours(0, 0, 0, 0);
+                return issueDate.getTime() > nextWeekEnd.getTime();
+            })
+            .map(issue => this.toIssueItem(issue));
+
+
+        let today = <div>
+                        <IssueTimeHeader title="НА СЕГОДНЯ" startDate={toTitleDate(now)} issueCount={issuesToday.length}/>
+                        {addIssueComponent}
+                        {issuesToday}
+                        <IssueTimeHeader className="FloatDown" icon={issueDoneIcon} title="ЗАВЕРШЕНА" issueCount={0}/>
+                    </div>;
+
+        let thisWeek = <div>
+                            <IssueTimeHeader title="НА ЭТУ НЕДЕЛЮ" startDate={toTitleDate(now)} endDate={toTitleDate(weekEnd)} issueCount={issueThisWeek.length}/>
+                            {issueThisWeek}
+                        </div>;
+        let nextWeek = <div>
+                            <IssueTimeHeader title="НА СЛЕД. НЕДЕЛЮ" startDate={toTitleDate(nextWeekStart)} endDate={toTitleDate(nextWeekEnd)} issueCount={issueNextWeek.length}/>
+                            {issueNextWeek}
+                        </div>;
+        let later = <div>
+                        <IssueTimeHeader title="ПОЗЖЕ" startDate={`После ${toTitleDate(nextWeekEnd)}`} issueCount={issueLater.length}/>
+                        {issueLater}
+                    </div>;
+
+        let content;
+
+        if(this.props.selectedIssue !== null && this.props.selectedIssue !== undefined) {
+            content = <div className="FullHeight">
+                        <Col xs={5} className="FullHeight Content HalfContent" onClick={this.handleDeselectIssue}>
+                            {today}
+                            {thisWeek}
+                            {nextWeek}
+                            {later}
+                        </Col>
+                        <Col xs={5} className="FullHeight Content HalfContent">
+                        </Col>
+                    </div>
+        } else {
+            content = <div className="FullHeight">
+                        <Col xs={5} className="FullHeight Content DoubleThirdContent" onClick={this.handleDeselectIssue}>
+                            {today}
+                        </Col>
+                        <Col xs={5} className="FullHeight Content ThirdContent">
+                            {thisWeek}
+                            {nextWeek}
+                            {later}
+                        </Col>
+                      </div>
+        }
+
+        return content;
     }
 }
 
