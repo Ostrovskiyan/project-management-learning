@@ -8,7 +8,8 @@ import {connect} from "react-redux";
 import {addIssueEnd, clickAddIssue, deselectIssue, processAddIssue, selectIssue} from "../actions/issues";
 import {getUser} from "../api/api";
 import {toTitleDate} from "../util/date-util";
-import IssueItem from "./Issue";
+import IssueItem from "./IssueItem";
+import IssueDescription from "./IssueDescription";
 
 class Issues extends Component {
 
@@ -134,6 +135,7 @@ class Issues extends Component {
                             {later}
                         </Col>
                         <Col xs={5} className="FullHeight Content HalfContent">
+                            <IssueDescription issue={this.props.issues.filter(issue => issue.id === this.props.selectedIssue)[0]}/>
                         </Col>
                     </div>
         } else {
