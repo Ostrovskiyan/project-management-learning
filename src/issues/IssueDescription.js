@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import AddLinkButton from "./AddLinkButton";
-import {Button} from "react-bootstrap";
+import {Button, Dropdown, Glyphicon, MenuItem} from "react-bootstrap";
 
 class IssueDescription extends Component {
 
@@ -28,18 +28,42 @@ class IssueDescription extends Component {
                                    fontPlus="AddInFolderFontPlus"/>
                 </div>
                 <div className="IssueSubHeader">
-                    <div className="MarkSuccessWrapper">
-                        <input type="checkbox"/>
-                    </div>
+                        <Dropdown id="issue-status-dropdown" bsStyle="link" className="MarkSuccessWrapper">
+                            <Dropdown.Toggle bsStyle="link" >
+                                <div className="IssueStatus"/>
+                            </Dropdown.Toggle>
+                            <Dropdown.Menu>
+                                <MenuItem className="SelectedIssueStatus">
+                                    <div className="IssueStatus active"/>
+                                    <div className="IssueStatusName">Активна</div>
+                                </MenuItem>
+                                <MenuItem>
+                                    <div className="IssueStatus ended"/>
+                                    <div className="IssueStatusName">Завершена</div>
+                                </MenuItem>
+                                <MenuItem>
+                                    <div className="IssueStatus postponed"/>
+                                    <div className="IssueStatusName">Отложена</div>
+                                </MenuItem>
+                                <MenuItem>
+                                    <div className="IssueStatus canceled"/>
+                                    <div className="IssueStatusName">Отменена</div>
+                                </MenuItem>
+                            </Dropdown.Menu>
+                        </Dropdown>
                     <div className="IssueParticipants">
                         <div className="IssueAssigners">
                             <img src={issue.assigned.avatar} className="IssueAssignedAvatar"/>
                             {issue.assigned.name}
+                            <Glyphicon className="AddAssignedIcon" glyph="glyphicon glyphicon-plus"/>
                         </div>
                         <div className="IssueAuthorWrapper">
                             <span className="IssueAuthor">
-                                автор: <a
-                                className="IssueAuthorLink">{`${issue.author.name} ${issue.author.surname.slice(0, 1)}`}</a>, {issue.creatingDate.getHours()}:{issue.creatingDate.getMinutes()}
+                                автор:
+                                <a className="IssueAuthorLink">{`${issue.author.name}
+                                    ${issue.author.surname.slice(0, 1)}`}
+                                </a>,
+                                {issue.creatingDate.getHours()}:{issue.creatingDate.getMinutes()}
                             </span>
                         </div>
                     </div>

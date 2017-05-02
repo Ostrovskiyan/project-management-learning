@@ -185,11 +185,12 @@
     display: inline-block;
     height: 100%;
     float:right;
-
+    padding-top: 2.7%;
 }
 
 .IssueAuthor {
     color: #bbbbbb;
+    margin-right: 20%;
 }
 
 .IssueAuthorLink {
@@ -204,9 +205,105 @@
     display: inline-block;
     height: 100%;
     width: 50%;
+    padding-top: 15px;
+    padding-left: 10px;
+    color: #555555;
 }
 
 .IssueAssignedAvatar {
-    height: 45px;
+    height: 35px;
     margin-right: 8px;
+}
+
+.AddAssignedIcon:hover {
+    color: #000000;
+}
+
+.AddAssignedIcon, .AddAssignedIcon:active {
+    font-family: verdana;
+    margin-left: 20px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #cccccc;
+}
+
+.IssueStatus {
+    height: 20px;
+    width: 20px;
+    border: 1px solid #80A5CB;
+    display: inline-block;
+}
+
+#issue-status-dropdown, #issue-status-dropdown:active{
+    text-decoration: none;
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    height: 100%;
+    padding-top: 10%;
+}
+
+#issue-status-dropdown .caret {
+    color: #000000;
+    margin-bottom: 35%;
+    margin-left: 10%;
+}
+
+.SelectedIssueStatus, .SelectedIssueStatus:hover {
+    background-color: #5385B9;
+}
+
+.SelectedIssueStatus > a:hover {
+    background-color: inherit !important;
+    background-image: inherit !important;;
+}
+
+.SelectedIssueStatus>a>.IssueStatus {
+    border: 1px solid #ffffff;
+}
+
+.SelectedIssueStatus>a>.IssueStatusName {
+    color: #ffffff;
+}
+
+a>.IssueStatus {
+    margin-top: 5px;
+}
+
+.IssueStatus.active {
+    background-color: #2296F4;
+    border: none;
+}
+
+.IssueStatus.ended {
+    background-color: #8CC34C;
+    border: none;
+}
+
+.IssueStatus.postponed {
+    background-color: #683AB8;
+    border: none;
+}
+
+.IssueStatus.canceled {
+    background-color: #9F9D9F;
+    border: none;
+}
+
+.MarkSuccessWrapper>.dropdown-menu {
+    top: 90%;
+    left: -35px;
+    border-radius: 0;
+    padding: 10px 0;
+    border: none;
+    box-shadow: 0 0 5px 1px #888888;
+}
+
+.IssueStatusName {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 5px;
+    margin-left: 10px;
+    color: #000000;
 }
