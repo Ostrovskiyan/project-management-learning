@@ -86,18 +86,19 @@ class IssueDescription extends Component {
                     </div>
                 </div>
                 <div className="IssueSettingTabs">
-                    <div className="first-empty"/>
                     <div className="IssueSettingTab date">
-                        <Glyphicon glyph="glyphicon glyphicon-calendar"/>
-                        <span>Окт 10(1 д.)</span>
+                        <Glyphicon className="blue" glyph="glyphicon glyphicon-calendar"/>
+                        <span> Окт 10(1 д.)</span>
                     </div>
                     <div className="IssueSettingTab subtask">
                         <Glyphicon glyph="glyphicon glyphicon-th-list"/>
-                        <span>Добавить подзадачу</span>
+                        <span> Добавить подзадачу</span>
                     </div>
                 </div>
                 <div className="IssueDescriptionField">
-                    Нажмите, чтобы добавить описание
+                    <Button bsStyle="link" className="AddDescriptionLinkBtn">
+                        Нажмите, чтобы добавить описание
+                    </Button>
                 </div>
             </div>
         )

@@ -249,6 +249,7 @@
     box-shadow: none;
     height: 100%;
     padding-top: 10%;
+    padding-left: 0;
 }
 
 #issue-status-dropdown .caret {
@@ -323,7 +324,7 @@ a>.IssueStatus {
     color: #ffffff;
     height: 30px;
     top: 14px;
-    left: 5px;
+    left: -5px;
     padding: 7px 10px 0 30px;
     border-radius: 3px;
     font-size: 12px;
@@ -339,16 +340,11 @@ a>.IssueStatus {
     vertical-align: top;
 }
 
-.IssueSettingTabs>.first-empty {
-    display: inline-block;
-    width: 6.2%;
-    height: 100%;
-}
-
 .IssueDescriptionField {
     margin-left: 0 !important;
     padding-left: 35px;
-    height: 20%;
+    height: 15%;
+    border-bottom: solid 1px #cccccc;
 }
 
 .IssueSettingTab:hover {
@@ -357,6 +353,7 @@ a>.IssueStatus {
 
 .IssueSettingTab.date {
     border-right: 1px solid #ffffff;
+    padding-left: 35px;
 }
 
 .IssueSettingTab.subtask {
@@ -367,4 +364,16 @@ a>.IssueStatus {
     display: inline-block;
     height: 100%;
     padding: 2% 25px;
+    cursor: pointer;
+}
+
+.AddDescriptionLinkBtn, .AddDescriptionLinkBtn:hover, .AddDescriptionLinkBtn:active, .AddDescriptionLinkBtn:focus {
+    color: #aaaaaa;
+    font-size: 16px;
+    margin-top: 25px;
+    padding-left: 0;
+}
+
+.glyphicon.blue {
+    color: #497AA1;
 }
