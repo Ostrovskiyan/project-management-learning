@@ -155,6 +155,10 @@
     transform: rotate(135deg);
 }
 
+.IssueHeader {
+    height: 9.2%;
+}
+
 .IssueSubHeader {
     margin-left: 0 !important;
     padding-left: 35px;
@@ -323,4 +327,44 @@ a>.IssueStatus {
     padding: 7px 10px 0 30px;
     border-radius: 3px;
     font-size: 12px;
+}
+
+.IssueSettingTabs {
+    height: 5.5%;
+    margin-left: 0 !important;
+    border-bottom: solid 1px #cccccc;
+}
+
+.IssueSettingTabs > div {
+    vertical-align: top;
+}
+
+.IssueSettingTabs>.first-empty {
+    display: inline-block;
+    width: 6.2%;
+    height: 100%;
+}
+
+.IssueDescriptionField {
+    margin-left: 0 !important;
+    padding-left: 35px;
+    height: 20%;
+}
+
+.IssueSettingTab:hover {
+    background-color: #eeeeee;
+}
+
+.IssueSettingTab.date {
+    border-right: 1px solid #ffffff;
+}
+
+.IssueSettingTab.subtask {
+    border-left: 1px solid #ffffff;
+}
+
+.IssueSettingTab {
+    display: inline-block;
+    height: 100%;
+    padding: 2% 25px;
 }

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import AddLinkButton from "./AddLinkButton";
-import {Button, Dropdown, Glyphicon, MenuItem} from "react-bootstrap";
+import {Button, Col, Dropdown, Glyphicon, MenuItem, Nav, NavDropdown, NavItem, Row, Tab} from "react-bootstrap";
 
 class IssueDescription extends Component {
 
@@ -26,7 +26,7 @@ class IssueDescription extends Component {
         let {issue} = this.props;
         return (
             <div className="FullHeight IssueDescription">
-                <div>
+                <div className="IssueHeader">
                     <div>
                         <div className="IssueNameHeader">{issue.name}</div>
                         <div className="IssueHeaderButtons">
@@ -42,32 +42,32 @@ class IssueDescription extends Component {
                                    fontPlus="AddInFolderFontPlus"/>
                 </div>
                 <div className="IssueSubHeader">
-                        <Dropdown id="issue-status-dropdown" bsStyle="link" className="MarkSuccessWrapper">
-                            <Dropdown.Toggle bsStyle="link" >
-                                <div className="IssuesStatusTooltip" style={this.state.showIssueStatus ? {} : {display:"none"}}>
-                                    <span>Отметить задачу как завершена</span>
-                                </div>
-                                <div className="IssueStatus" onMouseEnter={this.handleMouseOverIssueStatus} onMouseLeave={this.handleMouseOutIssueStatus}/>
-                            </Dropdown.Toggle>
-                            <Dropdown.Menu>
-                                <MenuItem className="SelectedIssueStatus">
-                                    <div className="IssueStatus active"/>
-                                    <div className="IssueStatusName">Активна</div>
-                                </MenuItem>
-                                <MenuItem>
-                                    <div className="IssueStatus ended"/>
-                                    <div className="IssueStatusName">Завершена</div>
-                                </MenuItem>
-                                <MenuItem>
-                                    <div className="IssueStatus postponed"/>
-                                    <div className="IssueStatusName">Отложена</div>
-                                </MenuItem>
-                                <MenuItem>
-                                    <div className="IssueStatus canceled"/>
-                                    <div className="IssueStatusName">Отменена</div>
-                                </MenuItem>
-                            </Dropdown.Menu>
-                        </Dropdown>
+                    <Dropdown id="issue-status-dropdown" bsStyle="link" className="MarkSuccessWrapper">
+                        <Dropdown.Toggle bsStyle="link" >
+                            <div className="IssuesStatusTooltip" style={this.state.showIssueStatus ? {} : {display:"none"}}>
+                                <span>Отметить задачу как завершена</span>
+                            </div>
+                            <div className="IssueStatus" onMouseEnter={this.handleMouseOverIssueStatus} onMouseLeave={this.handleMouseOutIssueStatus}/>
+                        </Dropdown.Toggle>
+                        <Dropdown.Menu>
+                            <MenuItem className="SelectedIssueStatus">
+                                <div className="IssueStatus active"/>
+                                <div className="IssueStatusName">Активна</div>
+                            </MenuItem>
+                            <MenuItem>
+                                <div className="IssueStatus ended"/>
+                                <div className="IssueStatusName">Завершена</div>
+                            </MenuItem>
+                            <MenuItem>
+                                <div className="IssueStatus postponed"/>
+                                <div className="IssueStatusName">Отложена</div>
+                            </MenuItem>
+                            <MenuItem>
+                                <div className="IssueStatus canceled"/>
+                                <div className="IssueStatusName">Отменена</div>
+                            </MenuItem>
+                        </Dropdown.Menu>
+                    </Dropdown>
                     <div className="IssueParticipants">
                         <div className="IssueAssigners">
                             <img src={issue.assigned.avatar} className="IssueAssignedAvatar"/>
@@ -85,12 +85,21 @@ class IssueDescription extends Component {
                         </div>
                     </div>
                 </div>
-                <div>Oct 10</div>
-                <div>
+                <div className="IssueSettingTabs">
+                    <div className="first-empty"/>
+                    <div className="IssueSettingTab date">
+                        <Glyphicon glyph="glyphicon glyphicon-calendar"/>
+                        <span>Окт 10(1 д.)</span>
+                    </div>
+                    <div className="IssueSettingTab subtask">
+                        <Glyphicon glyph="glyphicon glyphicon-th-list"/>
+                        <span>Добавить подзадачу</span>
+                    </div>
+                </div>
+                <div className="IssueDescriptionField">
                     Нажмите, чтобы добавить описание
                 </div>
             </div>
-
         )
     }
 }
