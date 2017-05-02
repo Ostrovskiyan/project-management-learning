@@ -186,11 +186,11 @@
     height: 100%;
     float:right;
     padding-top: 2.7%;
+    padding-right: 6%;
 }
 
 .IssueAuthor {
     color: #bbbbbb;
-    margin-right: 20%;
 }
 
 .IssueAuthorLink {
@@ -228,10 +228,13 @@
 }
 
 .IssueStatus {
+    position: relative;
     height: 20px;
     width: 20px;
     border: 1px solid #80A5CB;
     display: inline-block;
+    z-index: 2;
+    background-color: #ffffff;
 }
 
 #issue-status-dropdown, #issue-status-dropdown:active{
@@ -306,4 +309,18 @@ a>.IssueStatus {
     margin-top: 5px;
     margin-left: 10px;
     color: #000000;
+}
+
+.IssuesStatusTooltip {
+    position: absolute;
+    z-index: 1;
+    text-align: right;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: #ffffff;
+    height: 30px;
+    top: 14px;
+    left: 5px;
+    padding: 7px 10px 0 30px;
+    border-radius: 3px;
+    font-size: 12px;
 }

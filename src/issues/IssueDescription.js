@@ -6,6 +6,20 @@ class IssueDescription extends Component {
 
     constructor(props) {
         super(props);
+        this.handleMouseOverIssueStatus = this.handleMouseOverIssueStatus.bind(this);
+        this.handleMouseOutIssueStatus = this.handleMouseOutIssueStatus.bind(this);
+        this.state = {showIssueStatus: false};
+    }
+
+
+    handleMouseOverIssueStatus(event) {
+        this.setState({showIssueStatus:true});
+        event.preventDefault();
+    }
+
+    handleMouseOutIssueStatus(event) {
+        this.setState({showIssueStatus:false});
+        event.preventDefault();
     }
 
     render() {
@@ -30,7 +44,10 @@ class IssueDescription extends Component {
                 <div className="IssueSubHeader">
                         <Dropdown id="issue-status-dropdown" bsStyle="link" className="MarkSuccessWrapper">
                             <Dropdown.Toggle bsStyle="link" >
-                                <div className="IssueStatus"/>
+                                <div className="IssuesStatusTooltip" style={this.state.showIssueStatus ? {} : {display:"none"}}>
+                                    <span>Отметить задачу как завершена</span>
+                                </div>
+                                <div className="IssueStatus" onMouseEnter={this.handleMouseOverIssueStatus} onMouseLeave={this.handleMouseOutIssueStatus}/>
                             </Dropdown.Toggle>
                             <Dropdown.Menu>
                                 <MenuItem className="SelectedIssueStatus">
