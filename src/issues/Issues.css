@@ -125,6 +125,17 @@
     font-weight: bold;
 }
 
+.AddInFolderForm {
+    position: absolute;
+    z-index: 5;
+    background-color: #ffffff;
+    box-shadow: 0 0 5px 1px #888888;
+    top: 17px;
+    left: 4px;
+    height: 15%;
+    width: 50%;
+}
+
 .IssueNameHeader {
     font-size: 28px;
     margin-top: 10px;

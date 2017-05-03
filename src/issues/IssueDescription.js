@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import AddLinkButton from "./AddLinkButton";
 import {Button, Col, Dropdown, Glyphicon, MenuItem, Nav, NavDropdown, NavItem, Row, Tab} from "react-bootstrap";
+import AddInFolderForm from "./AddInFolderForm";
 
 class IssueDescription extends Component {
 
@@ -40,6 +41,7 @@ class IssueDescription extends Component {
                     </div>
                     <AddLinkButton className="AddInFolder" text="Добавить в папку/проект" font="AddInFolderFont"
                                    fontPlus="AddInFolderFontPlus"/>
+                    <AddInFolderForm/>
                 </div>
                 <div className="IssueSubHeader">
                     <Dropdown id="issue-status-dropdown" bsStyle="link" className="MarkSuccessWrapper">
