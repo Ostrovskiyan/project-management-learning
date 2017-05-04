@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Form} from "react-bootstrap";
+import styles from "./Issues.css";
 
 class AddIssueInput extends Component {
 
@@ -24,7 +25,7 @@ class AddIssueInput extends Component {
 
     render() {
         return (
-            <div className="AddInFolderForm" onFocus={this.handleFocusStart} onBlur={this.handleFocusEnd} onClick={this.handleClick}>
+            <div className={styles.AddInFolderForm} onFocus={this.handleFocusStart} onBlur={this.handleFocusEnd} onClick={this.handleClick}>
                 <Form  onSubmit={this.handleFocusEnd}>
                     <input type="text" className="form-control"/>
                 </Form>

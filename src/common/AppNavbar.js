@@ -5,6 +5,7 @@ import {
 import {logout} from "../actions/profile";
 import {getUser} from "../api/api";
 import {connect} from "react-redux";
+import styles from "./Main.css";
 
 class AppNavbar extends Component {
 
@@ -24,28 +25,28 @@ class AppNavbar extends Component {
 
     render() {
         return (
-            <Navbar inverse className="AppNavbar">
-                <Navbar.Form pullLeft className="NavbarSearchWrapper">
-                    <FormGroup className="NavbarSearchFormGroup">
-                        <FormControl className="NavbarSearch" type="text" placeholder="Поиск задач"/>
+            <Navbar inverse className={styles.AppNavbar}>
+                <Navbar.Form pullLeft className={styles.NavbarSearchWrapper}>
+                    <FormGroup className={styles.NavbarSearchFormGroup}>
+                        <FormControl className={styles.NavbarSearch} type="text" placeholder="Поиск задач"/>
                         <FormControl.Feedback>
-                            <Glyphicon glyph="glyphicon glyphicon-search" className="NavbarSearchIcon"/>
+                            <Glyphicon glyph="glyphicon glyphicon-search" className={styles.NavbarSearchIcon}/>
                         </FormControl.Feedback>
                     </FormGroup>
                 </Navbar.Form>
                 <Nav pullRight>
                     <Dropdown id="logout-dropdown" bsStyle="link">
-                        <Dropdown.Toggle bsStyle="link" className="LogoutDropdown">
-                            <img className="LogoutDropdownAvatar" src={this.user.avatar}/>
+                        <Dropdown.Toggle bsStyle="link" className={styles.LogoutDropdown}>
+                            <img className={styles.LogoutDropdownAvatar} src={this.user.avatar}/>
                             {`${this.user.name}`}
                         </Dropdown.Toggle>
-                        <Dropdown.Menu className="LogoutMenu">
-                            <MenuItem header className="LogoutMenuAvatarWrapper">
-                                <img className="LogoutMenuAvatar" src={this.user.avatar}/>
+                        <Dropdown.Menu className={styles.LogoutMenu}>
+                            <MenuItem header className={styles.LogoutMenuAvatarWrapper}>
+                                <img className={styles.LogoutMenuAvatar} src={this.user.avatar}/>
                                 {`${this.user.name} ${this.user.surname}`}
                             </MenuItem>
-                            <MenuItem divider className="LogoutDivider"/>
-                            <MenuItem className="LogoutButton" onClick={this.handleLogout}>Выйти</MenuItem>
+                            <MenuItem divider className={styles.LogoutDivider}/>
+                            <MenuItem className={styles.LogoutButton} onClick={this.handleLogout}>Выйти</MenuItem>
                         </Dropdown.Menu>
                     </Dropdown>
                 </Nav>

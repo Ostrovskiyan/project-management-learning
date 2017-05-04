@@ -1,7 +1,9 @@
 import React, {Component} from "react";
 import AddLinkButton from "./AddLinkButton";
-import {Button, Col, Dropdown, Glyphicon, MenuItem, Nav, NavDropdown, NavItem, Row, Tab} from "react-bootstrap";
+import {Button, Dropdown, Glyphicon, MenuItem} from "react-bootstrap";
 import AddInFolderForm from "./AddInFolderForm";
+import styles from "./Issues.css";
+import mainStyles from "../common/Main.css";
 
 class IssueDescription extends Component {
 
@@ -26,60 +28,60 @@ class IssueDescription extends Component {
     render() {
         let {issue} = this.props;
         return (
-            <div className="FullHeight IssueDescription">
-                <div className="IssueHeader">
+            <div className={`${mainStyles.FullHeight} ${styles.IssueDescription}`}>
+                <div className={styles.IssueHeader}>
                     <div>
-                        <div className="IssueNameHeader">{issue.name}</div>
-                        <div className="IssueHeaderButtons">
-                            <Button className="IssueHeaderOptions">
-                                <i className="fa fa-link LinkAwesomeIcon" aria-hidden="true"/>
+                        <div className={styles.IssueNameHeader}>{issue.name}</div>
+                        <div className={styles.IssueHeaderButtons}>
+                            <Button className={styles.IssueHeaderOptions}>
+                                <i className={`fa fa-link ${styles.LinkAwesomeIcon}`} aria-hidden="true"/>
                             </Button>
-                            <Button className="IssueHeaderOptions">
+                            <Button className={styles.IssueHeaderOptions}>
                                 <i className="fa fa-ellipsis-h" aria-hidden="true"/>
                             </Button>
                         </div>
                     </div>
-                    <AddLinkButton className="AddInFolder" text="Добавить в папку/проект" font="AddInFolderFont"
-                                   fontPlus="AddInFolderFontPlus"/>
-                    <AddInFolderForm/>
+                    <AddLinkButton className={styles.AddInFolder} text="Добавить в папку/проект" font={styles.AddInFolderFont}
+                                   fontPlus={styles.AddInFolderFontPlus}/>
+                    {/*<AddInFolderForm/>*/}
                 </div>
-                <div className="IssueSubHeader">
-                    <Dropdown id="issue-status-dropdown" bsStyle="link" className="MarkSuccessWrapper">
+                <div className={styles.IssueSubHeader}>
+                    <Dropdown id="issue-status-dropdown" bsStyle="link" className={styles.MarkSuccessWrapper}>
                         <Dropdown.Toggle bsStyle="link" >
-                            <div className="IssuesStatusTooltip" style={this.state.showIssueStatus ? {} : {display:"none"}}>
+                            <div className={styles.IssuesStatusTooltip} style={this.state.showIssueStatus ? {} : {display:"none"}}>
                                 <span>Отметить задачу как завершена</span>
                             </div>
-                            <div className="IssueStatus" onMouseEnter={this.handleMouseOverIssueStatus} onMouseLeave={this.handleMouseOutIssueStatus}/>
+                            <div className={styles.IssueStatus} onMouseEnter={this.handleMouseOverIssueStatus} onMouseLeave={this.handleMouseOutIssueStatus}/>
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
-                            <MenuItem className="SelectedIssueStatus">
-                                <div className="IssueStatus active"/>
-                                <div className="IssueStatusName">Активна</div>
+                            <MenuItem className={styles.SelectedIssueStatus}>
+                                <div className={`${styles.IssueStatus} ${styles.active}`}/>
+                                <div className={styles.IssueStatusName}>Активна</div>
                             </MenuItem>
                             <MenuItem>
-                                <div className="IssueStatus ended"/>
-                                <div className="IssueStatusName">Завершена</div>
+                                <div className={`${styles.IssueStatus} ${styles.ended}`}/>
+                                <div className={styles.IssueStatusName}>Завершена</div>
                             </MenuItem>
                             <MenuItem>
-                                <div className="IssueStatus postponed"/>
-                                <div className="IssueStatusName">Отложена</div>
+                                <div className={`${styles.IssueStatus} ${styles.postponed}`}/>
+                                <div className={styles.IssueStatusName}>Отложена</div>
                             </MenuItem>
                             <MenuItem>
-                                <div className="IssueStatus canceled"/>
-                                <div className="IssueStatusName">Отменена</div>
+                                <div className={`${styles.IssueStatus} ${styles.canceled}`}/>
+                                <div className={styles.IssueStatusName}>Отменена</div>
                             </MenuItem>
                         </Dropdown.Menu>
                     </Dropdown>
-                    <div className="IssueParticipants">
-                        <div className="IssueAssigners">
-                            <img src={issue.assigned.avatar} className="IssueAssignedAvatar"/>
+                    <div className={styles.IssueParticipants}>
+                        <div className={styles.IssueAssigners}>
+                            <img src={issue.assigned.avatar} className={styles.IssueAssignedAvatar}/>
                             {issue.assigned.name}
-                            <Glyphicon className="AddAssignedIcon" glyph="glyphicon glyphicon-plus"/>
+                            <Glyphicon className={styles.AddAssignedIcon} glyph="glyphicon glyphicon-plus"/>
                         </div>
-                        <div className="IssueAuthorWrapper">
-                            <span className="IssueAuthor">
+                        <div className={styles.IssueAuthorWrapper}>
+                            <span className={styles.IssueAuthor}>
                                 автор:
-                                <a className="IssueAuthorLink">{`${issue.author.name}
+                                <a className={styles.IssueAuthorLink}>{`${issue.author.name}
                                     ${issue.author.surname.slice(0, 1)}`}
                                 </a>,
                                 {issue.creatingDate.getHours()}:{issue.creatingDate.getMinutes()}
@@ -87,18 +89,18 @@ class IssueDescription extends Component {
                         </div>
                     </div>
                 </div>
-                <div className="IssueSettingTabs">
-                    <div className="IssueSettingTab date">
+                <div className={styles.IssueSettingTabs}>
+                    <div className={`${styles.IssueSettingTab} ${styles.date}`}>
                         <Glyphicon className="blue" glyph="glyphicon glyphicon-calendar"/>
                         <span> Окт 10(1 д.)</span>
                     </div>
-                    <div className="IssueSettingTab subtask">
+                    <div className={`${styles.IssueSettingTab} ${styles.subtask}`}>
                         <Glyphicon glyph="glyphicon glyphicon-th-list"/>
                         <span> Добавить подзадачу</span>
                     </div>
                 </div>
-                <div className="IssueDescriptionField">
-                    <Button bsStyle="link" className="AddDescriptionLinkBtn">
+                <div className={styles.IssueDescriptionField}>
+                    <Button bsStyle="link" className={styles.AddDescriptionLinkBtn}>
                         Нажмите, чтобы добавить описание
                     </Button>
                 </div>

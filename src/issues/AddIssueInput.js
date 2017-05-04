@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Form} from "react-bootstrap";
+import styles from "./Issues.css";
 
 class AddIssueInput extends Component {
 
@@ -19,9 +20,9 @@ class AddIssueInput extends Component {
 
     render() {
         return (
-            <Form inline className="AddIssueForm" onSubmit={this.handleFocusEnd}>
-                <img src={this.props.userAvatar} className="IssueAvatar"/>
-                <input type="text" className="form-control AddIssueInput" ref={(input) => {this.issueInput = input}} onBlur={this.props.handleFocusEnd}/>
+            <Form inline className={styles.AddIssueForm} onSubmit={this.handleFocusEnd}>
+                <img src={this.props.userAvatar} className={styles.IssueAvatar}/>
+                <input type="text" className={`form-control ${styles.AddIssueInput}`} ref={(input) => {this.issueInput = input}} onBlur={this.props.handleFocusEnd}/>
             </Form>
         )
     }

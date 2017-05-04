@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Badge} from "react-bootstrap";
+import styles from "./Issues.css";
 
 class IssueTimeHeader extends Component {
 
@@ -10,14 +11,14 @@ class IssueTimeHeader extends Component {
             if (this.props.endDate) {
                 dateLabel += (" - " + this.props.endDate);
             }
-            dateLabel = <span className="IssueTimeHeaderDates">{dateLabel}</span>;
+            dateLabel = <span className={styles.IssueTimeHeaderDates}>{dateLabel}</span>;
         }
         return (
-            <div className={`IssueTimeHeader ${this.props.className}`}>
+            <div className={`${styles.IssueTimeHeader} ${this.props.className}`}>
                 {this.props.icon}
-                <span className="IssueTimeHeaderTitle">{this.props.title}</span>
+                <span className={styles.IssueTimeHeaderTitle}>{this.props.title}</span>
                 {dateLabel}
-                <Badge className="IssueTimeHeaderCount" pullRight>{this.props.issueCount}</Badge>
+                <Badge className={`${styles.IssueTimeHeaderCount}`} pullRight>{this.props.issueCount}</Badge>
             </div>
         )
     }

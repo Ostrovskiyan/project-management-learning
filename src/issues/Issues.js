@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import {Col, Glyphicon} from "react-bootstrap";
-import "./Issues.css";
+import styles from "./Issues.css";
+import mainStyles from "../common/Main.css";
 import IssueTimeHeader from "./IssueTimeHeader";
 import AddIssueInput from "./AddIssueInput";
 import {connect} from "react-redux";
@@ -69,7 +70,7 @@ class Issues extends Component {
         let addIssueComponent = this.props.addingIssue ? <AddIssueInput handleFocusEnd={this.handleStopFocus} handleSubmit={this.handleAddIssue} userAvatar={this.user.avatar}/> :
             <AddLinkButton text="Новая задача" handleClick={this.handleClickNewTask}/>;
 
-        let issueDoneIcon = <Glyphicon className="IssueDoneIcon" glyph="glyphicon glyphicon-ok"/>;
+        let issueDoneIcon = <Glyphicon className={styles.IssueDoneIcon} glyph="glyphicon glyphicon-ok"/>;
 
         let issuesToday = this.props.issues
             .filter(issue => {
@@ -108,7 +109,7 @@ class Issues extends Component {
                         <IssueTimeHeader title="НА СЕГОДНЯ" startDate={toTitleDate(now)} issueCount={issuesToday.length}/>
                         {addIssueComponent}
                         {issuesToday}
-                        <IssueTimeHeader className="FloatDown" icon={issueDoneIcon} title="ЗАВЕРШЕНА" issueCount={0}/>
+                        <IssueTimeHeader className={styles.FloatDown} icon={issueDoneIcon} title="ЗАВЕРШЕНА" issueCount={0}/>
                     </div>;
 
         let thisWeek = <div>
@@ -127,23 +128,23 @@ class Issues extends Component {
         let content;
 
         if(this.props.selectedIssue !== null && this.props.selectedIssue !== undefined) {
-            content = <div className="FullHeight">
-                        <Col xs={5} className="FullHeight Content HalfContent" onClick={this.handleDeselectIssue}>
+            content = <div className={mainStyles.FullHeight}>
+                        <Col xs={5} className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.HalfContent}`} onClick={this.handleDeselectIssue}>
                             {today}
                             {thisWeek}
                             {nextWeek}
                             {later}
                         </Col>
-                        <Col xs={5} className="FullHeight Content HalfContent">
+                        <Col xs={5} className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.HalfContent}`}>
                             <IssueDescription issue={this.props.issues.filter(issue => issue.id === this.props.selectedIssue)[0]}/>
                         </Col>
                     </div>
         } else {
-            content = <div className="FullHeight">
-                        <Col xs={5} className="FullHeight Content DoubleThirdContent" onClick={this.handleDeselectIssue}>
+            content = <div className={mainStyles.FullHeight}>
+                        <Col xs={5} className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.DoubleThirdContent}`} onClick={this.handleDeselectIssue}>
                             {today}
                         </Col>
-                        <Col xs={5} className="FullHeight Content ThirdContent">
+                        <Col xs={5} className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.ThirdContent}`}>
                             {thisWeek}
                             {nextWeek}
                             {later}

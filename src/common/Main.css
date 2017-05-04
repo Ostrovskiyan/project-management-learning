@@ -1,4 +1,4 @@
-html {
+:global html {
     background: #434B56;
 }
 
@@ -8,27 +8,27 @@ html {
     width: 100%;
 }
 
-.container {
+:global .container {
     margin: 0 0 0 0;
     padding: 0 15px 0 15px;
     width: 100%;
 }
 
-.navbar-collapse.collapse {
+:global .navbar-collapse.collapse {
     padding-left: 0;
     padding-right: 0;
 }
 
-.navbar-form.navbar-left {
+:global .navbar-form.navbar-left {
     padding-left: 0;
     padding-right: 0;
 }
 
-.navbar-right {
+:global .navbar-right {
     padding-right: 5px;
 }
 
-.navbar-inverse {
+:global .navbar-inverse {
     background-color: inherit;
     background-image: none;
     border: none;

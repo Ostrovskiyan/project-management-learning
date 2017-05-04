@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import styles from "./Issues.css";
 
 class IssueDoubleImage extends Component {
 
@@ -8,9 +9,9 @@ class IssueDoubleImage extends Component {
 
     render() {
         return (
-            <span className="IssueDoubleImage">
-                <img className="IssueAvatar IssueDoubleImageBottom" src={this.props.bottomAvatar}/>
-                <img className="IssueAvatar IssueDoubleImageTop" src={this.props.topAvatar}/>
+            <span className={styles.IssueDoubleImage}>
+                <img className={`${styles.IssueAvatar} ${styles.IssueDoubleImageBottom}`} src={this.props.bottomAvatar}/>
+                <img className={`${styles.IssueAvatar} ${styles.IssueDoubleImageTop}`} src={this.props.topAvatar}/>
             </span>
         )
     }

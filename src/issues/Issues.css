@@ -252,7 +252,7 @@
     background-color: #ffffff;
 }
 
-#issue-status-dropdown, #issue-status-dropdown:active{
+:global #issue-status-dropdown, :global #issue-status-dropdown:active{
     text-decoration: none;
     background-image: none;
     outline: 0;
@@ -263,7 +263,7 @@
     padding-left: 0;
 }
 
-#issue-status-dropdown .caret {
+:global #issue-status-dropdown .caret {
     color: #000000;
     margin-bottom: 35%;
     margin-left: 10%;
@@ -310,7 +310,7 @@ a>.IssueStatus {
     border: none;
 }
 
-.MarkSuccessWrapper>.dropdown-menu {
+:global #issue-status-dropdown + .dropdown-menu {
     top: 90%;
     left: -35px;
     border-radius: 0;
@@ -374,7 +374,7 @@ a>.IssueStatus {
 .IssueSettingTab {
     display: inline-block;
     height: 100%;
-    padding: 2% 25px;
+    padding: 2% 35px;
     cursor: pointer;
 }
 
@@ -385,6 +385,6 @@ a>.IssueStatus {
     padding-left: 0;
 }
 
-.glyphicon.blue {
+:global .glyphicon.blue {
     color: #497AA1;
 }

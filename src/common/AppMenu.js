@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import "./Main.css";
+import styles from "./Main.css";
 import {Glyphicon} from "react-bootstrap";
 import {connect} from "react-redux";
 import {selectMyWork, selectProjectsTab} from "../actions/menu";
@@ -27,14 +27,14 @@ class AppMenu extends Component {
         let projectsId = "projects";
         return (
             <div>
-                <div id={myWorkId} className={`MenuButton ${this.props.myWorkSelected && "Selected"}`}
+                <div id={myWorkId} className={`${styles.MenuButton} ${this.props.myWorkSelected && styles.Selected}`}
                      onClick={this.handleMyWorkClick}>
                     МОЯ РАБОТА
                 </div>
-                <div id={projectsId} className={`MenuButton ${this.props.projectsTabSelected && "Selected"}`}
+                <div id={projectsId} className={`${styles.MenuButton} ${this.props.projectsTabSelected && styles.Selected}`}
                      onClick={this.handleProjectsClick}>
                     ПРОЕКТЫ
-                    <Glyphicon className="ProjectPlus" glyph="glyphicon glyphicon-plus"/>
+                    <Glyphicon className={styles.ProjectPlus} glyph="glyphicon glyphicon-plus"/>
                 </div>
             </div>
         )

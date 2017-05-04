@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import "./Main.css";
+import styles from "./Main.css";
 import AppNavbar from "./AppNavbar";
 import {Col, Row} from "react-bootstrap";
 import AppMenu from "./AppMenu";
@@ -8,7 +8,7 @@ import {connect} from "react-redux";
 
 class PageTemplate extends Component {
     render() {
-        let menu = (<Col xs={2} className="FullHeight Menu">
+        let menu = (<Col xs={2} className={`${styles.FullHeight} ${styles.Menu}`}>
                         <AppMenu/>
                     </Col>);
         let content = null;
@@ -16,9 +16,9 @@ class PageTemplate extends Component {
             content = <Issues/>;
         }
         return (
-            <div className="Background">
+            <div className={styles.Background}>
                 <AppNavbar/>
-                <Row className="Main">
+                <Row className={styles.Main}>
                     {menu}
                     {content}
                 </Row>
