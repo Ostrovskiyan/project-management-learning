@@ -4,6 +4,7 @@ import Logo from "./Logo"
 import LoginMessage from "./LoginMessage";
 import {proccessLogining} from "../actions/profile";
 import {connect} from "react-redux";
+import styles from "./LoginPage.css";
 
 class LoginForm extends Component {
 
@@ -20,8 +21,8 @@ class LoginForm extends Component {
     render() {
         let message = this.props.loginFailMessage && <LoginMessage message={this.props.loginFailMessage}/>;
         let inputLight = this.props.loginFailMessage &&
-            (<div className="InputLightWrapper">
-                <div className="InputLight"/>
+            (<div className={styles.InputLightWrapper}>
+                <div className={styles.InputLight}/>
             </div>);
         return (
             <Form onSubmit={this.handleSubmit}>
@@ -29,17 +30,17 @@ class LoginForm extends Component {
                 {message}
                 <FormGroup>
                     {inputLight}
-                    <input type="text" className="form-control LoginInput" ref={(login) => this.login = login}
+                    <input type="text" className={`form-control ${styles.LoginInput}`} ref={(login) => this.login = login}
                            placeholder="Эл. почта" defaultValue={this.props.login}/>
                 </FormGroup>
                 <FormGroup className="form-group">
-                    <input type="password" className={"form-control LoginInput " + (this.props.password && "Backlight")}
+                    <input type="password" className={`form-control ${styles.LoginInput} ` + (this.props.password && styles.Backlight)}
                            ref={(password) => this.password = password} placeholder="Пароль"
                            defaultValue={this.props.password}/>
                 </FormGroup>
                 <Row>
                     <Col xsOffset={7} xs={5}>
-                        <Button type="submit" bsStyle="primary" className="LoginButton" block disabled={this.props.logining}>
+                        <Button type="submit" bsStyle="primary" className={styles.LoginButton} block disabled={this.props.logining}>
                             Вход
                         </Button>
                     </Col>
