@@ -22,3 +22,60 @@
 .Option.Selected {
     border-color: #5284B8;
 }
+
+.Results {
+    margin-top: 10px;
+}
+
+.Results > div {
+    display: inline-block;
+    width: 50%;
+    vertical-align: top;
+}
+
+.DateResult {
+    padding-right: 45px;
+    width: auto;
+}
+
+.Days, .Days + span {
+    border: none;
+}
+
+.Days {
+    padding-right: 0;
+}
+
+.Days + span {
+    padding-left: 0;
+}
+
+.DaysFocus {
+    border: 1px solid #3c8dbc;
+    width: 80px;
+}
+
+.DaysBlur {
+    border: 1px solid #d2d6de;
+    width: 80px;
+}
+
+.ResultHeader {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.ResultInput {
+    font-weight: bold;
+    font-size: 18px;
+    padding-top: 10px;
+}
+
+.DateInputWrapper {
+    width: 125px;
+}
+
+.BetweenDates {
+    font-weight: bold;
+    font-size: 18px;
+}
