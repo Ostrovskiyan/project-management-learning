@@ -163,3 +163,12 @@
     font-size: 18px;
     color: #93A3B4;
 }
+
+
+.MinimizeDropdown, .MinimizeDropdown:active{
+    text-decoration: none !important;
+    background-image: none;
+    outline: 0 !important;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}

@@ -4,6 +4,7 @@ export const ADD_ISSUE = "ADD_ISSUE";
 export const ADD_ISSUE_END = "ADD_ISSUE_END";
 export const SELECT_ISSUE = "SELECT_ISSUE";
 export const DESELECT_ISSUE = "DESELECT_ISSUE";
+export const UPDATE_ISSUE = "UPDATE_ISSUE";
 
 export const clickAddIssue = () => {
     return {
@@ -52,5 +53,12 @@ export const selectIssue = (id) => {
 export const deselectIssue = () => {
     return {
         type: DESELECT_ISSUE
+    }
+};
+
+export const updateIssue = (issue) => {
+    return {
+        type: UPDATE_ISSUE,
+        issue
     }
 };

@@ -125,15 +125,21 @@
     font-weight: bold;
 }
 
-.AddInFolderForm {
-    position: absolute;
-    z-index: 5;
-    background-color: #ffffff;
+:global #add-issue-in-folder + .dropdown-menu {
+    border-radius: 0;
+    border: none;
     box-shadow: 0 0 5px 1px #888888;
-    top: 17px;
-    left: 4px;
-    height: 15%;
-    width: 50%;
+    top: -95%;
+    left: -30px;
+    height: 385%;
+    width: 400px;
+    padding: 15px;
+    margin: 0;
+}
+
+.FoldersForView {
+    margin-top: 20px;
+    font-size: 13px;
 }
 
 .IssueNameHeader {
@@ -252,12 +258,7 @@
     background-color: #ffffff;
 }
 
-:global #issue-status-dropdown, :global #issue-status-dropdown:active{
-    text-decoration: none;
-    background-image: none;
-    outline: 0;
-    -webkit-box-shadow: none;
-    box-shadow: none;
+.IssueStatusDropdown {
     height: 100%;
     padding-top: 10%;
     padding-left: 0;
@@ -349,6 +350,13 @@ a>.IssueStatus {
 
 .IssueSettingTabs > div {
     vertical-align: top;
+    display: inline-block;
+    height: 100%;
+    cursor: pointer;
+}
+
+.IssueSettingTabs > div:hover {
+    background-color: #eeeeee;
 }
 
 .IssueDescriptionField {
@@ -358,24 +366,9 @@ a>.IssueStatus {
     border-bottom: solid 1px #cccccc;
 }
 
-.IssueSettingTab:hover {
-    background-color: #eeeeee;
-}
-
-.IssueSettingTab.date {
-    border-right: 1px solid #ffffff;
-    padding-left: 35px;
-}
-
 .IssueSettingTab.subtask {
     border-left: 1px solid #ffffff;
-}
-
-.IssueSettingTab {
-    display: inline-block;
-    height: 100%;
     padding: 2% 35px;
-    cursor: pointer;
 }
 
 .AddDescriptionLinkBtn, .AddDescriptionLinkBtn:hover, .AddDescriptionLinkBtn:active, .AddDescriptionLinkBtn:focus {
@@ -387,4 +380,22 @@ a>.IssueStatus {
 
 :global .glyphicon.blue {
     color: #497AA1;
+}
+
+:global #update-issue-date {
+    padding: 2% 35px;
+    width: 100%;
+    height: 100%;
+}
+
+:global #update-issue-date + .dropdown-menu {
+    top: -150%;
+    left: -30px;
+    border-radius: 0;
+    padding: 10px 0;
+    border: none;
+    box-shadow: 0 0 5px 1px #888888;
+    width: 470%;
+    height: 1680%;
+    cursor: auto;
 }

@@ -1,9 +1,11 @@
 import React, {Component} from "react";
-import AddLinkButton from "./AddLinkButton";
 import {Button, Dropdown, Glyphicon, MenuItem} from "react-bootstrap";
-import AddInFolderForm from "./AddInFolderForm";
 import styles from "./Issues.css";
 import mainStyles from "../common/Main.css";
+import {connect} from "react-redux";
+import {updateIssue} from "../actions/issues";
+import AddIssueInFolderDropdown from "./AddIssueInFolderDropdown";
+import UpdateIssueDateDropdown from "./UpdateIssueDateDropdown";
 
 class IssueDescription extends Component {
 
@@ -11,22 +13,31 @@ class IssueDescription extends Component {
         super(props);
         this.handleMouseOverIssueStatus = this.handleMouseOverIssueStatus.bind(this);
         this.handleMouseOutIssueStatus = this.handleMouseOutIssueStatus.bind(this);
+        this.addInFolder = this.addInFolder.bind(this);
         this.state = {showIssueStatus: false};
     }
 
-
     handleMouseOverIssueStatus(event) {
-        this.setState({showIssueStatus:true});
+        this.setState({showIssueStatus: true});
         event.preventDefault();
     }
 
     handleMouseOutIssueStatus(event) {
-        this.setState({showIssueStatus:false});
+        this.setState({showIssueStatus: false});
         event.preventDefault();
+    }
+
+    addInFolder(folder) {
+        let {issue} = this.props;
+        this.props.dispatch(updateIssue({
+            ...issue,
+            folder
+        }));
     }
 
     render() {
         let {issue} = this.props;
+
         return (
             <div className={`${mainStyles.FullHeight} ${styles.IssueDescription}`}>
                 <div className={styles.IssueHeader}>
@@ -41,17 +52,18 @@ class IssueDescription extends Component {
                             </Button>
                         </div>
                     </div>
-                    <AddLinkButton className={styles.AddInFolder} text="Добавить в папку/проект" font={styles.AddInFolderFont}
-                                   fontPlus={styles.AddInFolderFontPlus}/>
-                    {/*<AddInFolderForm/>*/}
+                    <AddIssueInFolderDropdown addInFolder={this.addInFolder} issue={issue}/>
                 </div>
                 <div className={styles.IssueSubHeader}>
                     <Dropdown id="issue-status-dropdown" bsStyle="link" className={styles.MarkSuccessWrapper}>
-                        <Dropdown.Toggle bsStyle="link" >
-                            <div className={styles.IssuesStatusTooltip} style={this.state.showIssueStatus ? {} : {display:"none"}}>
+                        <Dropdown.Toggle bsStyle="link"
+                                         className={`${mainStyles.MinimizeDropdown} ${styles.IssueStatusDropdown}`}>
+                            <div className={styles.IssuesStatusTooltip}
+                                 style={this.state.showIssueStatus ? {} : {display: "none"}}>
                                 <span>Отметить задачу как завершена</span>
                             </div>
-                            <div className={styles.IssueStatus} onMouseEnter={this.handleMouseOverIssueStatus} onMouseLeave={this.handleMouseOutIssueStatus}/>
+                            <div className={styles.IssueStatus} onMouseEnter={this.handleMouseOverIssueStatus}
+                                 onMouseLeave={this.handleMouseOutIssueStatus}/>
                         </Dropdown.Toggle>
                         <Dropdown.Menu>
                             <MenuItem className={styles.SelectedIssueStatus}>
@@ -90,10 +102,7 @@ class IssueDescription extends Component {
                     </div>
                 </div>
                 <div className={styles.IssueSettingTabs}>
-                    <div className={`${styles.IssueSettingTab} ${styles.date}`}>
-                        <Glyphicon className="blue" glyph="glyphicon glyphicon-calendar"/>
-                        <span> Окт 10(1 д.)</span>
-                    </div>
+                    <UpdateIssueDateDropdown/>
                     <div className={`${styles.IssueSettingTab} ${styles.subtask}`}>
                         <Glyphicon glyph="glyphicon glyphicon-th-list"/>
                         <span> Добавить подзадачу</span>
@@ -109,4 +118,4 @@ class IssueDescription extends Component {
     }
 }
 
-export default IssueDescription;
+export default connect()(IssueDescription);

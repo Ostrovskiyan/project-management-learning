@@ -1,4 +1,4 @@
-import {ADD_ISSUE, ADD_ISSUE_END, CLICK_ADD_ISSUE, DESELECT_ISSUE, SELECT_ISSUE} from "../actions/issues";
+import {ADD_ISSUE, ADD_ISSUE_END, CLICK_ADD_ISSUE, DESELECT_ISSUE, SELECT_ISSUE, UPDATE_ISSUE} from "../actions/issues";
 
 let initialIssueId = 0;
 
@@ -34,12 +34,20 @@ const issues = (state = {list: []}, action) => {
         case SELECT_ISSUE:
             return {
                 ...state,
-                selectedIssue : action.id
+                selectedIssue: action.id
             };
         case DESELECT_ISSUE:
             return {
                 ...state,
-                selectedIssue : null
+                selectedIssue: null
+            };
+        case UPDATE_ISSUE:
+            console.log(action);
+            let newList = state.list.map(issue => issue.id === action.issue.id ? action.issue : issue);
+            console.log(newList);
+            return {
+                ...state,
+                list: newList
             };
         default:
             return state;

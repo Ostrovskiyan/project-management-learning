@@ -1,0 +1,24 @@
+.Main {
+    height: 100%;
+    padding: 15px 20px;
+}
+
+.Header {
+    font-size: 24px;
+}
+
+.Options {
+    padding: 15px 0;
+}
+
+.Option {
+    display: inline-block;
+    cursor: pointer;
+    border-bottom: 4px solid #ffffff;
+    margin-right: 30px;
+    font-weight: bold;
+}
+
+.Option.Selected {
+    border-color: #5284B8;
+}
