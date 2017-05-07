@@ -79,3 +79,60 @@
     font-weight: bold;
     font-size: 18px;
 }
+
+.Calendar {
+    border-top: 1px solid #d2d6de;
+    border-bottom: 1px solid #d2d6de;
+}
+
+.CalendarHeaderText {
+    display: inline-block;
+    width: 30%;
+    text-align: center;
+    padding: 10px;
+}
+
+.Navigation:hover {
+    color: #000000;
+}
+
+.Navigation, .Navigation:active {
+    width: 5%;
+    color: #A4A2A4;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.Navigation.Left {
+    float: left;
+}
+
+.Navigation.Right {
+    float: right;
+}
+
+.Navigation.Left > i{
+    transform: scale(-0.6, 1);
+    font-size: 18px;
+}
+
+.Navigation.Right > i{
+    transform: scale(0.6, 1);
+    font-size: 18px;
+}
+
+.MonthCalendar {
+    width: 50%;
+    display: inline-block;
+    border-collapse: collapse;
+}
+
+.MonthCalendar > tbody, .MonthCalendar > tbody > tr  {
+    width: 100%;
+}
+
+.MonthCalendar > tbody > tr > td {
+    border: 1px dotted #d2d6de;
+    width: 40px;
+    height: 40px;
+}
