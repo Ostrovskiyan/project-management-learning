@@ -5,17 +5,23 @@ import moment from "moment";
 
 class MonthCalendar extends Component {
 
-    constructor(props) {
-        super(props);
-    }
-
     static generateDays(date, emptyDays, month) {
         let result = [];
         const daysInWeek = 7;
+        const now = moment();
         for (let i = 0; i < daysInWeek; i++) {
             if (i >= emptyDays && month === date.month()) {
-                let isWeekend  = date.day() === 0 || date.day() === 6;
-                let className = isWeekend ? styles.Weekend : "";
+                let className = "";
+                if(date.day() === 0) {
+                    className = `${styles.Weekend} ${styles.Sunday} `;
+                } else if(date.day() === 6) {
+                    className = `${styles.Weekend} ${styles.Saturday} `;
+                }
+                if(now.year() === date.year() && now.month() === date.month() && now.date() === date.date()) {
+                    className += styles.CurrentDay;
+                } else if(date.isBefore(now)) {
+                    className += styles.Before;
+                }
                 result[i] = <td key={i.toString()} className={className}>
                                 {date.date()}
                             </td>;

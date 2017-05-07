@@ -3,6 +3,7 @@ import styles from "./UpdateIssue.css";
 import {Button, Form, FormControl, FormGroup, InputGroup} from "react-bootstrap";
 import MonthCalendar from "./MonthCalendar";
 import moment from "moment";
+import Checkbox from "../../general/Checkbox";
 
 const Options = {
     IN_QUEUE: "IN_QUEUE",
@@ -137,7 +138,7 @@ class UpdateIssueDate extends Component {
                         <div className={styles.ResultHeader}>
                             Длительность:
                         </div>
-                        <div>
+                        <div className={styles.DaysWrapper}>
                             <FormGroup>
                                 <InputGroup className={this.state.daysFocus ? styles.DaysFocus : styles.DaysBlur}>
                                     <FormControl type="text" defaultValue="1"
@@ -177,10 +178,7 @@ class UpdateIssueDate extends Component {
                 <div className={styles.Footer}>
                     <Button bsStyle="primary" className={styles.Ok}>OK</Button>
                     <Button className={styles.Cancel} onClick={this.handleCancel}>Отмена</Button>
-                    <div className={styles.WorkWeekend}>
-                        <input type="checkbox"/>
-                        работа на выходных
-                    </div>
+                    <Checkbox wrapperStyle={styles.WorkWeekend} text="работа на выходных"/>
                 </div>
             </div>
         )

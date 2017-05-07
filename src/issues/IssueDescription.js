@@ -86,7 +86,7 @@ class IssueDescription extends Component {
                     </Dropdown>
                     <div className={styles.IssueParticipants}>
                         <div className={styles.IssueAssigners}>
-                            <img src={issue.assigned.avatar} className={styles.IssueAssignedAvatar}/>
+                            <img alt="assigned" src={issue.assigned.avatar} className={styles.IssueAssignedAvatar}/>
                             {issue.assigned.name}
                             <Glyphicon className={styles.AddAssignedIcon} glyph="glyphicon glyphicon-plus"/>
                         </div>

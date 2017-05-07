@@ -1,0 +1,27 @@
+.Wrapper > div {
+    display: inline-block;
+}
+
+.Wrapper {
+    padding-top: 2px;
+    cursor: pointer;
+}
+
+.Checkbox {
+    vertical-align: top;
+    height: 11px;
+    width: 11px;
+    border: 1px solid #aaaaaa;
+    margin-right: 10px;
+    margin-top: 5px;
+}
+
+.Text {
+    vertical-align: top;
+}
+
+.Glyph {
+    font-size: 10px;
+    left: -1px;
+    top:-6px
+}

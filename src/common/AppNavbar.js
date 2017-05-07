@@ -37,12 +37,12 @@ class AppNavbar extends Component {
                 <Nav pullRight>
                     <Dropdown id="logout-dropdown" bsStyle="link">
                         <Dropdown.Toggle bsStyle="link" className={styles.LogoutDropdown}>
-                            <img className={styles.LogoutDropdownAvatar} src={this.user.avatar}/>
+                            <img alt="avatar" className={styles.LogoutDropdownAvatar} src={this.user.avatar}/>
                             {`${this.user.name}`}
                         </Dropdown.Toggle>
                         <Dropdown.Menu className={styles.LogoutMenu}>
                             <MenuItem header className={styles.LogoutMenuAvatarWrapper}>
-                                <img className={styles.LogoutMenuAvatar} src={this.user.avatar}/>
+                                <img alt="avatar" className={styles.LogoutMenuAvatar} src={this.user.avatar}/>
                                 {`${this.user.name} ${this.user.surname}`}
                             </MenuItem>
                             <MenuItem divider className={styles.LogoutDivider}/>

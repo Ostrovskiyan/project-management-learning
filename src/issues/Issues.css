@@ -206,7 +206,7 @@
     display: inline-block;
     height: 100%;
     float:right;
-    padding-top: 2.7%;
+    padding-top: 20px;
     padding-right: 6%;
 }
 
@@ -392,10 +392,9 @@ a>.IssueStatus {
     top: -100px;
     left: -30px;
     border-radius: 0;
-    padding: 10px 0;
+    padding: 10px 0 40px 0;
     border: none;
     box-shadow: 0 0 5px 1px #888888;
     width: 41vw;
-    height: 83vh;
     cursor: auto;
 }
