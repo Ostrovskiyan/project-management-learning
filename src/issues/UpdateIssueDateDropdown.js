@@ -21,15 +21,18 @@ class UpdateIssueDateDropdown extends Component {
     }
 
     handleToggle(isOpen, event) {
-        console.log("toggle");
-        console.log(event);
-
         if(event.type !== "react-select" && isOpen !== this.state.open) {
             this.setState({
                 open: isOpen
             });
         }
     }
+
+    handleCancel = () => {
+        this.setState ({
+            open: false
+        });
+    };
 
     render() {
         return (
@@ -41,7 +44,7 @@ class UpdateIssueDateDropdown extends Component {
                     </div>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                    <UpdateIssueDate/>
+                    <UpdateIssueDate onCancel={this.handleCancel}/>
                 </Dropdown.Menu>
             </Dropdown>
         )

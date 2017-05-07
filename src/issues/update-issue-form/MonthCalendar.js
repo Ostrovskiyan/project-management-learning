@@ -13,11 +13,15 @@ class MonthCalendar extends Component {
         let result = [];
         const daysInWeek = 7;
         for (let i = 0; i < daysInWeek; i++) {
-            if (i >= emptyDays && month == date.month()) {
-                result[i] = <td key={i.toString()}>{date.date()}</td>;
+            if (i >= emptyDays && month === date.month()) {
+                let isWeekend  = date.day() === 0 || date.day() === 6;
+                let className = isWeekend ? styles.Weekend : "";
+                result[i] = <td key={i.toString()} className={className}>
+                                {date.date()}
+                            </td>;
                 date.add(1, "days");
             } else {
-                result[i] = <td key={i.toString()}/>;
+                result[i] = <td key={i.toString()} className={styles.Empty}/>;
             }
         }
         return result;
@@ -41,22 +45,24 @@ class MonthCalendar extends Component {
         let {month, year} = {...this.props};
 
         return (
-            <Table className={styles.MonthCalendar}>
-                <thead>
-                <tr>
-                    <th>Вс</th>
-                    <th>Пн</th>
-                    <th>Вт</th>
-                    <th>Ср</th>
-                    <th>Чт</th>
-                    <th>Пт</th>
-                    <th>Сб</th>
-                </tr>
-                </thead>
-                <tbody>
-                {MonthCalendar.generateWeeks(month, year)}
-                </tbody>
-            </Table>
+            <div className={`${styles.MonthCalendarWrapper} ${this.props.right ? styles.Right : styles.Left}`}>
+                <Table className={styles.MonthCalendar}>
+                    <thead>
+                    <tr>
+                        <th>Вс</th>
+                        <th>Пн</th>
+                        <th>Вт</th>
+                        <th>Ср</th>
+                        <th>Чт</th>
+                        <th>Пт</th>
+                        <th>Сб</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {MonthCalendar.generateWeeks(month, year)}
+                    </tbody>
+                </Table>
+            </div>
         )
     }
 }

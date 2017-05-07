@@ -4,7 +4,7 @@
 }
 
 .Header {
-    font-size: 24px;
+    font-size: 18px;
 }
 
 .Options {
@@ -15,8 +15,9 @@
     display: inline-block;
     cursor: pointer;
     border-bottom: 4px solid #ffffff;
-    margin-right: 30px;
+    margin-right: 5%;
     font-weight: bold;
+    font-size: 12px;
 }
 
 .Option.Selected {
@@ -34,12 +35,18 @@
 }
 
 .DateResult {
-    padding-right: 45px;
     width: auto;
+}
+
+.ResultInput {
+    font-weight: bold;
+    font-size: 14px;
+    height: 25px;
 }
 
 .Days, .Days + span {
     border: none;
+    height: 23px;
 }
 
 .Days {
@@ -61,18 +68,12 @@
 }
 
 .ResultHeader {
-    font-size: 24px;
+    font-size: 18px;
     margin-bottom: 15px;
 }
 
-.ResultInput {
-    font-weight: bold;
-    font-size: 18px;
-    padding-top: 10px;
-}
-
 .DateInputWrapper {
-    width: 125px;
+    width: 100px
 }
 
 .BetweenDates {
@@ -82,6 +83,10 @@
 
 .Calendar {
     border-top: 1px solid #d2d6de;
+    border-bottom: 1px solid #d2d6de;
+}
+
+.CalendarHeader {
     border-bottom: 1px solid #d2d6de;
 }
 
@@ -111,28 +116,95 @@
     float: right;
 }
 
-.Navigation.Left > i{
+.Navigation.Left > i {
     transform: scale(-0.6, 1);
     font-size: 18px;
 }
 
-.Navigation.Right > i{
+.Navigation.Right > i {
     transform: scale(0.6, 1);
     font-size: 18px;
 }
 
-.MonthCalendar {
+.MonthCalendarWrapper {
     width: 50%;
     display: inline-block;
-    border-collapse: collapse;
 }
 
-.MonthCalendar > tbody, .MonthCalendar > tbody > tr  {
+.MonthCalendarWrapper.Left {
+    padding-right: 5px;
+}
+
+.MonthCalendarWrapper.Right {
+    padding-left: 5px;
+}
+
+.MonthCalendar {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 5px;
+}
+
+.MonthCalendar > tbody, .MonthCalendar > tbody > tr {
     width: 100%;
 }
 
+.MonthCalendar > thead > tr > th {
+    padding-top: 3px;
+    padding-bottom: 3px;
+    border-bottom: 1px solid #d2d6de;
+    color: #888888;
+    font-weight: normal;
+}
+
 .MonthCalendar > tbody > tr > td {
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    border: none;
+}
+
+.MonthCalendar > tbody > tr > td:not(.Empty) {
     border: 1px dotted #d2d6de;
-    width: 40px;
-    height: 40px;
+}
+
+.MonthCalendar > tbody > tr > td:not(.Empty):hover {
+    background-color: #DDDDDD;
+    cursor: pointer;
+}
+
+.Weekend {
+    background-color: #F0EEF0;
+}
+
+.Footer {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    padding: 0 20px 15px 20px;
+}
+
+.Ok {
+    background-image: none;
+    background-color: #507CAB;
+    font-size: 12px;
+    width: 75px;
+    height: 25px;
+    padding: 0;
+    margin-right: 10px;
+}
+
+.Cancel {
+    background-image: none;
+    background-color: #ffffff;
+    font-size: 12px;
+    width: 75px;
+    height: 25px;
+    padding: 0;
+}
+
+.WorkWeekend {
+    float: right;
 }

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import styles from "./UpdateIssue.css";
-import {Form, FormControl, FormGroup, InputGroup} from "react-bootstrap";
+import {Button, Form, FormControl, FormGroup, InputGroup} from "react-bootstrap";
 import MonthCalendar from "./MonthCalendar";
 import moment from "moment";
 
@@ -68,6 +68,11 @@ class UpdateIssueDate extends Component {
         this.setState({
             currentMonth: currentMonth
         })
+    }
+
+    handleCancel = (event) => {
+        event.preventDefault();
+        this.props.onCancel();
     }
 
     render() {
@@ -165,7 +170,16 @@ class UpdateIssueDate extends Component {
                     </div>
                     <div>
                         <MonthCalendar month={currentMonth.month()} year={currentMonth.year()}/>
-                        <MonthCalendar month={nextMonth.month()} year={nextMonth.year()}/>
+                        <MonthCalendar month={nextMonth.month()} year={nextMonth.year()} right/>
+                    </div>
+                </div>
+
+                <div className={styles.Footer}>
+                    <Button bsStyle="primary" className={styles.Ok}>OK</Button>
+                    <Button className={styles.Cancel} onClick={this.handleCancel}>Отмена</Button>
+                    <div className={styles.WorkWeekend}>
+                        <input type="checkbox"/>
+                        работа на выходных
                     </div>
                 </div>
             </div>

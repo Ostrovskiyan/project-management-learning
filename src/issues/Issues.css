@@ -173,7 +173,7 @@
 }
 
 .IssueHeader {
-    height: 9.2%;
+    padding-bottom: 10px;
 }
 
 .IssueSubHeader {
@@ -181,7 +181,7 @@
     padding-left: 35px;
     border-top: solid 1px #cccccc;
     border-bottom: solid 1px #cccccc;
-    height: 7%;
+    height: 65px;
 }
 
 .MarkSuccessWrapper {
@@ -260,7 +260,7 @@
 
 .IssueStatusDropdown {
     height: 100%;
-    padding-top: 10%;
+    padding-top: 10px;
     padding-left: 0;
 }
 
@@ -335,7 +335,7 @@ a>.IssueStatus {
     background-color: rgba(0, 0, 0, 0.6);
     color: #ffffff;
     height: 30px;
-    top: 14px;
+    top: 15px;
     left: -5px;
     padding: 7px 10px 0 30px;
     border-radius: 3px;
@@ -343,7 +343,7 @@ a>.IssueStatus {
 }
 
 .IssueSettingTabs {
-    height: 5.5%;
+    height: 65px;
     margin-left: 0 !important;
     border-bottom: solid 1px #cccccc;
 }
@@ -368,7 +368,7 @@ a>.IssueStatus {
 
 .IssueSettingTab.subtask {
     border-left: 1px solid #ffffff;
-    padding: 2% 35px;
+    padding: 20px 35px;
 }
 
 .AddDescriptionLinkBtn, .AddDescriptionLinkBtn:hover, .AddDescriptionLinkBtn:active, .AddDescriptionLinkBtn:focus {
@@ -389,13 +389,13 @@ a>.IssueStatus {
 }
 
 :global #update-issue-date + .dropdown-menu {
-    top: -150%;
+    top: -100px;
     left: -30px;
     border-radius: 0;
     padding: 10px 0;
     border: none;
     box-shadow: 0 0 5px 1px #888888;
-    width: 470%;
-    height: 1680%;
+    width: 41vw;
+    height: 83vh;
     cursor: auto;
 }
