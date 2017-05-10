@@ -20,8 +20,10 @@ class UpdateIssueDate extends Component {
         this.state = {
             daysFocus: false,
             selectedOption: Options.TOMORROW,
-            currentDate: moment(),
-            selectedFrom: moment(),
+            currentMonth: moment(),
+            startDate: moment(),
+            endDate: moment(),
+            selectedDate: undefined
         };
         this.handleDaysFocus = this.handleDaysFocus.bind(this);
         this.handleDaysBlur = this.handleDaysBlur.bind(this);
@@ -38,6 +40,13 @@ class UpdateIssueDate extends Component {
         }.bind(toBind);
     }
 
+    handleClick = (event) => {
+      event.preventDefault();
+      this.setState({
+          selectedDate: undefined
+      })
+    };
+
     handleDaysFocus(event) {
         event.preventDefault();
         this.setState({
@@ -51,6 +60,11 @@ class UpdateIssueDate extends Component {
             daysFocus: false
         });
     }
+
+    handleDaysAddonClick = (event) => {
+        event.preventDefault();
+        this.daysInput.focus();
+    };
 
     handleNextMonth(event) {
         event.preventDefault();
@@ -77,30 +91,40 @@ class UpdateIssueDate extends Component {
         this.props.onCancel();
     };
 
-    handleNextSelectedFrom = () => {
-        let selectedFrom = moment(this.state.selectedFrom);
-        selectedFrom.add(1, "days");
+    handleNextSelectedDate = () => {
+        let startDate = moment(this.state[this.state.selectedDate]);
+        startDate.add(1, "days");
         this.setState({
-            selectedFrom
+            startDate
         });
+        this[this.state.selectedDate + "Input"].focus();
     };
 
-    handlePreviousSelectedFrom = () => {
-        let selectedFrom = moment(this.state.selectedFrom);
-        selectedFrom.subtract(1, "days");
+    handlePreviousSelectedDate = () => {
+        let startDate = moment(this.state[this.state.selectedDate]);
+        startDate.subtract(1, "days");
         this.setState({
-            selectedFrom
+            startDate
+        });
+        this[this.state.selectedDate + "Input"].focus();
+    };
+
+    handleStartDateClick = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        this.setState({
+            selectedDate: 'startDate'
         });
     };
 
     render() {
         let currentMonth = moment(this.state.currentMonth);
         let nextMonth = moment(this.state.currentMonth);
-        let selectedFrom = moment(this.state.selectedFrom);
+        let selected = this.state.selectedDate && moment(this.state[this.state.selectedDate]);
         nextMonth.add(1, "months");
 
         return (
-            <div className={styles.Main}>
+            <div className={styles.Main} onClick={this.handleClick}>
                 <div className={styles.Header}>Когда эта задача должна быть готова?</div>
                 <div className={styles.Options}>
                     <div
@@ -138,15 +162,19 @@ class UpdateIssueDate extends Component {
                             <Form inline>
                                 <FormGroup className={styles.DateInputWrapper}>
                                     <InputGroup>
-                                        <FormControl type="text" defaultValue="10/10/2016"
-                                                     className={styles.ResultInput}/>
+                                        <input  type="text"
+                                                value={this.state.startDate.format("DD/MM/YYYY")}
+                                                className={`${styles.ResultInput} form-control`}
+                                                onClick={this.handleStartDateClick}
+                                                ref={input => this.startDateInput = input}/>
                                     </InputGroup>
                                 </FormGroup>
                                 <span className={styles.BetweenDates}> &#8211; </span>
                                 <FormGroup className={styles.DateInputWrapper}>
                                     <InputGroup>
-                                        <FormControl type="text" defaultValue="10/10/2016"
-                                                     className={styles.ResultInput}/>
+                                        <input  type="text"
+                                                value={this.state.endDate.format("DD/MM/YYYY")}
+                                                className={`${styles.ResultInput} form-control`}/>
                                     </InputGroup>
                                 </FormGroup>
                             </Form>
@@ -159,10 +187,13 @@ class UpdateIssueDate extends Component {
                         <div className={styles.DaysWrapper}>
                             <FormGroup>
                                 <InputGroup className={this.state.daysFocus ? styles.DaysFocus : styles.DaysBlur}>
-                                    <FormControl type="text" defaultValue="1"
-                                                 className={`${styles.Days} ${styles.ResultInput}`}
-                                                 onFocus={this.handleDaysFocus} onBlur={this.handleDaysBlur}/>
-                                    <InputGroup.Addon>день</InputGroup.Addon>
+                                    <input type="text" defaultValue={this.state.startDate.diff(this.state.endDate) + 1}
+                                           className={`${styles.Days} ${styles.ResultInput} form-control`}
+                                           onFocus={this.handleDaysFocus} onBlur={this.handleDaysBlur}
+                                           ref={input => this.daysInput = input}/>
+                                    <InputGroup.Addon onClick={this.handleDaysAddonClick}>
+                                        день
+                                    </InputGroup.Addon>
                                 </InputGroup>
                             </FormGroup>
                         </div>
@@ -188,12 +219,16 @@ class UpdateIssueDate extends Component {
                         </div>
                     </div>
                     <div>
-                        <MonthCalendar month={currentMonth.month()} year={currentMonth.year()}
-                                       selectedFrom={selectedFrom} handleNextSelectedFrom={this.handleNextSelectedFrom}
-                                       handlePreviousSelectedFrom={this.handlePreviousSelectedFrom}/>
-                        <MonthCalendar month={nextMonth.month()} year={nextMonth.year()} selectedFrom={selectedFrom}
-                                       handleNextSelectedFrom={this.handleNextSelectedFrom}
-                                       handlePreviousSelectedFrom={this.handlePreviousSelectedFrom}
+                        <MonthCalendar month={currentMonth.month()}
+                                       year={currentMonth.year()}
+                                       selectedDate={selected}
+                                       handleNextSelectedDate={this.handleNextSelectedDate}
+                                       handlePreviousSelectedDate={this.handlePreviousSelectedDate}/>
+                        <MonthCalendar month={nextMonth.month()}
+                                       year={nextMonth.year()}
+                                       selectedDate={selected}
+                                       handleNextSelectedDate={this.handleNextSelectedDate}
+                                       handlePreviousSelectedDate={this.handlePreviousSelectedDate}
                                        right/>
                     </div>
                 </div>

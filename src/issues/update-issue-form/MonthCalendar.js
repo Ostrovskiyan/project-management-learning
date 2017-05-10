@@ -10,15 +10,15 @@ class MonthCalendar extends Component {
         let result = [];
         const daysInWeek = 7;
         const now = moment();
-        let selectedFrom = this.props.selectedFrom;
+        let selectedDate = this.props.selectedDate;
         for (let i = 0; i < daysInWeek; i++) {
             if(!(i >= emptyDays && month === date.month())) {
                 result[i] = <td key={i.toString()} className={styles.Empty}>0</td>;
             }
-            else if (date.isSame(selectedFrom, "day") && month === date.month()) {
+            else if (selectedDate && date.isSame(selectedDate, "day") && month === date.month()) {
                 result[i] = (<td key={i.toString()} className={styles.SelectedCell}>
-                                <SelectedDay day={date.date()} handleNext={this.props.handleNextSelectedFrom}
-                                             handlePrevious={this.props.handlePreviousSelectedFrom}/>
+                                <SelectedDay day={date.date()} handleNext={this.props.handleNextSelectedDate}
+                                             handlePrevious={this.props.handlePreviousSelectedDate}/>
                             </td>);
                 date.add(1, "days");
             }

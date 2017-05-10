@@ -5,11 +5,13 @@ class SelectedDay extends Component {
 
     onNext = (event) => {
         event.preventDefault();
+        event.stopPropagation();
         this.props.handleNext();
     };
 
     onPrevious = (event) => {
         event.preventDefault();
+        event.stopPropagation();
         this.props.handlePrevious();
     };
 
