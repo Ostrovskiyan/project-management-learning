@@ -20,7 +20,8 @@ class UpdateIssueDate extends Component {
         this.state = {
             daysFocus: false,
             selectedOption: Options.TOMORROW,
-            currentDate: moment()
+            currentDate: moment(),
+            selectedFrom: moment(),
         };
         this.handleDaysFocus = this.handleDaysFocus.bind(this);
         this.handleDaysBlur = this.handleDaysBlur.bind(this);
@@ -74,11 +75,28 @@ class UpdateIssueDate extends Component {
     handleCancel = (event) => {
         event.preventDefault();
         this.props.onCancel();
-    }
+    };
+
+    handleNextSelectedFrom = () => {
+        let selectedFrom = moment(this.state.selectedFrom);
+        selectedFrom.add(1, "days");
+        this.setState({
+            selectedFrom
+        });
+    };
+
+    handlePreviousSelectedFrom = () => {
+        let selectedFrom = moment(this.state.selectedFrom);
+        selectedFrom.subtract(1, "days");
+        this.setState({
+            selectedFrom
+        });
+    };
 
     render() {
         let currentMonth = moment(this.state.currentMonth);
         let nextMonth = moment(this.state.currentMonth);
+        let selectedFrom = moment(this.state.selectedFrom);
         nextMonth.add(1, "months");
 
         return (
@@ -170,8 +188,13 @@ class UpdateIssueDate extends Component {
                         </div>
                     </div>
                     <div>
-                        <MonthCalendar month={currentMonth.month()} year={currentMonth.year()}/>
-                        <MonthCalendar month={nextMonth.month()} year={nextMonth.year()} right/>
+                        <MonthCalendar month={currentMonth.month()} year={currentMonth.year()}
+                                       selectedFrom={selectedFrom} handleNextSelectedFrom={this.handleNextSelectedFrom}
+                                       handlePreviousSelectedFrom={this.handlePreviousSelectedFrom}/>
+                        <MonthCalendar month={nextMonth.month()} year={nextMonth.year()} selectedFrom={selectedFrom}
+                                       handleNextSelectedFrom={this.handleNextSelectedFrom}
+                                       handlePreviousSelectedFrom={this.handlePreviousSelectedFrom}
+                                       right/>
                     </div>
                 </div>
 

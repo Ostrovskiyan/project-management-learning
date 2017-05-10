@@ -42,6 +42,7 @@
     font-weight: bold;
     font-size: 14px;
     height: 25px;
+    border-radius: 2px !important;
 }
 
 .DaysWrapper {
@@ -63,11 +64,13 @@
 
 .DaysFocus {
     border: 1px solid #3c8dbc;
+    border-radius: 2px;
     width: 80px;
 }
 
 .DaysBlur {
     border: 1px solid #d2d6de;
+    border-radius: 2px;
     width: 80px;
 }
 
@@ -133,6 +136,7 @@
 .MonthCalendarWrapper {
     width: 50%;
     display: inline-block;
+    vertical-align: top;
 }
 
 .MonthCalendarWrapper.Left {
@@ -160,6 +164,7 @@
     border-bottom: 1px solid #d2d6de;
     color: #aaaaaa;
     font-weight: normal;
+    text-align: center;
 }
 
 .MonthCalendar > tbody > tr > td {
@@ -167,6 +172,8 @@
     height: 35px;
     text-align: center;
     border: none;
+    vertical-align: middle;
+    padding: 4.1% 0;
 }
 
 .MonthCalendar > tbody > tr > td:not(.Empty) {
@@ -234,4 +241,57 @@
     font-weight: bold;
     font-size: 16px;
     padding: 6px 0 0 0;
+}
+
+.SelectedDay {
+    position: absolute;
+    background-color: #5385B9;
+    top: 0;
+    bottom: 0;
+    left: -25%;
+    right: -25%;
+    color: #fff;
+    padding: 0;
+    cursor: auto;
+}
+
+.SelectedDay > div {
+    display: inline-block;
+    padding: 19% 0;
+}
+
+.SelectedCell {
+    position: relative;
+}
+
+.SelectedDay > .Nav {
+    width: 25%;
+    height: 100%;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.SelectedDay > .Nav.Left {
+    float: left;
+}
+
+.SelectedDay > .Nav.Left > i {
+    transform: scale(-0.5, 1);
+}
+
+.SelectedDay > .Nav.Right {
+    float: right;
+}
+
+.SelectedDay > .Nav.Right > i {
+    transform: scale(0.5, 1);
+}
+
+.SelectedDay > .Content {
+    width: 50%;
+}
+
+.SelectedDay > .Nav:hover {
+    color: #ddd;
+    cursor: pointer;
 }
