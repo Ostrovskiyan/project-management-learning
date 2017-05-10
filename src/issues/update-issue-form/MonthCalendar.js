@@ -13,7 +13,7 @@ class MonthCalendar extends Component {
         let selectedFrom = this.props.selectedFrom;
         for (let i = 0; i < daysInWeek; i++) {
             if(!(i >= emptyDays && month === date.month())) {
-                result[i] = <td key={i.toString()} className={styles.Empty}/>;
+                result[i] = <td key={i.toString()} className={styles.Empty}>0</td>;
             }
             else if (date.isSame(selectedFrom, "day") && month === date.month()) {
                 result[i] = (<td key={i.toString()} className={styles.SelectedCell}>
