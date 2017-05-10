@@ -235,7 +235,7 @@
 }
 
 .Before {
-    color: #aaaaaa;
+    color: #aaaaaa !important;
     padding: 5px 0 0 0;
 }
 
