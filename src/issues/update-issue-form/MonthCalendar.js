@@ -6,37 +6,64 @@ import SelectedDay from "./SelectedDay";
 
 class MonthCalendar extends Component {
 
+    static createHandleDayClick(handler, date, toBind) {
+        return function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+            handler(moment(date));
+        }.bind(toBind);
+    }
+
     generateDays = (date, emptyDays, month) => {
         let result = [];
         const daysInWeek = 7;
         const now = moment();
-        let selectedDate = this.props.selectedDate;
+        let {
+            selectedDate,
+            startDate,
+            endDate,
+            onDayClick,
+            withWeekends,
+        } = this.props;
         for (let i = 0; i < daysInWeek; i++) {
             if(!(i >= emptyDays && month === date.month())) {
                 result[i] = <td key={i.toString()} className={styles.Empty}>0</td>;
             }
             else if (selectedDate && date.isSame(selectedDate, "day") && month === date.month()) {
                 result[i] = (<td key={i.toString()} className={styles.SelectedCell}>
-                                <SelectedDay day={date.date()} handleNext={this.props.handleNextSelectedDate}
+                                <SelectedDay day={date.date()}
+                                             handleNext={this.props.handleNextSelectedDate}
                                              handlePrevious={this.props.handlePreviousSelectedDate}/>
                             </td>);
                 date.add(1, "days");
             }
             else {
-                let className = "";
-                if (date.day() === 0) {
-                    className = `${styles.Weekend} ${styles.Sunday} `;
+                let classes = [];
+                if((date.day() === 0 || date.day() === 6) && !withWeekends) {
+                    classes.push(styles.Weekend);
+                }
+                if (date.day() === 0 ) {
+                    classes.push(styles.Sunday);
                 } else if (date.day() === 6) {
-                    className = `${styles.Weekend} ${styles.Saturday} `;
+                    classes.push(styles.Saturday);
                 }
                 if (now.isSame(date, "day")) {
-                    className += styles.CurrentDay;
+                    classes.push(styles.CurrentDay);
                 } else if (date.isBefore(now)) {
-                    className += styles.Before;
+                    classes.push(styles.Before);
                 }
-                result[i] = <td key={i.toString()} className={className}>
-                    {date.date()}
-                </td>;
+                if(date.isBetween(startDate, endDate, 'days', '[]')) {
+                    classes.push(styles.Between);
+                }
+
+                let className = classes.length > 0 ? classes.reduce((prev, cur) => `${prev} ${cur}`) : "";
+
+
+                result[i] = <td key={i.toString()}
+                                onClick={MonthCalendar.createHandleDayClick(onDayClick, moment(date), this)}
+                                className={className}>
+                                {date.date()}
+                            </td>;
                 date.add(1, "days");
             }
         }

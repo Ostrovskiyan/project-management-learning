@@ -10,18 +10,18 @@ class UpdateIssueDateDropdown extends Component {
         super(props);
         this.handleClick = this.handleClick.bind(this);
         this.handleToggle = this.handleToggle.bind(this);
-        this.state = {open:false};
+        this.state = {open: false};
     }
 
     handleClick(event) {
         event.preventDefault();
-        this.setState ({
+        this.setState({
             open: true
         });
     }
 
     handleToggle(isOpen, event) {
-        if(event.type !== "react-select" && isOpen !== this.state.open) {
+        if (event.type !== "react-select" && isOpen !== this.state.open) {
             this.setState({
                 open: isOpen
             });
@@ -29,22 +29,24 @@ class UpdateIssueDateDropdown extends Component {
     }
 
     handleCancel = () => {
-        this.setState ({
+        this.setState({
             open: false
         });
     };
 
     render() {
+        let isOpen = this.state.open;
         return (
-            <Dropdown id="update-issue-date" bsStyle="link" open={this.state.open} onToggle={this.handleToggle}>
-                <Dropdown.Toggle bsStyle="link" noCaret className={mainStyles.MinimizeDropdown} onClick={this.handleClick}>
+            <Dropdown id="update-issue-date" bsStyle="link" open={isOpen} onToggle={this.handleToggle}>
+                <Dropdown.Toggle bsStyle="link" noCaret className={mainStyles.MinimizeDropdown}
+                                 onClick={this.handleClick}>
                     <div className={`${styles.IssueSettingTab} ${styles.date}`}>
                         <Glyphicon className="blue" glyph="glyphicon glyphicon-calendar"/>
                         <span> Окт 10(1 д.)</span>
                     </div>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                    <UpdateIssueDate onCancel={this.handleCancel}/>
+                    {isOpen ? <UpdateIssueDate onCancel={this.handleCancel}/> : null}
                 </Dropdown.Menu>
             </Dropdown>
         )

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import styles from "./UpdateIssue.css";
-import {Button, Form, FormControl, FormGroup, InputGroup} from "react-bootstrap";
+import {Button, Form, FormGroup, InputGroup} from "react-bootstrap";
 import MonthCalendar from "./MonthCalendar";
 import moment from "moment";
 import Checkbox from "../../general/Checkbox";
@@ -13,6 +13,8 @@ const Options = {
     SELECT_DATE: "SELECT_DATE"
 };
 
+const DATE_PATTERN = "DD/MM/YYYY";
+
 class UpdateIssueDate extends Component {
 
     constructor(props) {
@@ -20,10 +22,12 @@ class UpdateIssueDate extends Component {
         this.state = {
             daysFocus: false,
             selectedOption: Options.TOMORROW,
-            currentMonth: moment(),
-            startDate: moment(),
-            endDate: moment(),
-            selectedDate: undefined
+            currentMonth: moment().startOf('day'),
+            startDate: moment().startOf('day'),
+            endDate: moment().startOf('day'),
+            selectedDate: undefined,
+            daysDraft: undefined,
+            withWeekends: false
         };
         this.handleDaysFocus = this.handleDaysFocus.bind(this);
         this.handleDaysBlur = this.handleDaysBlur.bind(this);
@@ -41,25 +45,11 @@ class UpdateIssueDate extends Component {
     }
 
     handleClick = (event) => {
-      event.preventDefault();
-      this.setState({
-          selectedDate: undefined
-      })
+        event.preventDefault();
+        this.setState({
+            selectedDate: undefined
+        })
     };
-
-    handleDaysFocus(event) {
-        event.preventDefault();
-        this.setState({
-            daysFocus: true
-        });
-    }
-
-    handleDaysBlur(event) {
-        event.preventDefault();
-        this.setState({
-            daysFocus: false
-        });
-    }
 
     handleDaysAddonClick = (event) => {
         event.preventDefault();
@@ -92,21 +82,34 @@ class UpdateIssueDate extends Component {
     };
 
     handleNextSelectedDate = () => {
-        let startDate = moment(this.state[this.state.selectedDate]);
-        startDate.add(1, "days");
+        let selectedDate = this.state.selectedDate;
+        let newDate = moment(this.state[selectedDate]);
+        newDate.add(1, "days");
         this.setState({
-            startDate
+            [selectedDate]: newDate
         });
-        this[this.state.selectedDate + "Input"].focus();
+        this[selectedDate + "Input"].focus();
     };
 
     handlePreviousSelectedDate = () => {
-        let startDate = moment(this.state[this.state.selectedDate]);
-        startDate.subtract(1, "days");
+        let selectedDate = this.state.selectedDate;
+        let newDate = moment(this.state[selectedDate]);
+        newDate.subtract(1, "days");
         this.setState({
-            startDate
+            [selectedDate]: newDate
         });
-        this[this.state.selectedDate + "Input"].focus();
+        this[selectedDate + "Input"].focus();
+    };
+
+    handleCalendarDayClick = (date) => {
+        let selectedDate = this.state.selectedDate;
+        if (selectedDate) {
+            let newDate = moment(date);
+            this.setState({
+                [selectedDate]: newDate
+            });
+            this[selectedDate + "Input"].focus();
+        }
     };
 
     handleStartDateClick = (event) => {
@@ -117,11 +120,154 @@ class UpdateIssueDate extends Component {
         });
     };
 
+    handleEndDateClick = (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        this.setState({
+            selectedDate: 'endDate'
+        });
+    };
+
+    handleChangeStartDate = (event) => {
+        event.preventDefault();
+        let value = event.target.value;
+        this.setState({
+            startDateDraft: value
+        });
+    };
+
+    handleStartDateBlur = (event) => {
+        event.preventDefault();
+        let {startDateDraft, startDate} = this.state;
+        if (moment(startDateDraft, DATE_PATTERN).isValid()) {
+            startDate = moment(startDateDraft, DATE_PATTERN);
+        }
+        this.setState({
+            startDate,
+            startDateDraft: undefined
+        });
+    };
+
+    handleChangeEndDate = (event) => {
+        event.preventDefault();
+        let value = event.target.value;
+        this.setState({
+            endDateDraft: value
+        });
+    };
+
+    handleEndDateBlur = (event) => {
+        event.preventDefault();
+        let {endDateDraft, endDate} = this.state;
+        if (moment(endDateDraft, DATE_PATTERN).isValid()) {
+            endDate = moment(endDateDraft, DATE_PATTERN);
+        }
+        this.setState({
+            endDate,
+            endDateDraft: undefined
+        });
+    };
+
+    handleChangeDays = (event) => {
+        event.preventDefault();
+        let value = event.target.value;
+        this.setState({
+            daysDraft: value
+        });
+    };
+
+    handleDaysFocus(event) {
+        event.preventDefault();
+        this.setState({
+            daysFocus: true
+        });
+    }
+
+    handleDaysBlur(event) {
+        event.preventDefault();
+        let {daysDraft, startDate, endDate, withWeekends} = this.state;
+        let daysDraftNumber = Number(daysDraft);
+        if (!isNaN(daysDraftNumber) && daysDraftNumber > 0) {
+            if (withWeekends) {
+                endDate = moment(startDate).add(daysDraftNumber - 1, "days");
+            } else {
+                let localStart = moment(startDate.format(DATE_PATTERN), DATE_PATTERN);
+                let toAdd = daysDraftNumber - 1;
+                let dayOfWeek = localStart.day();
+                let toMonday = ((7 - dayOfWeek) + 1) % 7;
+                let weekendsToMon = dayOfWeek === 0 ? 1 : 2;
+                if (toMonday === 0 || (toMonday - weekendsToMon <= toAdd && toMonday - weekendsToMon >= 0)) {
+                    let needed = toMonday === 0 ? toAdd : toAdd - toMonday + weekendsToMon;
+                    toAdd = toMonday;
+
+                    toAdd += ((needed - (needed % 5)) / 5) * 7;
+                    toAdd += needed % 5;
+                }
+                endDate = moment(startDate).add(toAdd, "days");
+            }
+        }
+        this.setState({
+            daysFocus: false,
+            daysDraft: undefined,
+            endDate
+        });
+    }
+
+    handleWithWeekendChange = (withWeekends) => {
+        this.setState({
+            withWeekends,
+        });
+    };
+
+    getDays = (startDate,
+               endDate,
+               withWeekends) => {
+        if (withWeekends) {
+            return endDate.diff(startDate, 'days') + 1;
+        } else {
+            startDate = moment(startDate.format(DATE_PATTERN), DATE_PATTERN);
+            endDate = moment(endDate.format(DATE_PATTERN), DATE_PATTERN);
+            debugger;
+            let realDiff = endDate.diff(startDate, 'days') + 1;
+            let dayOfWeek = startDate.day();
+            let weekendCount = 0;
+            if (dayOfWeek === 0) {
+                weekendCount++;
+            }
+            let toSaturday = 6 - dayOfWeek;
+            if (toSaturday < realDiff) {
+                let fromSat = realDiff - toSaturday;
+                weekendCount += ((fromSat - fromSat % 7) / 7) * 2;
+                if (fromSat % 7 !== 0) {
+                    weekendCount += fromSat % 7 === 1 ? 1 : 2;
+                }
+            } else if (dayOfWeek === 6) {
+                weekendCount++;
+            }
+            return realDiff - weekendCount;
+        }
+    };
+
     render() {
-        let currentMonth = moment(this.state.currentMonth);
-        let nextMonth = moment(this.state.currentMonth);
-        let selected = this.state.selectedDate && moment(this.state[this.state.selectedDate]);
-        nextMonth.add(1, "months");
+        let {
+            currentMonth,
+            selectedDate,
+            startDate,
+            startDateDraft,
+            endDate,
+            endDateDraft,
+            daysDraft,
+            withWeekends,
+        } = this.state;
+
+        let days = daysDraft || this.getDays(startDate, endDate, withWeekends);
+
+        let inputStartDateValue = startDateDraft || startDate.format(DATE_PATTERN);
+        let inputEndDateValue = endDateDraft || endDate.format(DATE_PATTERN);
+
+        currentMonth = moment(currentMonth);
+        let nextMonth = moment(currentMonth).add(1, "months");
+        let selected = selectedDate && moment(this.state[selectedDate]);
 
         return (
             <div className={styles.Main} onClick={this.handleClick}>
@@ -162,19 +308,25 @@ class UpdateIssueDate extends Component {
                             <Form inline>
                                 <FormGroup className={styles.DateInputWrapper}>
                                     <InputGroup>
-                                        <input  type="text"
-                                                value={this.state.startDate.format("DD/MM/YYYY")}
-                                                className={`${styles.ResultInput} form-control`}
-                                                onClick={this.handleStartDateClick}
-                                                ref={input => this.startDateInput = input}/>
+                                        <input type="text"
+                                               value={inputStartDateValue}
+                                               className={`${styles.ResultInput} form-control`}
+                                               onClick={this.handleStartDateClick}
+                                               onChange={this.handleChangeStartDate}
+                                               onBlur={this.handleStartDateBlur}
+                                               ref={input => this.startDateInput = input}/>
                                     </InputGroup>
                                 </FormGroup>
                                 <span className={styles.BetweenDates}> &#8211; </span>
                                 <FormGroup className={styles.DateInputWrapper}>
                                     <InputGroup>
-                                        <input  type="text"
-                                                value={this.state.endDate.format("DD/MM/YYYY")}
-                                                className={`${styles.ResultInput} form-control`}/>
+                                        <input type="text"
+                                               value={inputEndDateValue}
+                                               className={`${styles.ResultInput} form-control`}
+                                               onClick={this.handleEndDateClick}
+                                               onChange={this.handleChangeEndDate}
+                                               onBlur={this.handleEndDateBlur}
+                                               ref={input => this.endDateInput = input}/>
                                     </InputGroup>
                                 </FormGroup>
                             </Form>
@@ -187,9 +339,12 @@ class UpdateIssueDate extends Component {
                         <div className={styles.DaysWrapper}>
                             <FormGroup>
                                 <InputGroup className={this.state.daysFocus ? styles.DaysFocus : styles.DaysBlur}>
-                                    <input type="text" defaultValue={this.state.startDate.diff(this.state.endDate) + 1}
+                                    <input type="text"
+                                           value={days}
                                            className={`${styles.Days} ${styles.ResultInput} form-control`}
-                                           onFocus={this.handleDaysFocus} onBlur={this.handleDaysBlur}
+                                           onChange={this.handleChangeDays}
+                                           onFocus={this.handleDaysFocus}
+                                           onBlur={this.handleDaysBlur}
                                            ref={input => this.daysInput = input}/>
                                     <InputGroup.Addon onClick={this.handleDaysAddonClick}>
                                         день
@@ -222,13 +377,21 @@ class UpdateIssueDate extends Component {
                         <MonthCalendar month={currentMonth.month()}
                                        year={currentMonth.year()}
                                        selectedDate={selected}
+                                       startDate={startDate}
+                                       endDate={endDate}
+                                       onDayClick={this.handleCalendarDayClick}
                                        handleNextSelectedDate={this.handleNextSelectedDate}
-                                       handlePreviousSelectedDate={this.handlePreviousSelectedDate}/>
+                                       handlePreviousSelectedDate={this.handlePreviousSelectedDate}
+                                       withWeekends={withWeekends}/>
                         <MonthCalendar month={nextMonth.month()}
                                        year={nextMonth.year()}
                                        selectedDate={selected}
+                                       startDate={startDate}
+                                       endDate={endDate}
+                                       onDayClick={this.handleCalendarDayClick}
                                        handleNextSelectedDate={this.handleNextSelectedDate}
                                        handlePreviousSelectedDate={this.handlePreviousSelectedDate}
+                                       withWeekends={withWeekends}
                                        right/>
                     </div>
                 </div>
@@ -236,7 +399,10 @@ class UpdateIssueDate extends Component {
                 <div className={styles.Footer}>
                     <Button bsStyle="primary" className={styles.Ok}>OK</Button>
                     <Button className={styles.Cancel} onClick={this.handleCancel}>Отмена</Button>
-                    <Checkbox wrapperStyle={styles.WorkWeekend} text="работа на выходных"/>
+                    <Checkbox wrapperStyle={styles.WorkWeekend}
+                              text="работа на выходных"
+                              checked={withWeekends}
+                              onChange={this.handleWithWeekendChange}/>
                 </div>
             </div>
         )

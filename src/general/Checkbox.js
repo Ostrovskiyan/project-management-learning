@@ -1,5 +1,5 @@
-import React, {Component} from 'react';
-import styles from "./Checkbox.css"
+import React, {Component} from "react";
+import styles from "./Checkbox.css";
 import {Glyphicon} from "react-bootstrap";
 
 class Checkbox extends Component {
@@ -13,17 +13,23 @@ class Checkbox extends Component {
 
     handleClick = (event) => {
         event.preventDefault();
+        let {onChange} = this.props;
+        let {checked} = this.state;
+        if (onChange) {
+            onChange(!checked);
+        }
         this.setState({
-            checked: !this.state.checked
+            checked: !checked
         });
     };
 
     render() {
         let {text, wrapperStyle, checkboxStyle, textStyle, okStyle} = {...this.props};
+        let {checked} = this.state;
         return (
             <div className={`${styles.Wrapper} ${wrapperStyle || ""}`} onClick={this.handleClick}>
                 <div className={`${styles.Checkbox} ${checkboxStyle || ""}`}>
-                    {this.state.checked ?
+                    {checked ?
                         <Glyphicon glyph="glyphicon glyphicon-ok" className={`${styles.Glyph} ${okStyle || ""}`}/>
                         : ""
                     }

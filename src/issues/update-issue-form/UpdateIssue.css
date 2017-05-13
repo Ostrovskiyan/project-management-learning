@@ -187,6 +187,10 @@
     cursor: pointer;
 }
 
+.MonthCalendar > tbody > tr > td.Empty:hover {
+    cursor: default;
+}
+
 .MonthCalendar > tbody > tr:last-child > td:last-child {
     border-bottom: 1px solid #ffffff;
 }
@@ -244,6 +248,10 @@
     padding: 6px 0 0 0;
 }
 
+.Between {
+    background-color: #b3ffb3;
+}
+
 .SelectedDay {
     position: absolute;
     background-color: #5385B9;
@@ -268,12 +276,11 @@
 .SelectedDay > .Nav {
     width: 25%;
     height: 100%;
-    padding-left: 5px;
-    padding-right: 5px;
 }
 
 .SelectedDay > .Nav.Left {
     float: left;
+    padding-left: 5px;
 }
 
 .SelectedDay > .Nav.Left > i {
@@ -282,6 +289,7 @@
 
 .SelectedDay > .Nav.Right {
     float: right;
+    padding-right: 5px;
 }
 
 .SelectedDay > .Nav.Right > i {
