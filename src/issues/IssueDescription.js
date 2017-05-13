@@ -35,9 +35,21 @@ class IssueDescription extends Component {
         }));
     }
 
+    changeDates = (startDate, endDate) => {
+        let {issue} = this.props;
+        this.props.dispatch(updateIssue({
+            ...issue,
+            startDate,
+            endDate
+        }));
+    }
+
     render() {
         let {issue} = this.props;
-
+        let {creatingDate,
+            startDate,
+            endDate
+        } = issue;
         return (
             <div className={`${mainStyles.FullHeight} ${styles.IssueDescription}`}>
                 <div className={styles.IssueHeader}>
@@ -96,13 +108,13 @@ class IssueDescription extends Component {
                                 <a className={styles.IssueAuthorLink}>{`${issue.author.name}
                                     ${issue.author.surname.slice(0, 1)}`}
                                 </a>,
-                                {issue.creatingDate.getHours()}:{issue.creatingDate.getMinutes()}
+                                {creatingDate.format("HH:mm")}
                             </span>
                         </div>
                     </div>
                 </div>
                 <div className={styles.IssueSettingTabs}>
-                    <UpdateIssueDateDropdown/>
+                    <UpdateIssueDateDropdown onDateChange={this.changeDates} startDate={startDate} endDate={endDate}/>
                     <div className={`${styles.IssueSettingTab} ${styles.subtask}`}>
                         <Glyphicon glyph="glyphicon glyphicon-th-list"/>
                         <span> Добавить подзадачу</span>

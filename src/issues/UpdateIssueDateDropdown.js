@@ -34,19 +34,30 @@ class UpdateIssueDateDropdown extends Component {
         });
     };
 
+    handleSubmit = (startDate, endDate) => {
+        let {onDateChange} = this.props;
+        onDateChange(startDate, endDate);
+        this.setState({
+            open: false
+        });
+    };
+
     render() {
         let isOpen = this.state.open;
+        let {startDate, endDate} = this.props;
+        let diff = endDate.diff(startDate, "day") + 1;
+        let headerText = diff === 1 ? `${startDate.format("MMM DD")}(1 д.)` : `${startDate.format("MMM DD")} - ${endDate.format("MMM DD")}(${diff} д.)`;
         return (
             <Dropdown id="update-issue-date" bsStyle="link" open={isOpen} onToggle={this.handleToggle}>
                 <Dropdown.Toggle bsStyle="link" noCaret className={mainStyles.MinimizeDropdown}
                                  onClick={this.handleClick}>
                     <div className={`${styles.IssueSettingTab} ${styles.date}`}>
                         <Glyphicon className="blue" glyph="glyphicon glyphicon-calendar"/>
-                        <span> Окт 10(1 д.)</span>
+                        <span> {headerText}</span>
                     </div>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                    {isOpen ? <UpdateIssueDate onCancel={this.handleCancel}/> : null}
+                    {isOpen ? <UpdateIssueDate onCancel={this.handleCancel} onSubmit={this.handleSubmit} startDate={startDate} endDate={endDate}/> : null}
                 </Dropdown.Menu>
             </Dropdown>
         )

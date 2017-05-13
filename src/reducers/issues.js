@@ -1,4 +1,5 @@
 import {ADD_ISSUE, ADD_ISSUE_END, CLICK_ADD_ISSUE, DESELECT_ISSUE, SELECT_ISSUE, UPDATE_ISSUE} from "../actions/issues";
+import moment from "moment";
 
 let initialIssueId = 0;
 
@@ -22,12 +23,11 @@ const issues = (state = {list: []}, action) => {
                     {
                         id: initialIssueId++,
                         name: action.issueName,
-                        startDate: new Date(),
-                        endDate: new Date(),
-                        creatingDate: new Date(),
+                        startDate: moment().startOf("day"),
+                        endDate: moment().startOf("day"),
+                        creatingDate: moment(),
                         author: action.author,
                         assigned: action.assigned,
-
                     }
                 ]
             };

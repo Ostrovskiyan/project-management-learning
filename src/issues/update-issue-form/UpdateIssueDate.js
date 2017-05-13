@@ -19,12 +19,14 @@ class UpdateIssueDate extends Component {
 
     constructor(props) {
         super(props);
+        let {startDate,
+        endDate} = this.props;
         this.state = {
             daysFocus: false,
-            selectedOption: Options.TOMORROW,
+            selectedOption: Options.SELECT_DATE,
             currentMonth: moment().startOf('day'),
-            startDate: moment().startOf('day'),
-            endDate: moment().startOf('day'),
+            startDate,
+            endDate,
             selectedDate: undefined,
             daysDraft: undefined,
             withWeekends: false
@@ -38,10 +40,28 @@ class UpdateIssueDate extends Component {
     static createHandleSelectOption(option, toBind) {
         return function (event) {
             event.preventDefault();
-            this.setState({
-                selectedOption: option
-            });
+            if (UpdateIssueDate.getEndDateByOption(option)) {
+                this.setState({
+                    selectedOption: option,
+                    endDate: UpdateIssueDate.getEndDateByOption(option)
+                });
+            } else {
+                this.setState({
+                    selectedOption: option
+                });
+            }
         }.bind(toBind);
+    }
+
+    static getEndDateByOption(option) {
+        switch (option) {
+            case Options.TODAY:
+                return moment().startOf('day');
+            case Options.TOMORROW:
+                return moment().startOf('day').add(1, "day");
+            default:
+                return undefined;
+        }
     }
 
     handleClick = (event) => {
@@ -106,7 +126,7 @@ class UpdateIssueDate extends Component {
         if (selectedDate) {
             let newDate = moment(date);
             this.setState({
-                [selectedDate]: newDate
+                [selectedDate]: newDate,
             });
             this[selectedDate + "Input"].focus();
         }
@@ -116,7 +136,8 @@ class UpdateIssueDate extends Component {
         event.preventDefault();
         event.stopPropagation();
         this.setState({
-            selectedDate: 'startDate'
+            selectedDate: 'startDate',
+            selectedOption: Options.SELECT_DATE,
         });
     };
 
@@ -124,7 +145,8 @@ class UpdateIssueDate extends Component {
         event.preventDefault();
         event.stopPropagation();
         this.setState({
-            selectedDate: 'endDate'
+            selectedDate: 'endDate',
+            selectedOption: Options.SELECT_DATE,
         });
     };
 
@@ -179,9 +201,17 @@ class UpdateIssueDate extends Component {
     handleDaysFocus(event) {
         event.preventDefault();
         this.setState({
-            daysFocus: true
+            daysFocus: true,
+            selectedOption: Options.SELECT_DATE,
         });
     }
+
+    handleSubmit = (event) => {
+        event.preventDefault();
+        let {onSubmit} = this.props;
+        let {startDate, endDate} = this.state;
+        onSubmit(startDate, endDate);
+    };
 
     handleDaysBlur(event) {
         event.preventDefault();
@@ -227,7 +257,6 @@ class UpdateIssueDate extends Component {
         } else {
             startDate = moment(startDate.format(DATE_PATTERN), DATE_PATTERN);
             endDate = moment(endDate.format(DATE_PATTERN), DATE_PATTERN);
-            debugger;
             let realDiff = endDate.diff(startDate, 'days') + 1;
             let dayOfWeek = startDate.day();
             let weekendCount = 0;
@@ -397,7 +426,7 @@ class UpdateIssueDate extends Component {
                 </div>
 
                 <div className={styles.Footer}>
-                    <Button bsStyle="primary" className={styles.Ok}>OK</Button>
+                    <Button bsStyle="primary" className={styles.Ok} onClick={this.handleSubmit}>OK</Button>
                     <Button className={styles.Cancel} onClick={this.handleCancel}>Отмена</Button>
                     <Checkbox wrapperStyle={styles.WorkWeekend}
                               text="работа на выходных"

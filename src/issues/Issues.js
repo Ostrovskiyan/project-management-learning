@@ -7,10 +7,10 @@ import AddIssueInput from "./AddIssueInput";
 import {connect} from "react-redux";
 import {addIssueEnd, clickAddIssue, deselectIssue, processAddIssue, selectIssue} from "../actions/issues";
 import {getUser} from "../api/api";
-import {toTitleDate} from "../util/date-util";
 import IssueItem from "./IssueItem";
 import IssueDescription from "./IssueDescription";
 import AddLinkButton from "./AddLinkButton";
+import moment from "moment";
 
 class Issues extends Component {
 
@@ -50,22 +50,15 @@ class Issues extends Component {
         event.preventDefault();
     }
 
-    static getNowPlusDays(days) {
-        let result = new Date();
-        result.setHours(0, 0, 0, 0);
-        result.setDate(result.getDate() + days);
-        return result;
-    }
-
     toIssueItem(issue) {
         return <IssueItem onClick={this.handleSelectIssue} key={issue.id} issue={issue} selected={issue.id === this.props.selectedIssue}/>;
     }
 
     render() {
-        let now = Issues.getNowPlusDays(0);
-        let weekEnd = Issues.getNowPlusDays(6);
-        let nextWeekStart = Issues.getNowPlusDays(7);
-        let nextWeekEnd = Issues.getNowPlusDays(13);
+        let now = moment().startOf("day");
+        let weekEnd = moment().startOf("day").add(6, "day");
+        let nextWeekStart = moment().startOf("day").add(7, "day");
+        let nextWeekEnd = moment().startOf("day").add(13, "day");
 
         let addIssueComponent = this.props.addingIssue ? <AddIssueInput handleFocusEnd={this.handleStopFocus} handleSubmit={this.handleAddIssue} userAvatar={this.user.avatar}/> :
             <AddLinkButton text="Новая задача" handleClick={this.handleClickNewTask}/>;
@@ -73,55 +66,39 @@ class Issues extends Component {
         let issueDoneIcon = <Glyphicon className={styles.IssueDoneIcon} glyph="glyphicon glyphicon-ok"/>;
 
         let issuesToday = this.props.issues
-            .filter(issue => {
-                let issueDate = new Date(issue.startDate.getTime());
-                issueDate.setHours(0, 0, 0, 0);
-                return issueDate.getTime() === now.getTime();
-            })
+            .filter(issue => now.isSame(issue.startDate, "day"))
             .map(issue => this.toIssueItem(issue));
 
         let issueThisWeek = this.props.issues
-            .filter(issue => {
-                let issueDate = new Date(issue.startDate.getTime());
-                issueDate.setHours(0, 0, 0, 0);
-                return issueDate.getTime() > now.getTime() && issueDate.getTime() <= weekEnd.getTime();
-            })
+            .filter(issue => issue.startDate.isAfter(now, "day") && issue.startDate.isBefore(nextWeekStart, "day"))
             .map(issue => this.toIssueItem(issue));
 
         let issueNextWeek = this.props.issues
-            .filter(issue => {
-                let issueDate = new Date(issue.startDate.getTime());
-                issueDate.setHours(0, 0, 0, 0);
-                return issueDate.getTime() >= nextWeekStart.getTime() && issueDate.getTime() <= nextWeekEnd.getTime();
-            })
+            .filter(issue => issue.startDate.isSameOrAfter(nextWeekStart, "day") && issue.startDate.isSameOrBefore(nextWeekEnd, "day"))
             .map(issue => this.toIssueItem(issue));
 
         let issueLater = this.props.issues
-            .filter(issue => {
-                let issueDate = new Date(issue.startDate.getTime());
-                issueDate.setHours(0, 0, 0, 0);
-                return issueDate.getTime() > nextWeekEnd.getTime();
-            })
+            .filter(issue => issue.startDate.isAfter(nextWeekEnd, "day"))
             .map(issue => this.toIssueItem(issue));
 
 
         let today = <div>
-                        <IssueTimeHeader title="НА СЕГОДНЯ" startDate={toTitleDate(now)} issueCount={issuesToday.length}/>
+                        <IssueTimeHeader title="НА СЕГОДНЯ" startDate={now.format("MMM DD")} issueCount={issuesToday.length}/>
                         {addIssueComponent}
                         {issuesToday}
                         <IssueTimeHeader className={styles.FloatDown} icon={issueDoneIcon} title="ЗАВЕРШЕНА" issueCount={0}/>
                     </div>;
 
         let thisWeek = <div>
-                            <IssueTimeHeader title="НА ЭТУ НЕДЕЛЮ" startDate={toTitleDate(now)} endDate={toTitleDate(weekEnd)} issueCount={issueThisWeek.length}/>
+                            <IssueTimeHeader title="НА ЭТУ НЕДЕЛЮ" startDate={now.format("MMM DD")} endDate={weekEnd.format("MMM DD")} issueCount={issueThisWeek.length}/>
                             {issueThisWeek}
                         </div>;
         let nextWeek = <div>
-                            <IssueTimeHeader title="НА СЛЕД. НЕДЕЛЮ" startDate={toTitleDate(nextWeekStart)} endDate={toTitleDate(nextWeekEnd)} issueCount={issueNextWeek.length}/>
+                            <IssueTimeHeader title="НА СЛЕД. НЕДЕЛЮ" startDate={nextWeekStart.format("MMM DD")} endDate={nextWeekEnd.format("MMM DD")} issueCount={issueNextWeek.length}/>
                             {issueNextWeek}
                         </div>;
         let later = <div>
-                        <IssueTimeHeader title="ПОЗЖЕ" startDate={`После ${toTitleDate(nextWeekEnd)}`} issueCount={issueLater.length}/>
+                        <IssueTimeHeader title="ПОЗЖЕ" startDate={`После ${nextWeekEnd.format("MMM DD")}`} issueCount={issueLater.length}/>
                         {issueLater}
                     </div>;
 

@@ -10,7 +10,7 @@ class MonthCalendar extends Component {
         return function (event) {
             event.preventDefault();
             event.stopPropagation();
-            handler(moment(date));
+            handler(moment(date).startOf("day"));
         }.bind(toBind);
     }
 

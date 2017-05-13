@@ -21,7 +21,7 @@ class AddIssueInput extends Component {
     render() {
         return (
             <Form inline className={styles.AddIssueForm} onSubmit={this.handleFocusEnd}>
-                <img alt="avatar" src={this.props.userAvatar} className={styles.IssueAvatar}/>
+                <img alt="avatar" src={this.props.userAvatar} className={styles.AddIssueAvatar}/>
                 <input type="text" className={`form-control ${styles.AddIssueInput}`} ref={(input) => {this.issueInput = input}} onBlur={this.props.handleFocusEnd}/>
             </Form>
         )
