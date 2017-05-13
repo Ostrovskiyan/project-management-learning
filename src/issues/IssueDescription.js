@@ -42,7 +42,7 @@ class IssueDescription extends Component {
             startDate,
             endDate
         }));
-    }
+    };
 
     render() {
         let {issue} = this.props;

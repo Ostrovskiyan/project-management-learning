@@ -4,34 +4,23 @@ import AppNavbar from "./AppNavbar";
 import {Col, Row} from "react-bootstrap";
 import AppMenu from "./AppMenu";
 import Issues from "../issues/Issues";
-import {connect} from "react-redux";
+import {Route} from "react-router-dom";
 
 class PageTemplate extends Component {
     render() {
-        let menu = (<Col xs={2} className={`${styles.FullHeight} ${styles.Menu}`}>
-                        <AppMenu/>
-                    </Col>);
-        let content = null;
-        if (this.props.myWorkSelected) {
-            content = <Issues/>;
-        }
         return (
             <div className={styles.Background}>
                 <AppNavbar/>
                 <Row className={styles.Main}>
-                    {menu}
-                    {content}
+                    <Col xs={2} className={`${styles.FullHeight} ${styles.Menu}`}>
+                        <AppMenu/>
+                    </Col>
+                    <Route path="/issues" component={Issues}/>
+                    <Route path="/projects" component={null}/>
                 </Row>
             </div>
         )
     }
 }
 
-function mapStateToProps(state) {
-    return {
-        myWorkSelected: state.menu.myWorkSelected,
-        projectsTabSelected: state.menu.projectsTabSelected
-    }
-}
-
-export default connect(mapStateToProps)(PageTemplate);
+export default PageTemplate;

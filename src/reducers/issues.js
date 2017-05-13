@@ -1,4 +1,4 @@
-import {ADD_ISSUE, ADD_ISSUE_END, CLICK_ADD_ISSUE, DESELECT_ISSUE, SELECT_ISSUE, UPDATE_ISSUE} from "../actions/issues";
+import {ADD_ISSUE, ADD_ISSUE_END, CLICK_ADD_ISSUE, UPDATE_ISSUE} from "../actions/issues";
 import moment from "moment";
 
 let initialIssueId = 0;
@@ -30,16 +30,6 @@ const issues = (state = {list: []}, action) => {
                         assigned: action.assigned,
                     }
                 ]
-            };
-        case SELECT_ISSUE:
-            return {
-                ...state,
-                selectedIssue: action.id
-            };
-        case DESELECT_ISSUE:
-            return {
-                ...state,
-                selectedIssue: null
             };
         case UPDATE_ISSUE:
             console.log(action);

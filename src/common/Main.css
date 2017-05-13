@@ -121,6 +121,11 @@
     background-color: #FFFFFF;
     margin-right: 0.7%;
     padding: 0;
+    overflow: auto;
+}
+
+.WithoutOverflow {
+    overflow: inherit;
 }
 
 .FullContent {

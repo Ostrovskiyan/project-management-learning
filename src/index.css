@@ -1,5 +1,9 @@
-body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+.App {
+  height: 100%;
+  width: 100%;
 }
+
+:global a[href], :global a[href]:visited {
+  color: #000000;
+}
+
