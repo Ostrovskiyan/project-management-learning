@@ -1,0 +1,7 @@
+.Button {
+    height: 100%;
+}
+
+.Button > span {
+    margin-right: 5px;
+}

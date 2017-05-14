@@ -4,25 +4,31 @@ import styles from "./Issues.css";
 
 class AddIssueInput extends Component {
 
-    constructor(props) {
-        super(props);
-        this.handleFocusEnd = this.handleFocusEnd.bind(this);
-    }
-
-    componentDidMount(){
+    focus() {
         this.issueInput.focus();
     }
 
-    handleFocusEnd(event) {
-        this.props.handleSubmit(this.issueInput.value);
-        event.preventDefault();
+    get value() {
+        return this.issueInput.value;
     }
 
     render() {
+        let {
+            onSubmit,
+            onBlur,
+            userAvatar
+        } = this.props;
         return (
-            <Form inline className={styles.AddIssueForm} onSubmit={this.handleFocusEnd}>
-                <img alt="avatar" src={this.props.userAvatar} className={styles.AddIssueAvatar}/>
-                <input type="text" className={`form-control ${styles.AddIssueInput}`} ref={(input) => {this.issueInput = input}} onBlur={this.props.handleFocusEnd}/>
+            <Form inline className={styles.AddIssueForm} onSubmit={onSubmit}>
+                <img alt="avatar"
+                     src={userAvatar}
+                     className={styles.AddIssueAvatar}/>
+                <input type="text"
+                       className={`form-control ${styles.AddIssueInput}`}
+                       ref={(input) => {
+                           this.issueInput = input
+                       }}
+                       onBlur={onBlur}/>
             </Form>
         )
     }

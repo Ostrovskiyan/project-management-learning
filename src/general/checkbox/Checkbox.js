@@ -13,18 +13,31 @@ class Checkbox extends Component {
 
     handleClick = (event) => {
         event.preventDefault();
-        let {onChange} = this.props;
+        let {onChange, readOnly} = this.props;
         let {checked} = this.state;
-        if (onChange) {
-            onChange(!checked);
+
+        let newResult = !checked;
+        if (readOnly) {
+            newResult = checked;
+        } else {
+            if (onChange) {
+                onChange(newResult);
+            }
         }
         this.setState({
-            checked: !checked
+            checked: newResult
         });
     };
 
     render() {
-        let {text, wrapperStyle, checkboxStyle, textStyle, okStyle} = {...this.props};
+        let {
+            text,
+            wrapperStyle,
+            checkboxStyle,
+            textStyle,
+            okStyle,
+            withoutText,
+        } = this.props;
         let {checked} = this.state;
         return (
             <div className={`${styles.Wrapper} ${wrapperStyle || ""}`} onClick={this.handleClick}>
@@ -34,9 +47,11 @@ class Checkbox extends Component {
                         : ""
                     }
                 </div>
-                <div className={`${styles.Text} ${textStyle || ""}`}>
-                    {text}
-                </div>
+                {withoutText ? null :
+                    <div className={`${styles.Text} ${textStyle || ""}`}>
+                        {text}
+                    </div>
+                }
             </div>
         )
     }

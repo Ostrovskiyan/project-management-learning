@@ -200,7 +200,7 @@
     height: 100%;
 }
 
-.MarkSuccessWrapper input{
+.MarkSuccessWrapper input {
     margin: 0;
 }
 
@@ -213,7 +213,7 @@
 .IssueAuthorWrapper {
     display: inline-block;
     height: 100%;
-    float:right;
+    float: right;
     padding-top: 20px;
     padding-right: 6%;
 }
@@ -287,15 +287,15 @@
     background-image: inherit !important;;
 }
 
-.SelectedIssueStatus>a>.IssueStatus {
+.SelectedIssueStatus > a > .IssueStatus {
     border: 1px solid #ffffff;
 }
 
-.SelectedIssueStatus>a>.IssueStatusName {
+.SelectedIssueStatus > a > .IssueStatusName {
     color: #ffffff;
 }
 
-a>.IssueStatus {
+a > .IssueStatus {
     margin-top: 5px;
 }
 
@@ -354,6 +354,7 @@ a>.IssueStatus {
     height: 65px;
     margin-left: 0 !important;
     border-bottom: solid 1px #cccccc;
+    position: relative;
 }
 
 .IssueSettingTabs > div {
@@ -374,9 +375,21 @@ a>.IssueStatus {
     border-bottom: solid 1px #cccccc;
 }
 
-.IssueSettingTab.subtask {
-    border-left: 1px solid #ffffff;
+.IssueSettingTab.SubtaskTab {
+    bottom: -1px;
+    position: absolute;
+    top: 0;
+    height: inherit;
+    border-bottom: inherit;
+    border-left: 1px solid transparent;
     padding: 20px 35px;
+}
+
+.IssueSettingTab.SubtaskTab.Selected {
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #e8e8e8;
+    border-left: 1px solid #cccccc;
+    border-right: 1px solid #cccccc;
 }
 
 .AddDescriptionLinkBtn, .AddDescriptionLinkBtn:hover, .AddDescriptionLinkBtn:active, .AddDescriptionLinkBtn:focus {
@@ -406,3 +419,66 @@ a>.IssueStatus {
     width: 41vw;
     cursor: auto;
 }
+
+.Subtasks {
+    background-color: #f8f8f8;
+    width: 100%;
+    margin-left: 0 !important;
+    border-bottom: 1px solid #cccccc;
+}
+
+.Subtask {
+    height: 40px;
+    padding-left: 35px;
+    border-bottom: 1px solid #e8e8e8;
+}
+
+.Subtask > * {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.Subtask > img[role="avatar"] {
+    height: 30px;
+    margin: 5px 0;
+}
+
+.Subtask > img[role="avatar"]:hover {
+    cursor: pointer;
+}
+
+.Subtask > div[role="name"] {
+    margin-left: 5px;
+    padding: 10px 0;
+    font-weight: bold;
+}
+
+.SubtaskCheckbox {
+    display: inline-block;
+    margin-top: 3px;
+}
+
+.SubtaskCheckbox > div {
+    width: 18px;
+    height: 18px;
+}
+
+.SubtaskCheckbox > div > span{
+    font-size: 16px;
+    left: 0;
+    top: 0;
+}
+
+.SubtaskInput {
+    height: 25px;
+    float: right;
+    margin-top: 7px;
+    width: 92% !important;
+    margin-right: 2%;
+    border-radius: 3px;
+}
+
+.AddSubtaskBtn {
+    padding-left: 0;
+}
+

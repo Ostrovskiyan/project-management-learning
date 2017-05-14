@@ -6,6 +6,9 @@ import {connect} from "react-redux";
 import {updateIssue} from "../actions/issues";
 import AddIssueInFolderDropdown from "./AddIssueInFolderDropdown";
 import UpdateIssueDateDropdown from "./UpdateIssueDateDropdown";
+import ImmediateInput from "../general/immediate-input/ImmediateInput";
+import SubtaskInput from "./components/SubtaskInput";
+import Subtask from "./components/Subtask";
 
 class IssueDescription extends Component {
 
@@ -14,7 +17,10 @@ class IssueDescription extends Component {
         this.handleMouseOverIssueStatus = this.handleMouseOverIssueStatus.bind(this);
         this.handleMouseOutIssueStatus = this.handleMouseOutIssueStatus.bind(this);
         this.addInFolder = this.addInFolder.bind(this);
-        this.state = {showIssueStatus: false};
+        this.state = {
+            showIssueStatus: false,
+            subtasksIsOpen: false
+        };
     }
 
     handleMouseOverIssueStatus(event) {
@@ -44,9 +50,49 @@ class IssueDescription extends Component {
         }));
     };
 
+    handleNewSubtask = (name) => {
+        let {issue} = this.props;
+        let {subtasks} = issue;
+
+        let id = subtasks.length === 0 ? 0 : subtasks
+                                                .map(subtask => subtask.id)
+                                                .reduce((prev, cur) => cur >= prev ? cur : prev, 0) + 1;
+
+        let newSubtask = {
+            name,
+            id,
+        };
+
+        this.props.dispatch(updateIssue({
+            ...issue,
+            subtasks: [
+                ...subtasks,
+                newSubtask
+            ],
+        }));
+    };
+
+    toggleSubtasks = (event) => {
+        event.preventDefault();
+        this.setState({
+            subtasksIsOpen: !this.state.subtasksIsOpen,
+        });
+    };
+
+    getSubtasks() {
+        let subtasks = this.props.issue.subtasks;
+        if (subtasks === undefined || subtasks.length === 0) {
+            return null;
+        }
+
+        return subtasks.map(subtask => <Subtask key={subtask.id} name={subtask.name}/>);
+    }
+
     render() {
         let {issue} = this.props;
-        let {creatingDate,
+        let {subtasksIsOpen} = this.state;
+        let {
+            creatingDate,
             startDate,
             endDate
         } = issue;
@@ -115,16 +161,30 @@ class IssueDescription extends Component {
                 </div>
                 <div className={styles.IssueSettingTabs}>
                     <UpdateIssueDateDropdown onDateChange={this.changeDates} startDate={startDate} endDate={endDate}/>
-                    <div className={`${styles.IssueSettingTab} ${styles.subtask}`}>
+                    <div
+                        className={`${styles.IssueSettingTab} ${styles.SubtaskTab} ${subtasksIsOpen ? styles.Selected : ""}`}
+                        onClick={this.toggleSubtasks}>
                         <Glyphicon glyph="glyphicon glyphicon-th-list"/>
                         <span> Добавить подзадачу</span>
                     </div>
                 </div>
-                <div className={styles.IssueDescriptionField}>
-                    <Button bsStyle="link" className={styles.AddDescriptionLinkBtn}>
-                        Нажмите, чтобы добавить описание
-                    </Button>
-                </div>
+                {
+                    subtasksIsOpen ?
+                        <div className={styles.Subtasks}>
+                            {this.getSubtasks()}
+                            <ImmediateInput text="Новая подазадача"
+                                            inactiveWrapperStyle={styles.Subtask}
+                                            inactiveStyle={styles.AddSubtaskBtn}
+                                            activeComponent={SubtaskInput}
+                                            onSubmit={this.handleNewSubtask}/>
+                        </div>
+                        :
+                        <div className={styles.IssueDescriptionField}>
+                            <Button bsStyle="link" className={styles.AddDescriptionLinkBtn}>
+                                Нажмите, чтобы добавить описание
+                            </Button>
+                        </div>
+                }
             </div>
         )
     }

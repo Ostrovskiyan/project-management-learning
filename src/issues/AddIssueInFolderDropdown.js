@@ -15,7 +15,6 @@ class AddIssueInFolderDropdown extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log("submit");
         this.props.addInFolder(this.input.value);
         this.setState({
             open: false
@@ -30,9 +29,6 @@ class AddIssueInFolderDropdown extends Component {
     }
 
     handleToggle(isOpen, event) {
-        console.log("toggle");
-        console.log(event);
-
         if(event.type !== "react-select" && isOpen !== this.state.open) {
             this.setState({
                 open: isOpen

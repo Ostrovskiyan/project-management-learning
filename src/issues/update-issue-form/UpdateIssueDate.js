@@ -3,7 +3,7 @@ import styles from "./UpdateIssue.css";
 import {Button, Form, FormGroup, InputGroup} from "react-bootstrap";
 import MonthCalendar from "./MonthCalendar";
 import moment from "moment";
-import Checkbox from "../../general/Checkbox";
+import Checkbox from "../../general/checkbox/Checkbox";
 
 const Options = {
     IN_QUEUE: "IN_QUEUE",

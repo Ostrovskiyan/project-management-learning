@@ -5,39 +5,27 @@ import mainStyles from "../common/Main.css";
 import IssueTimeHeader from "./IssueTimeHeader";
 import AddIssueInput from "./AddIssueInput";
 import {connect} from "react-redux";
-import {addIssueEnd, clickAddIssue, processAddIssue} from "../actions/issues";
+import {processAddIssue} from "../actions/issues";
 import {getUser} from "../api/api";
 import IssueItem from "./IssueItem";
 import IssueDescription from "./IssueDescription";
-import AddLinkButton from "./AddLinkButton";
 import moment from "moment";
 import {Link, Route, Switch} from "react-router-dom";
+import ImmediateInput from "../general/immediate-input/ImmediateInput";
 
 class Issues extends Component {
 
     constructor(props) {
         super(props);
-        this.handleClickNewTask = this.handleClickNewTask.bind(this);
         this.handleAddIssue = this.handleAddIssue.bind(this);
-        this.handleStopFocus = this.handleStopFocus.bind(this);
     }
 
     componentWillMount() {
         this.user = getUser();
     }
 
-    handleClickNewTask(event) {
-        this.props.dispatch(clickAddIssue());
-        event.preventDefault();
-    }
-
     handleAddIssue(issueName) {
         this.props.dispatch(processAddIssue(issueName));
-    }
-
-    handleStopFocus(event) {
-        this.props.dispatch(addIssueEnd());
-        event.preventDefault();
     }
 
     static toIssueItem(issue, selectedId) {
@@ -49,8 +37,15 @@ class Issues extends Component {
     today = (issues, selectedId) => {
         let now = moment().startOf("day");
 
-        let addIssueComponent = this.props.addingIssue ? <AddIssueInput handleFocusEnd={this.handleStopFocus} handleSubmit={this.handleAddIssue} userAvatar={this.user.avatar}/> :
-            <AddLinkButton text="Новая задача" handleClick={this.handleClickNewTask}/>;
+        let addIssueComponent = <ImmediateInput activeComponent={AddIssueInput}
+                                                activeProps={{
+                                                    userAvatar: this.user.avatar
+                                                }}
+                                                inactiveStyle={styles.NewTask}
+                                                glyphStyle={styles.NewTaskPlus}
+                                                onSubmit={this.handleAddIssue}
+                                                text="Новая задача"/>;
+
         let issuesToday = issues
             .filter(issue => now.isSame(issue.startDate, "day"))
             .map(issue => Issues.toIssueItem(issue, selectedId));

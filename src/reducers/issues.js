@@ -5,16 +5,6 @@ let initialIssueId = 0;
 
 const issues = (state = {list: []}, action) => {
     switch (action.type) {
-        case CLICK_ADD_ISSUE:
-            return {
-                ...state,
-                addingIssue: true
-            };
-        case ADD_ISSUE_END:
-            return {
-                ...state,
-                addingIssue: false
-            };
         case ADD_ISSUE:
             return {
                 ...state,
@@ -28,13 +18,12 @@ const issues = (state = {list: []}, action) => {
                         creatingDate: moment(),
                         author: action.author,
                         assigned: action.assigned,
+                        subtasks: [],
                     }
                 ]
             };
         case UPDATE_ISSUE:
-            console.log(action);
             let newList = state.list.map(issue => issue.id === action.issue.id ? action.issue : issue);
-            console.log(newList);
             return {
                 ...state,
                 list: newList
