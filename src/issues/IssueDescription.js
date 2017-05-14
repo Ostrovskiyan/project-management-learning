@@ -9,6 +9,7 @@ import UpdateIssueDateDropdown from "./UpdateIssueDateDropdown";
 import ImmediateInput from "../general/immediate-input/ImmediateInput";
 import SubtaskInput from "./components/SubtaskInput";
 import Subtask from "./components/Subtask";
+import {getUsers} from "../actions/users";
 
 class IssueDescription extends Component {
 
@@ -21,6 +22,10 @@ class IssueDescription extends Component {
             showIssueStatus: false,
             subtasksIsOpen: false
         };
+    }
+
+    componentDidMount() {
+        this.props.dispatch(getUsers());
     }
 
     handleMouseOverIssueStatus(event) {
@@ -72,6 +77,23 @@ class IssueDescription extends Component {
         }));
     };
 
+    handleChangeSubtaskUser = (subtaskId, userId) => {
+        let {issue} = this.props;
+        let {subtasks} = issue;
+
+        console.log(subtaskId);
+        console.log(userId);
+        let newSubtasks = subtasks
+            .map(subtask => subtask.id === subtaskId ? {...subtask, userId } : subtask);
+
+        this.props.dispatch(updateIssue({
+            ...issue,
+            subtasks: [
+                ...newSubtasks
+            ],
+        }));
+    };
+
     toggleSubtasks = (event) => {
         event.preventDefault();
         this.setState({
@@ -84,12 +106,19 @@ class IssueDescription extends Component {
         if (subtasks === undefined || subtasks.length === 0) {
             return null;
         }
-
-        return subtasks.map(subtask => <Subtask key={subtask.id} name={subtask.name}/>);
+        let users = this.props.users;
+        return subtasks.map(subtask => <Subtask key={subtask.id}
+                                                id={subtask.id}
+                                                name={subtask.name}
+                                                userId={subtask.userId}
+                                                users={users}
+                                                onChangeSubtaskUser={this.handleChangeSubtaskUser}/>);
     }
 
     render() {
-        let {issue} = this.props;
+        let {
+            issue,
+        } = this.props;
         let {subtasksIsOpen} = this.state;
         let {
             creatingDate,
@@ -190,4 +219,10 @@ class IssueDescription extends Component {
     }
 }
 
-export default connect()(IssueDescription);
+function mapStateToProps(state) {
+    return {
+        users: state.users.list,
+    }
+}
+
+export default connect(mapStateToProps)(IssueDescription);

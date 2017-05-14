@@ -438,13 +438,26 @@ a > .IssueStatus {
     vertical-align: top;
 }
 
-.Subtask > img[role="avatar"] {
+.Subtask img[role="avatar"] {
     height: 30px;
     margin: 5px 0;
 }
 
-.Subtask > img[role="avatar"]:hover {
+.Subtask img[role="avatar"]:hover {
     cursor: pointer;
+}
+
+:global #select-subtask-user {
+    padding: 0;
+    border: 0;
+}
+
+:global #select-subtask-user + .dropdown-menu {
+    border-radius: 0;
+    border: none;
+    box-shadow: 0 0 5px 1px #888888;
+    padding: 0;
+    margin: 0;
 }
 
 .Subtask > div[role="name"] {
@@ -463,7 +476,7 @@ a > .IssueStatus {
     height: 18px;
 }
 
-.SubtaskCheckbox > div > span{
+.SubtaskCheckbox > div > span {
     font-size: 16px;
     left: 0;
     top: 0;
@@ -482,3 +495,33 @@ a > .IssueStatus {
     padding-left: 0;
 }
 
+.SelectSubtaskUser {
+    width: 300px;
+}
+
+.SelectSubtaskUser > div[role="header"] {
+    height: 25px;
+    color: #999;
+    padding: 3px 10px;
+    border-bottom: 1px solid #cccccc;
+    font-size: 12px;
+}
+
+.SelectSubtaskUser > div[role="user-item"]:hover {
+    background-color: #eee;
+    cursor: pointer;
+}
+
+.SelectSubtaskUser > div[role="user-item"] > div {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.SelectSubtaskUser > div[role="user-item"] > div > img {
+    height: 35px;
+    margin: 5px 10px 5px 5px;
+}
+
+.SelectSubtaskUser > div[role="user-item"] > div > div[role="email"] {
+    color: #aaaaaa;
+}
