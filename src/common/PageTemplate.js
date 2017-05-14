@@ -5,6 +5,7 @@ import {Col, Row} from "react-bootstrap";
 import AppMenu from "./AppMenu";
 import Issues from "../issues/Issues";
 import {Route} from "react-router-dom";
+import Projects from "../projects/Projects";
 
 class PageTemplate extends Component {
     render() {
@@ -16,7 +17,7 @@ class PageTemplate extends Component {
                         <AppMenu/>
                     </Col>
                     <Route path="/issues" component={Issues}/>
-                    <Route path="/projects" component={null}/>
+                    <Route path="/projects" component={Projects}/>
                 </Row>
             </div>
         )

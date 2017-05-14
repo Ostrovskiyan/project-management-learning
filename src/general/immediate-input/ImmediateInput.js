@@ -60,6 +60,7 @@ class ImmediateInput extends Component {
             activeInputStyle,
             activeComponent: ActiveComponent,
             activeProps,
+            placeholder,
         } = this.props;
         let {isActive} = this.state;
 
@@ -75,6 +76,7 @@ class ImmediateInput extends Component {
                 return  <Form inline className={activeStyle || ""} onSubmit={this.handleSubmit}>
                             <input type="text"
                                    className={`form-control ${activeInputStyle || ""}`}
+                                   placeholder={placeholder}
                                    ref={(input) => {
                                        this.input = input
                                    }}

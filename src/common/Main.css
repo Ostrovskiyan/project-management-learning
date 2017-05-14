@@ -177,3 +177,21 @@
     -webkit-box-shadow: none;
     box-shadow: none;
 }
+
+.AddProject {
+    padding: 10px 20px;
+}
+
+.AddProject > input {
+    width: 100% !important;
+    height: 30px;
+    border-color: #5590CC;
+    background-color: #4B5966;
+    color: #fff;
+    padding-left: 20px;
+}
+
+.AddProject > input::-webkit-input-placeholder {
+    color: #9BA6B4;
+    font-size: 12px;
+}
