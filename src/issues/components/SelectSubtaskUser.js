@@ -16,7 +16,7 @@ class SelectSubtaskUser extends Component {
         } = this.props;
 
         return users.map(user =>
-            <div key={user.id} role="user-item" onClick={this.handleClickCreator(user.id)}>
+            <div key={user.id} className={styles.UserItem} onClick={this.handleClickCreator(user.id)}>
                 <div>
                     <img alt="avatar" src={user.avatar} />
                 </div>
@@ -24,7 +24,7 @@ class SelectSubtaskUser extends Component {
                     <div>
                         {`${user.name} ${user.surname}`}
                     </div>
-                    <div role="email">
+                    <div className={styles.Email}>
                         {user.email}
                     </div>
                 </div>
@@ -35,7 +35,7 @@ class SelectSubtaskUser extends Component {
     render() {
         return (
             <div className={styles.SelectSubtaskUser}>
-                <div role="header">
+                <div className={styles.Header}>
                     Добавьте пользователя
                 </div>
                 {this.getUsers()}

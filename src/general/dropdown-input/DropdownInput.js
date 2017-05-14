@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Dropdown, Form, Glyphicon} from "react-bootstrap";
+import {Dropdown} from "react-bootstrap";
 import styles from "./DropdownInput.css";
 import mainStyles from "../../common/Main.css";
 

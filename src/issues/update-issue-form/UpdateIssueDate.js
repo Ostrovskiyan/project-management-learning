@@ -15,12 +15,17 @@ const Options = {
 
 const DATE_PATTERN = "DD/MM/YYYY";
 
+const END_DATE = "endDate";
+const START_DATE = "startDate";
+
 class UpdateIssueDate extends Component {
 
     constructor(props) {
         super(props);
-        let {startDate,
-        endDate} = this.props;
+        let {
+            startDate,
+            endDate
+        } = this.props;
         this.state = {
             daysFocus: false,
             selectedOption: Options.SELECT_DATE,
@@ -41,9 +46,13 @@ class UpdateIssueDate extends Component {
         return function (event) {
             event.preventDefault();
             if (UpdateIssueDate.getEndDateByOption(option)) {
+                let endDate = UpdateIssueDate.getEndDateByOption(option);
+                let {startDate} = this.state;
+                startDate = UpdateIssueDate.correctAnotherDate(endDate, END_DATE, startDate);
                 this.setState({
                     selectedOption: option,
-                    endDate: UpdateIssueDate.getEndDateByOption(option)
+                    endDate,
+                    startDate,
                 });
             } else {
                 this.setState({
@@ -61,6 +70,23 @@ class UpdateIssueDate extends Component {
                 return moment().startOf('day').add(1, "day");
             default:
                 return undefined;
+        }
+    }
+
+    static getAnotherDateName(dateName) {
+        if (dateName === START_DATE) {
+            return END_DATE;
+        } else {
+            return START_DATE;
+        }
+    }
+
+    static correctAnotherDate(selectedDate, selectedDateName, anotherDate) {
+        if((selectedDateName === START_DATE && anotherDate.isBefore(selectedDate, "days")) ||
+            (selectedDateName === END_DATE && anotherDate.isAfter(selectedDate, "days"))) {
+            return moment(selectedDate);
+        } else {
+            return moment(anotherDate);
         }
     }
 
@@ -103,20 +129,28 @@ class UpdateIssueDate extends Component {
 
     handleNextSelectedDate = () => {
         let selectedDate = this.state.selectedDate;
+        let notSelected = UpdateIssueDate.getAnotherDateName(selectedDate);
+        let anotherDate = moment(this.state[notSelected]);
         let newDate = moment(this.state[selectedDate]);
         newDate.add(1, "days");
+        anotherDate = UpdateIssueDate.correctAnotherDate(newDate, selectedDate, anotherDate);
         this.setState({
-            [selectedDate]: newDate
+            [selectedDate]: newDate,
+            [notSelected]: anotherDate,
         });
         this[selectedDate + "Input"].focus();
     };
 
     handlePreviousSelectedDate = () => {
         let selectedDate = this.state.selectedDate;
+        let notSelected = UpdateIssueDate.getAnotherDateName(selectedDate);
+        let anotherDate = moment(this.state[notSelected]);
         let newDate = moment(this.state[selectedDate]);
         newDate.subtract(1, "days");
+        anotherDate = UpdateIssueDate.correctAnotherDate(newDate, selectedDate, anotherDate);
         this.setState({
-            [selectedDate]: newDate
+            [selectedDate]: newDate,
+            [notSelected]: anotherDate,
         });
         this[selectedDate + "Input"].focus();
     };
@@ -125,8 +159,12 @@ class UpdateIssueDate extends Component {
         let selectedDate = this.state.selectedDate;
         if (selectedDate) {
             let newDate = moment(date);
+            let notSelected = UpdateIssueDate.getAnotherDateName(selectedDate);
+            let anotherDate = moment(this.state[notSelected]);
+            anotherDate = UpdateIssueDate.correctAnotherDate(newDate, selectedDate, anotherDate);
             this.setState({
                 [selectedDate]: newDate,
+                [notSelected]: anotherDate,
             });
             this[selectedDate + "Input"].focus();
         }
@@ -160,12 +198,14 @@ class UpdateIssueDate extends Component {
 
     handleStartDateBlur = (event) => {
         event.preventDefault();
-        let {startDateDraft, startDate} = this.state;
+        let {startDateDraft, startDate, endDate} = this.state;
         if (moment(startDateDraft, DATE_PATTERN).isValid()) {
             startDate = moment(startDateDraft, DATE_PATTERN);
+            endDate = UpdateIssueDate.correctAnotherDate(startDate, START_DATE, endDate);
         }
         this.setState({
             startDate,
+            endDate,
             startDateDraft: undefined
         });
     };
@@ -180,13 +220,15 @@ class UpdateIssueDate extends Component {
 
     handleEndDateBlur = (event) => {
         event.preventDefault();
-        let {endDateDraft, endDate} = this.state;
+        let {endDateDraft, endDate, startDate} = this.state;
         if (moment(endDateDraft, DATE_PATTERN).isValid()) {
             endDate = moment(endDateDraft, DATE_PATTERN);
+            startDate = UpdateIssueDate.correctAnotherDate(endDate, END_DATE, startDate);
         }
         this.setState({
             endDate,
-            endDateDraft: undefined
+            startDate,
+            endDateDraft: undefined,
         });
     };
 

@@ -16,25 +16,19 @@ class Subtask extends Component {
             userId
         } = this.props;
 
-        let avatar;
-
         let user = users.filter(user => user.id === userId)[0];
 
-        if (user) {
-            avatar = <img alt="avatar" src={user.avatar} role="avatar"/>;
-        } else {
-            function Avatar() {
-                return <img alt="avatar" src={addUserImg} role="avatar"/>;
-            }
-
-            avatar = <DropdownInput id="select-subtask-user"
-                                    toggle={Avatar}
-                                    contentProps={{
-                                        users
-                                    }}
-                                    onSubmit={(userId) => onChangeSubtaskUser(id, userId)}
-                                    content={SelectSubtaskUser}/>;
+        function Avatar() {
+            return <img alt="avatar" src={user ? user.avatar : addUserImg} role="avatar"/>;
         }
+
+        let avatar = <DropdownInput id="select-subtask-user"
+                                toggle={Avatar}
+                                contentProps={{
+                                    users
+                                }}
+                                onSubmit={(userId) => onChangeSubtaskUser(id, userId)}
+                                content={SelectSubtaskUser}/>;
         return (
             <div className={styles.Subtask}>
                 <Checkbox wrapperStyle={styles.SubtaskCheckbox} withoutText/>

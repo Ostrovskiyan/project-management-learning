@@ -499,7 +499,7 @@ a > .IssueStatus {
     width: 300px;
 }
 
-.SelectSubtaskUser > div[role="header"] {
+.SelectSubtaskUser > div.Header {
     height: 25px;
     color: #999;
     padding: 3px 10px;
@@ -507,21 +507,21 @@ a > .IssueStatus {
     font-size: 12px;
 }
 
-.SelectSubtaskUser > div[role="user-item"]:hover {
+.SelectSubtaskUser > div.UserItem:hover {
     background-color: #eee;
     cursor: pointer;
 }
 
-.SelectSubtaskUser > div[role="user-item"] > div {
+.SelectSubtaskUser > div.UserItem > div {
     display: inline-block;
     vertical-align: top;
 }
 
-.SelectSubtaskUser > div[role="user-item"] > div > img {
+.SelectSubtaskUser > div.UserItem > div > img {
     height: 35px;
     margin: 5px 10px 5px 5px;
 }
 
-.SelectSubtaskUser > div[role="user-item"] > div > div[role="email"] {
+.SelectSubtaskUser > div.UserItem > div > div.Email {
     color: #aaaaaa;
 }
