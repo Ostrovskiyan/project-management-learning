@@ -26,36 +26,10 @@
     padding: 3px 0;
 }
 
-.NewTask {
-    margin: 8px 10px 7px 10px;
-}
-
-.NewTaskPlus {
-    margin-right: 10px;
-}
-
 .IssueAvatar {
     height: 35px;
     border-radius: 5px;
     width: 4%
-}
-
-.AddIssueAvatar {
-    height: 35px;
-    border-radius: 5px;
-    position: absolute;
-}
-
-.AddIssueInput {
-    margin-top: 1px;
-    margin-left: 8%;
-    width: 92% !important;
-    border-radius: 3px;
-    font-size: 18px;
-}
-
-.AddIssueForm {
-    margin: 10px 5px 5px 20px;
 }
 
 .IssueDoneIcon {

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import {Form} from "react-bootstrap";
-import styles from "./Issues.css";
+import styles from "./AddIssue.css";
 
 class AddIssueInput extends Component {
 
@@ -16,10 +16,11 @@ class AddIssueInput extends Component {
         let {
             onSubmit,
             onBlur,
-            userAvatar
+            userAvatar,
+            formStyle
         } = this.props;
         return (
-            <Form inline className={styles.AddIssueForm} onSubmit={onSubmit}>
+            <Form inline className={`${styles.AddIssueForm} ${formStyle || ""}`} onSubmit={onSubmit}>
                 <img alt="avatar"
                      src={userAvatar}
                      className={styles.AddIssueAvatar}/>

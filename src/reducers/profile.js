@@ -1,7 +1,12 @@
 import {LOGIN, LOGOUT, SUCCESS_LOGIN, UNSUCCESS_LOGIN} from "../actions/profile";
+import {getUser} from "../api/api";
 
 const profile = (state = {}, action) => {
     let authorized = !!localStorage.getItem("authToken");
+    let user = {};
+    if (authorized) {
+        user = getUser();
+    }
     switch (action.type) {
         case LOGIN:
             return {
@@ -9,7 +14,7 @@ const profile = (state = {}, action) => {
                 login: action.login,
                 password: action.password,
                 logining: true,
-                authorized : false
+                authorized: false
             };
         case SUCCESS_LOGIN:
             return {
@@ -17,6 +22,10 @@ const profile = (state = {}, action) => {
                 password: state.password,
                 logining: false,
                 authorized: true,
+                name: action.name,
+                surname: action.surname,
+                avatar: action.avatar,
+                email: action.email,
             };
         case UNSUCCESS_LOGIN:
             return {
@@ -34,6 +43,7 @@ const profile = (state = {}, action) => {
         default:
             return {
                 ...state,
+                ...user,
                 authorized
             };
     }

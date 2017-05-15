@@ -3,29 +3,18 @@ import {Glyphicon} from "react-bootstrap";
 import styles from "./Issues.css";
 import mainStyles from "../common/Main.css";
 import IssueTimeHeader from "./IssueTimeHeader";
-import AddIssueInput from "./AddIssueInput";
 import {connect} from "react-redux";
-import {processAddIssue} from "../actions/issues";
 import {getUser} from "../api/api";
 import IssueItem from "./IssueItem";
 import IssueDescription from "./IssueDescription";
 import moment from "moment";
 import {Link, Route, Switch} from "react-router-dom";
-import ImmediateInput from "../general/immediate-input/ImmediateInput";
+import AddIssue from "../components/new-issue/AddIssue";
 
 class Issues extends Component {
 
-    constructor(props) {
-        super(props);
-        this.handleAddIssue = this.handleAddIssue.bind(this);
-    }
-
     componentWillMount() {
         this.user = getUser();
-    }
-
-    handleAddIssue(issueName) {
-        this.props.dispatch(processAddIssue(issueName));
     }
 
     static toIssueItem(issue, selectedId) {
@@ -37,21 +26,12 @@ class Issues extends Component {
     today = (issues, selectedId) => {
         let now = moment().startOf("day");
 
-        let addIssueComponent = <ImmediateInput activeComponent={AddIssueInput}
-                                                activeProps={{
-                                                    userAvatar: this.user.avatar
-                                                }}
-                                                inactiveStyle={styles.NewTask}
-                                                glyphStyle={styles.NewTaskPlus}
-                                                onSubmit={this.handleAddIssue}
-                                                text="Новая задача"/>;
-
         let issuesToday = issues
             .filter(issue => now.isSame(issue.startDate, "day"))
             .map(issue => Issues.toIssueItem(issue, selectedId));
         return <div>
             <IssueTimeHeader title="НА СЕГОДНЯ" startDate={now.format("MMM DD")} issueCount={issuesToday.length}/>
-            {addIssueComponent}
+            <AddIssue/>
             {issuesToday}
         </div>;
     };

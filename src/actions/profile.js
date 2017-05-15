@@ -1,3 +1,4 @@
+import {getUser} from "../api/api";
 export const LOGIN = 'LOGIN';
 export const SUCCESS_LOGIN = 'SUCCESS_LOGIN';
 export const UNSUCCESS_LOGIN = 'UNSUCCESS_LOGIN';
@@ -11,12 +12,13 @@ const login = (login, password) => {
     }
 };
 
-const successLogin = (name, surname, avatar) => {
+const successLogin = ({name, surname, avatar, email}) => {
     return {
         type: SUCCESS_LOGIN,
         name,
         surname,
-        avatar
+        avatar,
+        email
     }
 };
 
@@ -39,7 +41,8 @@ export function proccessLogining(loginValue, passwordValue) {
         setTimeout(() => {
             if (loginValue === "alik" && passwordValue === "1234") {
                 localStorage.setItem("authToken", "sometoken");
-                dispatch(successLogin());
+                let user = getUser();
+                dispatch(successLogin(user));
             } else {
                 dispatch(unsuccessLogin());
             }

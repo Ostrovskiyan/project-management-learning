@@ -1,0 +1,19 @@
+.Root {
+    padding-left: 0 !important;
+    width: 100%;
+}
+
+.Header {
+    background-color: #F3F3F5;
+    color: #999;
+    cursor: pointer;
+    padding: 3px 0 3px 10px;
+    border-bottom: 1px solid #d0d0d0;
+    border-top: 1px solid #e8e8e8;
+}
+
+.Header > i {
+    font-size: 10px;
+    margin-right: 5px;
+    color: #555;
+}

@@ -145,13 +145,23 @@
 }
 
 .MenuButton {
-    color: #DDDDDD;
+    color: #dfdfdf;
     margin: 0;
     text-align: left;
     border-radius: 0;
     height: 40px;
     background-color: #52606D;
     padding: 10px 10px 10px 20px;
+}
+
+.ProjectMenuItem {
+    height: 35px;
+    padding: 8px 5px 8px 40px;
+    background-color: transparent;
+}
+
+.ProjectMenuItem > i {
+  margin-right: 10px;
 }
 
 .MenuButton.Selected {

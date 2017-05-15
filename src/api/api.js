@@ -1,14 +1,5 @@
 export function getUser() {
-    let name = "johan";
-    let surname = "doe";
-    let avatar = "/images/avatars/example.jpg";
-    let email = "johanDoe@gmail.com";
-    return {
-        name,
-        surname,
-        avatar,
-        email
-    }
+    return getUsers()[0];
 }
 
 export function getUsers() {
