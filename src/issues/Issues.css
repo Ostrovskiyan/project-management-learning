@@ -26,12 +26,6 @@
     padding: 3px 0;
 }
 
-.IssueAvatar {
-    height: 35px;
-    border-radius: 5px;
-    width: 4%
-}
-
 .IssueDoneIcon {
     color: #58B55D;
     margin-right: 10px;
@@ -40,53 +34,6 @@
 .FloatDown {
     position: absolute;
     bottom: 0;
-}
-
-.Issue {
-    margin-bottom: 1px;
-    padding: 10px;
-    cursor: pointer;
-}
-
-.Issue:hover {
-    background-color: #ddeaff
-}
-
-.Issue.Selected {
-    background-color: #A9C6EE;
-}
-
-.IssueName {
-    margin-left: 60px;
-    vertical-align: top;
-    font-weight: bold;
-}
-
-.IssueDates {
-    float: right;
-}
-
-.IssueDoubleImage {
-    position: relative;
-    display: inline-block;
-}
-
-.IssueDoubleImageBottom {
-    z-index: -1;
-    width: 40px;
-    height: 40px;
-    margin-right: 25%;
-    margin-bottom: 25%;
-}
-
-.IssueDoubleImageTop {
-    position: absolute;
-    top: 14px;
-    left: 23px;
-    border-left: 2px solid #ffffff;
-    border-top: 2px solid #ffffff;
-    width: 40px;
-    height: 40px;
 }
 
 .AddInFolder {

@@ -22,6 +22,7 @@ class WrappedContainer extends Component {
             rootStyle,
             headerStyle,
             headerText,
+            content
         } = this.props;
         let {
             open
@@ -30,14 +31,12 @@ class WrappedContainer extends Component {
         return (
             <div className={`${styles.Root} ${rootStyle}`}>
                 <div className={`${styles.Header} ${headerStyle}`} onClick={this.handleHeaderClick}>
-                    <i className={`fa fa-play ${open ? "fa-rotate-90" : "fa-rotate-270"}`} aria-hidden="true"/>
+                    <i className={`fa fa-play ${open ? styles.Open : ""}`} aria-hidden="true"/>
                     {headerText}
                 </div>
                 {
                     open ?
-                        <div>
-                            asdasd
-                        </div>
+                        content
                         : null
                 }
             </div>

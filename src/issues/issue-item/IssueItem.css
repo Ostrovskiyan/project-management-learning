@@ -1,0 +1,82 @@
+.IssueAvatar {
+    height: 35px;
+    border-radius: 5px;
+    width: 4%
+}
+
+.Issue {
+    margin-bottom: 1px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.Issue:hover {
+    background-color: #ddeaff
+}
+
+.Issue.Selected {
+    background-color: #A9C6EE;
+}
+
+.IssueName {
+    padding-left: 60px;
+    vertical-align: top;
+    font-weight: bold;
+}
+
+.IssueDates {
+    float: right;
+}
+
+.IssueDoubleImage {
+    position: relative;
+    display: inline-block;
+}
+
+.IssueDoubleImageBottom {
+    z-index: -1;
+    width: 40px;
+    height: 40px;
+    margin-right: 25%;
+    margin-bottom: 25%;
+}
+
+.IssueDoubleImageTop {
+    position: absolute;
+    top: 14px;
+    left: 23px;
+    border-left: 2px solid #ffffff;
+    border-top: 2px solid #ffffff;
+    width: 40px;
+    height: 40px;
+}
+
+.Issue.Project {
+    padding-left: 50px;
+    border-top: 1px solid #d0d0d0;
+    margin-bottom: 0;
+}
+
+.Issue.Project > .IssueAvatar{
+    width: auto;
+    border-radius: 3px;
+}
+
+.Issue.Project > .IssueName {
+    padding-left: 20px;
+    vertical-align: middle;
+}
+
+.Issue.Project > .IssueDates{
+    margin-top: 8px;
+    font-style: italic;
+}
+
+.ProjectName {
+    margin-left: 10px;
+    padding: 3px 8px;
+    vertical-align: middle;
+    border: 1px solid #dfdfdf;
+    border-radius: 3px;
+    background-color: #fff;
+}

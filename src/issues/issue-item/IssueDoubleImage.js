@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import styles from "./Issues.css";
+import styles from "./IssueItem.css";
 
 class IssueDoubleImage extends Component {
 

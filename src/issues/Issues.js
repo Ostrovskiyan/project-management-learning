@@ -5,11 +5,12 @@ import mainStyles from "../common/Main.css";
 import IssueTimeHeader from "./IssueTimeHeader";
 import {connect} from "react-redux";
 import {getUser} from "../api/api";
-import IssueItem from "./IssueItem";
+import IssueItem from "./issue-item/IssueItem";
 import IssueDescription from "./IssueDescription";
 import moment from "moment";
 import {Link, Route, Switch} from "react-router-dom";
 import AddIssue from "../components/new-issue/AddIssue";
+import {forLater, forNextWeek, forThisWeek, forToday} from "../util/issue-filters";
 
 class Issues extends Component {
 
@@ -25,10 +26,7 @@ class Issues extends Component {
 
     today = (issues, selectedId) => {
         let now = moment().startOf("day");
-
-        let issuesToday = issues
-            .filter(issue => now.isSame(issue.startDate, "day"))
-            .map(issue => Issues.toIssueItem(issue, selectedId));
+        let issuesToday = forToday(issues).map(issue => Issues.toIssueItem(issue, selectedId));
         return <div>
             <IssueTimeHeader title="НА СЕГОДНЯ" startDate={now.format("MMM DD")} issueCount={issuesToday.length}/>
             <AddIssue/>
@@ -39,10 +37,7 @@ class Issues extends Component {
     thisWeek = (issues, selectedId) => {
         let now = moment().startOf("day");
         let weekEnd = moment().startOf("day").add(6, "day");
-        let nextWeekStart = moment().startOf("day").add(7, "day");
-        let issueThisWeek = issues
-            .filter(issue => issue.startDate.isAfter(now, "day") && issue.startDate.isBefore(nextWeekStart, "day"))
-            .map(issue => Issues.toIssueItem(issue, selectedId));
+        let issueThisWeek = forThisWeek(issues).map(issue => Issues.toIssueItem(issue, selectedId));
         return <div>
             <IssueTimeHeader title="НА ЭТУ НЕДЕЛЮ" startDate={now.format("MMM DD")} endDate={weekEnd.format("MMM DD")} issueCount={issueThisWeek.length}/>
             {issueThisWeek}
@@ -52,9 +47,7 @@ class Issues extends Component {
     nextWeek = (issues, selectedId) => {
         let nextWeekStart = moment().startOf("day").add(7, "day");
         let nextWeekEnd = moment().startOf("day").add(13, "day");
-        let issueNextWeek = issues
-            .filter(issue => issue.startDate.isSameOrAfter(nextWeekStart, "day") && issue.startDate.isSameOrBefore(nextWeekEnd, "day"))
-            .map(issue => Issues.toIssueItem(issue, selectedId));
+        let issueNextWeek = forNextWeek(issues).map(issue => Issues.toIssueItem(issue, selectedId));
         return <div>
             <IssueTimeHeader title="НА СЛЕД. НЕДЕЛЮ" startDate={nextWeekStart.format("MMM DD")} endDate={nextWeekEnd.format("MMM DD")} issueCount={issueNextWeek.length}/>
             {issueNextWeek}
@@ -63,9 +56,7 @@ class Issues extends Component {
 
     later = (issues, selectedId) => {
         let nextWeekEnd = moment().startOf("day").add(13, "day");
-        let issueLater = issues
-            .filter(issue => issue.startDate.isAfter(nextWeekEnd, "day"))
-            .map(issue => Issues.toIssueItem(issue, selectedId));
+        let issueLater = forLater(issues).map(issue => Issues.toIssueItem(issue, selectedId));
         return <div>
                     <IssueTimeHeader title="ПОЗЖЕ" startDate={`После ${nextWeekEnd.format("MMM DD")}`} issueCount={issueLater.length}/>
                     {issueLater}

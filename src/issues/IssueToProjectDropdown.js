@@ -3,7 +3,7 @@ import {Dropdown, Form, Glyphicon} from "react-bootstrap";
 import styles from "./Issues.css";
 import mainStyles from "../common/Main.css";
 
-class AddIssueInFolderDropdown extends Component {
+class IssueToProjectDropdown extends Component {
 
     constructor(props) {
         super(props);
@@ -15,7 +15,7 @@ class AddIssueInFolderDropdown extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        this.props.addInFolder(this.input.value);
+        this.props.addInProject(this.input.value);
         this.setState({
             open: false
         });
@@ -41,7 +41,7 @@ class AddIssueInFolderDropdown extends Component {
         return (
             <Dropdown id="add-issue-in-folder" bsStyle="link" open={this.state.open} onToggle={this.handleToggle}>
                 <Dropdown.Toggle bsStyle="link" noCaret className={mainStyles.MinimizeDropdown} onClick={this.handleClick}>
-                    {issue.folder ? issue.folder : ""}
+                    {issue.project ? issue.project : ""}
                     <Glyphicon glyph="glyphicon glyphicon-plus"
                                className={`${styles.NewTaskPlus} ${styles.AddInFolderFontPlus}`}/>
                     <span className={styles.AddInFolderFont}>Добавить в папку/проект</span>
@@ -61,4 +61,4 @@ class AddIssueInFolderDropdown extends Component {
     }
 }
 
-export default AddIssueInFolderDropdown;
+export default IssueToProjectDropdown;

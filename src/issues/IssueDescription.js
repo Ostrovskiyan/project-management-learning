@@ -4,7 +4,7 @@ import styles from "./Issues.css";
 import mainStyles from "../common/Main.css";
 import {connect} from "react-redux";
 import {updateIssue} from "../actions/issues";
-import AddIssueInFolderDropdown from "./AddIssueInFolderDropdown";
+import IssueToProjectDropdown from "./IssueToProjectDropdown";
 import UpdateIssueDateDropdown from "./UpdateIssueDateDropdown";
 import ImmediateInput from "../general/immediate-input/ImmediateInput";
 import SubtaskInput from "./components/SubtaskInput";
@@ -17,7 +17,7 @@ class IssueDescription extends Component {
         super(props);
         this.handleMouseOverIssueStatus = this.handleMouseOverIssueStatus.bind(this);
         this.handleMouseOutIssueStatus = this.handleMouseOutIssueStatus.bind(this);
-        this.addInFolder = this.addInFolder.bind(this);
+        this.addInProject = this.addInProject.bind(this);
         this.state = {
             showIssueStatus: false,
             subtasksIsOpen: false
@@ -38,11 +38,11 @@ class IssueDescription extends Component {
         event.preventDefault();
     }
 
-    addInFolder(folder) {
+    addInProject(project) {
         let {issue} = this.props;
         this.props.dispatch(updateIssue({
             ...issue,
-            folder
+            project
         }));
     }
 
@@ -139,7 +139,7 @@ class IssueDescription extends Component {
                             </Button>
                         </div>
                     </div>
-                    <AddIssueInFolderDropdown addInFolder={this.addInFolder} issue={issue}/>
+                    <IssueToProjectDropdown addInProject={this.addInProject} issue={issue}/>
                 </div>
                 <div className={styles.IssueSubHeader}>
                     <Dropdown id="issue-status-dropdown" bsStyle="link" className={styles.MarkSuccessWrapper}>
