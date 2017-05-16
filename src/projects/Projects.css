@@ -37,8 +37,15 @@
     padding: 5px 15px;
     font-weight: bold;
     cursor: pointer;
-    background-color: #DCE6F0;
     border-radius: 20px;
+}
+
+.FilterText:hover {
+    background-color: #ececff;
+}
+
+.FilterDropdown > button[aria-expanded="true"] > .FilterText, .FilterText:active {
+    background-color: #DCE6F0;
 }
 
 .ActiveAddIssue {
@@ -60,4 +67,12 @@
     width: 100%;
     border-bottom: 1px solid #d0d0d0;
     padding-left: 0 !important;
+}
+
+.ProjectDescription > div {
+    padding-left: 35px;
+}
+
+.ProjectDescriptionHeader {
+    border-top: 10px solid #ff0;
 }

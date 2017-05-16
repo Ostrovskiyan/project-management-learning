@@ -1,12 +1,38 @@
 import React, {Component} from "react";
 import styles from "./Main.css";
 import {Glyphicon} from "react-bootstrap";
-import {Link, Redirect, Route, withRouter} from "react-router-dom";
+import {Link, Route, withRouter} from "react-router-dom";
 import ImmediateInput from "../general/immediate-input/ImmediateInput";
 import {connect} from "react-redux";
 import {createProject} from "../actions/projects";
 
 class AppMenu extends Component {
+
+    constructor(props) {
+        super(props);
+        this.state = {
+            addingProject: false,
+        }
+    }
+
+    handleClickAddProject = () => {
+        this.setState({
+            addingProject: true,
+        })
+    };
+
+    handleToggleAddingProject = (isAdding) => {
+        this.setState({
+            addingProject: isAdding,
+        })
+    };
+
+    handleCreateProject = (projectName) => {
+        let {
+            dispatch,
+        } = this.props;
+        dispatch(createProject(projectName));
+    };
 
     render() {
         let myWorkId = "my-work";
@@ -14,8 +40,11 @@ class AppMenu extends Component {
 
         let {
             projects,
-            dispatch
         } = this.props;
+
+        let {
+            addingProject,
+        } = this.state;
 
         return (
 
@@ -31,21 +60,22 @@ class AppMenu extends Component {
                     <Link to="/projects">
                         <div id={projectsId} className={`${styles.MenuButton} ${match && styles.Selected}`}>
                             ПРОЕКТЫ
-                            <Link to="/projects/add">
-                                <Glyphicon className={styles.ProjectPlus} glyph="glyphicon glyphicon-plus"/>
-                            </Link>
+                            <Glyphicon className={styles.ProjectPlus}
+                                       glyph="glyphicon glyphicon-plus"
+                                       onClick={this.handleClickAddProject}/>
                         </div>
                     </Link>
                 )}/>
-                <Route path="/projects/add"
-                       render={() => <ImmediateInput
-                           activeStyle={styles.AddProject}
-                           placeholder="Введите название"
-                           inactiveComponent={Redirect}
-                           inactiveProps={{to: "/projects"}}
-                           onSubmit={projectName => dispatch(createProject(projectName))}
-                           isActive/>
-                       }/>
+                {
+                    addingProject ?
+                        <ImmediateInput
+                            activeStyle={styles.AddProject}
+                            placeholder="Введите название"
+                            onToggle={this.handleToggleAddingProject}
+                            onSubmit={this.handleCreateProject}
+                            isActive/>
+                        : null
+                }
                 <Route path="/projects" render={() =>
                     <div>
                         {projects.map(project =>

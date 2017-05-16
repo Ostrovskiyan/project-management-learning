@@ -11,6 +11,16 @@ class ImmediateInput extends Component {
         };
     }
 
+    toggleActive = (isActive) => {
+        let {
+            onToggle,
+        } = this.props;
+        this.setState({
+            isActive,
+        });
+        onToggle(isActive);
+    };
+
     componentDidMount() {
         let {isActive} = this.state;
         if(isActive) {
@@ -27,24 +37,18 @@ class ImmediateInput extends Component {
 
     handleFocusEnd = (event) => {
         event.preventDefault();
-        this.setState({
-            isActive: false,
-        });
+        this.toggleActive(false);
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.onSubmit(this.input.value);
-        this.setState({
-            isActive: false,
-        });
+        this.toggleActive(false);
     };
 
     handleClick = (event) => {
         event.preventDefault();
-        this.setState({
-            isActive: true,
-        });
+        this.toggleActive(true);
     };
 
     render() {

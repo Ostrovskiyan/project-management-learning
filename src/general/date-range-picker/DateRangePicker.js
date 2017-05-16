@@ -1,9 +1,9 @@
 import React, {Component} from "react";
-import styles from "./UpdateIssue.css";
+import styles from "./DateRangePicker.css";
 import {Button, Form, FormGroup, InputGroup} from "react-bootstrap";
 import MonthCalendar from "./MonthCalendar";
 import moment from "moment";
-import Checkbox from "../../general/checkbox/Checkbox";
+import Checkbox from "../checkbox/Checkbox";
 
 const Options = {
     IN_QUEUE: "IN_QUEUE",
@@ -18,7 +18,7 @@ const DATE_PATTERN = "DD/MM/YYYY";
 const END_DATE = "endDate";
 const START_DATE = "startDate";
 
-class UpdateIssueDate extends Component {
+class DateRangePicker extends Component {
 
     constructor(props) {
         super(props);
@@ -45,10 +45,10 @@ class UpdateIssueDate extends Component {
     static createHandleSelectOption(option, toBind) {
         return function (event) {
             event.preventDefault();
-            if (UpdateIssueDate.getEndDateByOption(option)) {
-                let endDate = UpdateIssueDate.getEndDateByOption(option);
+            if (DateRangePicker.getEndDateByOption(option)) {
+                let endDate = DateRangePicker.getEndDateByOption(option);
                 let {startDate} = this.state;
-                startDate = UpdateIssueDate.correctAnotherDate(endDate, END_DATE, startDate);
+                startDate = DateRangePicker.correctAnotherDate(endDate, END_DATE, startDate);
                 this.setState({
                     selectedOption: option,
                     endDate,
@@ -129,11 +129,11 @@ class UpdateIssueDate extends Component {
 
     handleNextSelectedDate = () => {
         let selectedDate = this.state.selectedDate;
-        let notSelected = UpdateIssueDate.getAnotherDateName(selectedDate);
+        let notSelected = DateRangePicker.getAnotherDateName(selectedDate);
         let anotherDate = moment(this.state[notSelected]);
         let newDate = moment(this.state[selectedDate]);
         newDate.add(1, "days");
-        anotherDate = UpdateIssueDate.correctAnotherDate(newDate, selectedDate, anotherDate);
+        anotherDate = DateRangePicker.correctAnotherDate(newDate, selectedDate, anotherDate);
         this.setState({
             [selectedDate]: newDate,
             [notSelected]: anotherDate,
@@ -143,11 +143,11 @@ class UpdateIssueDate extends Component {
 
     handlePreviousSelectedDate = () => {
         let selectedDate = this.state.selectedDate;
-        let notSelected = UpdateIssueDate.getAnotherDateName(selectedDate);
+        let notSelected = DateRangePicker.getAnotherDateName(selectedDate);
         let anotherDate = moment(this.state[notSelected]);
         let newDate = moment(this.state[selectedDate]);
         newDate.subtract(1, "days");
-        anotherDate = UpdateIssueDate.correctAnotherDate(newDate, selectedDate, anotherDate);
+        anotherDate = DateRangePicker.correctAnotherDate(newDate, selectedDate, anotherDate);
         this.setState({
             [selectedDate]: newDate,
             [notSelected]: anotherDate,
@@ -159,9 +159,9 @@ class UpdateIssueDate extends Component {
         let selectedDate = this.state.selectedDate;
         if (selectedDate) {
             let newDate = moment(date);
-            let notSelected = UpdateIssueDate.getAnotherDateName(selectedDate);
+            let notSelected = DateRangePicker.getAnotherDateName(selectedDate);
             let anotherDate = moment(this.state[notSelected]);
-            anotherDate = UpdateIssueDate.correctAnotherDate(newDate, selectedDate, anotherDate);
+            anotherDate = DateRangePicker.correctAnotherDate(newDate, selectedDate, anotherDate);
             this.setState({
                 [selectedDate]: newDate,
                 [notSelected]: anotherDate,
@@ -201,7 +201,7 @@ class UpdateIssueDate extends Component {
         let {startDateDraft, startDate, endDate} = this.state;
         if (moment(startDateDraft, DATE_PATTERN).isValid()) {
             startDate = moment(startDateDraft, DATE_PATTERN);
-            endDate = UpdateIssueDate.correctAnotherDate(startDate, START_DATE, endDate);
+            endDate = DateRangePicker.correctAnotherDate(startDate, START_DATE, endDate);
         }
         this.setState({
             startDate,
@@ -223,7 +223,7 @@ class UpdateIssueDate extends Component {
         let {endDateDraft, endDate, startDate} = this.state;
         if (moment(endDateDraft, DATE_PATTERN).isValid()) {
             endDate = moment(endDateDraft, DATE_PATTERN);
-            startDate = UpdateIssueDate.correctAnotherDate(endDate, END_DATE, startDate);
+            startDate = DateRangePicker.correctAnotherDate(endDate, END_DATE, startDate);
         }
         this.setState({
             endDate,
@@ -346,27 +346,27 @@ class UpdateIssueDate extends Component {
                 <div className={styles.Options}>
                     <div
                         className={`${styles.Option} ${this.state.selectedOption === Options.IN_QUEUE ? styles.Selected : ""}`}
-                        onClick={UpdateIssueDate.createHandleSelectOption(Options.IN_QUEUE, this)}>
+                        onClick={DateRangePicker.createHandleSelectOption(Options.IN_QUEUE, this)}>
                         В ОЧЕРЕДИ
                     </div>
                     <div
                         className={`${styles.Option} ${this.state.selectedOption === Options.TODAY ? styles.Selected : ""}`}
-                        onClick={UpdateIssueDate.createHandleSelectOption(Options.TODAY, this)}>
+                        onClick={DateRangePicker.createHandleSelectOption(Options.TODAY, this)}>
                         СЕГОДНЯ
                     </div>
                     <div
                         className={`${styles.Option} ${this.state.selectedOption === Options.TOMORROW ? styles.Selected : ""}`}
-                        onClick={UpdateIssueDate.createHandleSelectOption(Options.TOMORROW, this)}>
+                        onClick={DateRangePicker.createHandleSelectOption(Options.TOMORROW, this)}>
                         ЗАВТРА
                     </div>
                     <div
                         className={`${styles.Option} ${this.state.selectedOption === Options.NEXT_WEEK ? styles.Selected : ""}`}
-                        onClick={UpdateIssueDate.createHandleSelectOption(Options.NEXT_WEEK, this)}>
+                        onClick={DateRangePicker.createHandleSelectOption(Options.NEXT_WEEK, this)}>
                         НА СЛЕД. НЕДЕЛЕ.
                     </div>
                     <div
                         className={`${styles.Option} ${this.state.selectedOption === Options.SELECT_DATE ? styles.Selected : ""}`}
-                        onClick={UpdateIssueDate.createHandleSelectOption(Options.SELECT_DATE, this)}>
+                        onClick={DateRangePicker.createHandleSelectOption(Options.SELECT_DATE, this)}>
                         ВЫБРАТЬ ДАТУ
                     </div>
                 </div>
@@ -480,4 +480,4 @@ class UpdateIssueDate extends Component {
     }
 }
 
-export default UpdateIssueDate;
+export default DateRangePicker;

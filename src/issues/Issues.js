@@ -5,12 +5,12 @@ import mainStyles from "../common/Main.css";
 import IssueTimeHeader from "./IssueTimeHeader";
 import {connect} from "react-redux";
 import {getUser} from "../api/api";
-import IssueItem from "./issue-item/IssueItem";
+import IssueItem from "../components/issue-item/IssueItem";
 import IssueDescription from "./issue-decription/IssueDescription";
 import moment from "moment";
 import {Route, Switch} from "react-router-dom";
 import AddIssue from "../components/new-issue/AddIssue";
-import {byId, forLater, forNextWeek, forThisWeek, forToday} from "../util/issue-filters";
+import {byId, forLater, forNextWeek, forThisWeek, forToday} from "../util/filters";
 
 class Issues extends Component {
 

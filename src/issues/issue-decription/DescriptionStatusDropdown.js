@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import styles from "../Issues.css";
-import IssueStatusDropdown from "../issue-status-dropdown/IssueStatusDropdown";
+import IssueStatusDropdown from "../../components/issue-status-dropdown/IssueStatusDropdown";
 
 class DescriptionStatusDropdown extends Component {
 

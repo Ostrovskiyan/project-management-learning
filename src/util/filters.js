@@ -22,6 +22,6 @@ export function forLater(issues) {
     return issues.filter(issue => issue.startDate.isAfter(nextWeekEnd, "day"));
 }
 
-export function byId(issues, id) {
-    return issues.filter(issue => issue.id.toString() === id.toString())[0];
+export function byId(items, id) {
+    return items.filter(issue => issue.id.toString() === id.toString())[0];
 }

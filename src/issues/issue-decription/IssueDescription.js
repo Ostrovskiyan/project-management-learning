@@ -9,9 +9,9 @@ import ImmediateInput from "../../general/immediate-input/ImmediateInput";
 import SubtaskInput from "../components/SubtaskInput";
 import Subtask from "../components/Subtask";
 import {getUsers} from "../../actions/users";
-import IssueStatusDropdown from "../issue-status-dropdown/IssueStatusDropdown";
 import {connect} from "react-redux";
 import DescriptionStatusDropdown from "./DescriptionStatusDropdown";
+import DescriptionHeader from "../../components/description-header/DescriptionHeader";
 
 class IssueDescription extends Component {
 
@@ -20,7 +20,6 @@ class IssueDescription extends Component {
         this.addInProject = this.addInProject.bind(this);
         this.state = {
             subtasksIsOpen: false,
-            showTooltip: false,
         };
     }
 
@@ -50,8 +49,8 @@ class IssueDescription extends Component {
         let {subtasks} = issue;
 
         let id = subtasks.length === 0 ? 0 : subtasks
-                                                .map(subtask => subtask.id)
-                                                .reduce((prev, cur) => cur >= prev ? cur : prev, 0) + 1;
+                .map(subtask => subtask.id)
+                .reduce((prev, cur) => cur >= prev ? cur : prev, 0) + 1;
 
         let newSubtask = {
             name,
@@ -74,7 +73,7 @@ class IssueDescription extends Component {
         console.log(subtaskId);
         console.log(userId);
         let newSubtasks = subtasks
-            .map(subtask => subtask.id === subtaskId ? {...subtask, userId } : subtask);
+            .map(subtask => subtask.id === subtaskId ? {...subtask, userId} : subtask);
 
         this.props.dispatch(updateIssue({
             ...issue,
@@ -111,7 +110,6 @@ class IssueDescription extends Component {
         } = this.props;
         let {
             subtasksIsOpen,
-            showTooltip,
         } = this.state;
         let {
             creatingDate,
@@ -120,37 +118,25 @@ class IssueDescription extends Component {
         } = issue;
         return (
             <div className={`${mainStyles.FullHeight} ${styles.IssueDescription}`}>
-                <div className={styles.IssueHeader}>
-                    <div>
-                        <div className={styles.IssueNameHeader}>{issue.name}</div>
-                        <div className={styles.IssueHeaderButtons}>
-                            <Button className={styles.IssueHeaderOptions}>
-                                <i className={`fa fa-link ${styles.LinkAwesomeIcon}`} aria-hidden="true"/>
-                            </Button>
-                            <Button className={styles.IssueHeaderOptions}>
-                                <i className="fa fa-ellipsis-h" aria-hidden="true"/>
-                            </Button>
-                        </div>
-                    </div>
-                    <IssueToProjectDropdown addInProject={this.addInProject} issue={issue}/>
-                </div>
+                <DescriptionHeader headerText={issue.name}
+                                   headerBottomComponent={() =>
+                                       <IssueToProjectDropdown addInProject={this.addInProject} issue={issue}/>
+                                   }/>
                 <div className={styles.IssueSubHeader}>
                     <DescriptionStatusDropdown/>
-                    <div className={styles.IssueParticipants}>
-                        <div className={styles.IssueAssigners}>
-                            <img alt="assigned" src={issue.assigned.avatar} className={styles.IssueAssignedAvatar}/>
-                            {issue.assigned.name}
-                            <Glyphicon className={styles.AddAssignedIcon} glyph="glyphicon glyphicon-plus"/>
-                        </div>
-                        <div className={styles.IssueAuthorWrapper}>
-                            <span className={styles.IssueAuthor}>
-                                автор:
-                                <a className={styles.IssueAuthorLink}>{`${issue.author.name}
-                                    ${issue.author.surname.slice(0, 1)}`}
-                                </a>,
-                                {creatingDate.format("HH:mm")}
-                            </span>
-                        </div>
+                    <div className={styles.IssueAssigners}>
+                        <img alt="assigned" src={issue.assigned.avatar} className={styles.IssueAssignedAvatar}/>
+                        {issue.assigned.name}
+                        <Glyphicon className={styles.AddAssignedIcon} glyph="glyphicon glyphicon-plus"/>
+                    </div>
+                    <div className={styles.IssueAuthorWrapper}>
+                        <span className={styles.IssueAuthor}>
+                            автор:
+                            <a className={styles.IssueAuthorLink}>{`${issue.author.name}
+                                ${issue.author.surname.slice(0, 1)}`}
+                            </a>,
+                            {creatingDate.format("HH:mm")}
+                        </span>
                     </div>
                 </div>
                 <div className={styles.IssueSettingTabs}>

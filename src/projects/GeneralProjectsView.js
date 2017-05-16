@@ -4,9 +4,9 @@ import styles from "./Projects.css";
 import UnderlineMenu from "../general/underline-menu/UnderlineMenu";
 import AddIssue from "../components/new-issue/AddIssue";
 import WrappedContainer from "../general/wrapped-container/WrappedContainer";
-import IssueItem from "../issues/issue-item/IssueItem";
-import {forLater, forNextWeek, forThisWeek, forToday} from "../util/issue-filters";
-import IssueStatusDropdown from "../issues/issue-status-dropdown/IssueStatusDropdown";
+import IssueItem from "../components/issue-item/IssueItem";
+import {forLater, forNextWeek, forThisWeek, forToday} from "../util/filters";
+import IssueStatusDropdown from "../components/issue-status-dropdown/IssueStatusDropdown";
 
 const Menu = {
     LIST: "LIST",
@@ -30,9 +30,9 @@ class GeneralProjectsView extends Component {
     render() {
         let {
             issues,
-            selectedIssueId,
+            headerText,
+            fullContent,
         } = this.props;
-        let fullContent = selectedIssueId === undefined;
         let menuOptions = [
             {
                 key: Menu.LIST,
@@ -80,7 +80,9 @@ class GeneralProjectsView extends Component {
         return (
             <div
                 className={`${mainStyles.FullHeight} ${mainStyles.Content} ${fullContent ? mainStyles.FullContent : mainStyles.HalfContent} ${styles.GeneralView} col-xs-5`}>
-                <div className={styles.GeneralHeader}>Проекты</div>
+                <div className={styles.GeneralHeader}>
+                    {headerText ? headerText : "Проекты"}
+                </div>
                 <UnderlineMenu options={menuOptions} selected={Menu.LIST}/>
                 <div className={styles.FilterHeader}>
                     <IssueStatusDropdown id="filter-status-dropdown"

@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import styles from "./UpdateIssue.css";
+import styles from "./DateRangePicker.css";
 import {Table} from "react-bootstrap";
 import moment from "moment";
 import SelectedDay from "./SelectedDay";

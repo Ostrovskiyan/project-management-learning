@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Dropdown, Glyphicon} from "react-bootstrap";
 import styles from "../Issues.css";
 import mainStyles from "../../common/Main.css";
-import UpdateIssueDate from "../update-issue-form/UpdateIssueDate";
+import DateRangePicker from "../../general/date-range-picker/DateRangePicker";
 
 class UpdateIssueDateDropdown extends Component {
 
@@ -57,7 +57,7 @@ class UpdateIssueDateDropdown extends Component {
                     </div>
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
-                    {isOpen ? <UpdateIssueDate onCancel={this.handleCancel} onSubmit={this.handleSubmit} startDate={startDate} endDate={endDate}/> : null}
+                    {isOpen ? <DateRangePicker onCancel={this.handleCancel} onSubmit={this.handleSubmit} startDate={startDate} endDate={endDate}/> : null}
                 </Dropdown.Menu>
             </Dropdown>
         )

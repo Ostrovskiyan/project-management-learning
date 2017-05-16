@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import styles from "./UpdateIssue.css";
+import styles from "./DateRangePicker.css";
 
 class SelectedDay extends Component {
 
