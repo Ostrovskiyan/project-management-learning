@@ -21,3 +21,7 @@ export function forLater(issues) {
     let nextWeekEnd = moment().startOf("day").add(13, "day");
     return issues.filter(issue => issue.startDate.isAfter(nextWeekEnd, "day"));
 }
+
+export function byId(issues, id) {
+    return issues.filter(issue => issue.id.toString() === id.toString())[0];
+}

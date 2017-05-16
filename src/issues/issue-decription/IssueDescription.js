@@ -1,41 +1,31 @@
 import React, {Component} from "react";
-import {Button, Dropdown, Glyphicon, MenuItem} from "react-bootstrap";
-import styles from "./Issues.css";
-import mainStyles from "../common/Main.css";
-import {connect} from "react-redux";
-import {updateIssue} from "../actions/issues";
+import {Button, Glyphicon} from "react-bootstrap";
+import styles from "../Issues.css";
+import mainStyles from "../../common/Main.css";
+import {updateIssue} from "../../actions/issues";
 import IssueToProjectDropdown from "./IssueToProjectDropdown";
 import UpdateIssueDateDropdown from "./UpdateIssueDateDropdown";
-import ImmediateInput from "../general/immediate-input/ImmediateInput";
-import SubtaskInput from "./components/SubtaskInput";
-import Subtask from "./components/Subtask";
-import {getUsers} from "../actions/users";
+import ImmediateInput from "../../general/immediate-input/ImmediateInput";
+import SubtaskInput from "../components/SubtaskInput";
+import Subtask from "../components/Subtask";
+import {getUsers} from "../../actions/users";
+import IssueStatusDropdown from "../issue-status-dropdown/IssueStatusDropdown";
+import {connect} from "react-redux";
+import DescriptionStatusDropdown from "./DescriptionStatusDropdown";
 
 class IssueDescription extends Component {
 
     constructor(props) {
         super(props);
-        this.handleMouseOverIssueStatus = this.handleMouseOverIssueStatus.bind(this);
-        this.handleMouseOutIssueStatus = this.handleMouseOutIssueStatus.bind(this);
         this.addInProject = this.addInProject.bind(this);
         this.state = {
-            showIssueStatus: false,
-            subtasksIsOpen: false
+            subtasksIsOpen: false,
+            showTooltip: false,
         };
     }
 
     componentDidMount() {
         this.props.dispatch(getUsers());
-    }
-
-    handleMouseOverIssueStatus(event) {
-        this.setState({showIssueStatus: true});
-        event.preventDefault();
-    }
-
-    handleMouseOutIssueStatus(event) {
-        this.setState({showIssueStatus: false});
-        event.preventDefault();
     }
 
     addInProject(project) {
@@ -119,7 +109,10 @@ class IssueDescription extends Component {
         let {
             issue,
         } = this.props;
-        let {subtasksIsOpen} = this.state;
+        let {
+            subtasksIsOpen,
+            showTooltip,
+        } = this.state;
         let {
             creatingDate,
             startDate,
@@ -142,35 +135,7 @@ class IssueDescription extends Component {
                     <IssueToProjectDropdown addInProject={this.addInProject} issue={issue}/>
                 </div>
                 <div className={styles.IssueSubHeader}>
-                    <Dropdown id="issue-status-dropdown" bsStyle="link" className={styles.MarkSuccessWrapper}>
-                        <Dropdown.Toggle bsStyle="link"
-                                         className={`${mainStyles.MinimizeDropdown} ${styles.IssueStatusDropdown}`}>
-                            <div className={styles.IssuesStatusTooltip}
-                                 style={this.state.showIssueStatus ? {} : {display: "none"}}>
-                                <span>Отметить задачу как завершена</span>
-                            </div>
-                            <div className={styles.IssueStatus} onMouseEnter={this.handleMouseOverIssueStatus}
-                                 onMouseLeave={this.handleMouseOutIssueStatus}/>
-                        </Dropdown.Toggle>
-                        <Dropdown.Menu>
-                            <MenuItem className={styles.SelectedIssueStatus}>
-                                <div className={`${styles.IssueStatus} ${styles.active}`}/>
-                                <div className={styles.IssueStatusName}>Активна</div>
-                            </MenuItem>
-                            <MenuItem>
-                                <div className={`${styles.IssueStatus} ${styles.ended}`}/>
-                                <div className={styles.IssueStatusName}>Завершена</div>
-                            </MenuItem>
-                            <MenuItem>
-                                <div className={`${styles.IssueStatus} ${styles.postponed}`}/>
-                                <div className={styles.IssueStatusName}>Отложена</div>
-                            </MenuItem>
-                            <MenuItem>
-                                <div className={`${styles.IssueStatus} ${styles.canceled}`}/>
-                                <div className={styles.IssueStatusName}>Отменена</div>
-                            </MenuItem>
-                        </Dropdown.Menu>
-                    </Dropdown>
+                    <DescriptionStatusDropdown/>
                     <div className={styles.IssueParticipants}>
                         <div className={styles.IssueAssigners}>
                             <img alt="assigned" src={issue.assigned.avatar} className={styles.IssueAssignedAvatar}/>

@@ -1,0 +1,64 @@
+.StatusMenu {
+    top: 90%;
+    border-radius: 0;
+    padding: 10px 0;
+    border: none;
+    box-shadow: 0 0 5px 1px #888888;
+}
+
+.IssueStatus {
+    height: 20px;
+    width: 20px;
+    border: 1px solid #80A5CB;
+    background-color: #ffffff;
+    display: inline-block;
+}
+
+.SelectedIssueStatus, .SelectedIssueStatus:hover {
+    background-color: #5385B9;
+}
+
+.SelectedIssueStatus > a:hover {
+    background-color: inherit !important;
+    background-image: inherit !important;;
+}
+
+.SelectedIssueStatus > a > .IssueStatus {
+    border: 1px solid #ffffff;
+}
+
+.SelectedIssueStatus > a > .IssueStatusName {
+    color: #ffffff;
+}
+
+a > .IssueStatus {
+    margin-top: 5px;
+}
+
+.IssueStatus.active {
+    background-color: #2296F4;
+    border: none;
+}
+
+.IssueStatus.ended {
+    background-color: #8CC34C;
+    border: none;
+}
+
+.IssueStatus.postponed {
+    background-color: #683AB8;
+    border: none;
+}
+
+.IssueStatus.canceled {
+    background-color: #9F9D9F;
+    border: none;
+}
+
+.IssueStatusName {
+    display: inline-block;
+    vertical-align: top;
+    margin-top: 5px;
+    margin-left: 10px;
+    color: #000000;
+}

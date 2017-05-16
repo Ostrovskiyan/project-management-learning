@@ -17,12 +17,6 @@ class AppMenu extends Component {
             dispatch
         } = this.props;
 
-        // projects = [
-        //     {id: 1, name: "alik"},
-        //     {id: 2, name: "another alik"},
-        //     {id: 3, name: "last alik"},
-        // ];
-
         return (
 
             <div>
@@ -33,7 +27,7 @@ class AppMenu extends Component {
                         </div>
                     </Link>
                 )}/>
-                <Route path="/projects" exact children={({match}) => (
+                <Route path="/projects(/issues/\d+)?" exact children={({match}) => (
                     <Link to="/projects">
                         <div id={projectsId} className={`${styles.MenuButton} ${match && styles.Selected}`}>
                             ПРОЕКТЫ

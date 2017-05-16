@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Dropdown, Form, Glyphicon} from "react-bootstrap";
-import styles from "./Issues.css";
-import mainStyles from "../common/Main.css";
+import styles from "../Issues.css";
+import mainStyles from "../../common/Main.css";
 
 class IssueToProjectDropdown extends Component {
 

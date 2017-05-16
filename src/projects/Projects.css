@@ -10,15 +10,35 @@
 .FilterHeader {
     background-color: #F5F8FD;
     border-bottom: 1px solid #d0d0d0;
+    padding-left: 15px !important;
 }
 
-.FilterHeader > div {
+.FilterDropdown {
+    vertical-align: top;
+}
+
+.FilterDropdown > ul[role="menu"] {
+    top: 40px
+}
+
+.FilterDropdown > button {
+    border: 0;
+    padding: 0;
+}
+
+.FilterDropdown > button > :global.caret {
+    display: none;
+}
+
+.FilterText {
     display: inline-block;
     color: #6C9BCE;
-    margin-right: 30px;
+    margin: 10px 15px 10px 0;
+    padding: 5px 15px;
     font-weight: bold;
-    padding: 15px 0;
     cursor: pointer;
+    background-color: #DCE6F0;
+    border-radius: 20px;
 }
 
 .ActiveAddIssue {

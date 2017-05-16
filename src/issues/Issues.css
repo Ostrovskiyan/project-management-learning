@@ -107,7 +107,6 @@
 
 .IssueSubHeader {
     margin-left: 0 !important;
-    padding-left: 35px;
     border-top: solid 1px #cccccc;
     border-bottom: solid 1px #cccccc;
     height: 65px;
@@ -115,18 +114,31 @@
 
 .MarkSuccessWrapper {
     vertical-align: top;
-    width: 10%;
+    width: 11%;
     border-right: dotted 1px #cccccc;
     display: inline-block;
     height: 100%;
 }
 
-.MarkSuccessWrapper input {
-    margin: 0;
+.MarkSuccessWrapper > button {
+    height: 100%;
+    padding-top: 10px;
+    padding-left: 35px;
+    width: 100%;
+}
+
+.MarkSuccessWrapper > button > div {
+    display: inline-block;
+}
+
+.MarkSuccessWrapper > button > span {
+    color: #000000;
+    margin-bottom: 35%;
+    margin-left: 5px !important;
 }
 
 .IssueParticipants {
-    width: 90%;
+    width: 89%;
     display: inline-block;
     height: 100%;
 }
@@ -182,79 +194,12 @@
     height: 20px;
     width: 20px;
     border: 1px solid #80A5CB;
-    display: inline-block;
     z-index: 2;
     background-color: #ffffff;
 }
 
-.IssueStatusDropdown {
-    height: 100%;
-    padding-top: 10px;
-    padding-left: 0;
-}
-
-:global #issue-status-dropdown .caret {
-    color: #000000;
-    margin-bottom: 35%;
-    margin-left: 10%;
-}
-
-.SelectedIssueStatus, .SelectedIssueStatus:hover {
-    background-color: #5385B9;
-}
-
-.SelectedIssueStatus > a:hover {
-    background-color: inherit !important;
-    background-image: inherit !important;;
-}
-
-.SelectedIssueStatus > a > .IssueStatus {
-    border: 1px solid #ffffff;
-}
-
-.SelectedIssueStatus > a > .IssueStatusName {
-    color: #ffffff;
-}
-
-a > .IssueStatus {
-    margin-top: 5px;
-}
-
-.IssueStatus.active {
-    background-color: #2296F4;
-    border: none;
-}
-
-.IssueStatus.ended {
-    background-color: #8CC34C;
-    border: none;
-}
-
-.IssueStatus.postponed {
-    background-color: #683AB8;
-    border: none;
-}
-
-.IssueStatus.canceled {
-    background-color: #9F9D9F;
-    border: none;
-}
-
-:global #issue-status-dropdown + .dropdown-menu {
-    top: 90%;
-    left: -35px;
-    border-radius: 0;
-    padding: 10px 0;
-    border: none;
-    box-shadow: 0 0 5px 1px #888888;
-}
-
-.IssueStatusName {
-    display: inline-block;
-    vertical-align: top;
-    margin-top: 5px;
-    margin-left: 10px;
-    color: #000000;
+.NotDisplayed {
+    display: none;
 }
 
 .IssuesStatusTooltip {
@@ -265,7 +210,7 @@ a > .IssueStatus {
     color: #ffffff;
     height: 30px;
     top: 15px;
-    left: -5px;
+    left: 30px;
     padding: 7px 10px 0 30px;
     border-radius: 3px;
     font-size: 12px;
