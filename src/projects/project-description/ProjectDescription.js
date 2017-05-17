@@ -14,14 +14,11 @@ import {projectStatuses} from "../constants/constants";
 class ProjectDescription extends Component {
 
     statusItems = () => {
-        let {
-            project,
-        } = this.props;
         return projectStatuses.map(status => (
             <MenuItem key={status.key}
                       eventKey={status.key}
-                      className={styles.ProjectStatusItem}
-                      onSelect{this.updateStatus}>
+                      className={`${styles.ProjectStatusItem}`}
+                      onSelect={this.updateStatus}>
                 {status.text}
             </MenuItem>
         ));
@@ -43,6 +40,10 @@ class ProjectDescription extends Component {
             project,
         } = this.props;
 
+        let {
+            status,
+        } = project;
+
         let settingsOptions = [
             {
                 text: "Удалить проект",
@@ -51,14 +52,14 @@ class ProjectDescription extends Component {
         ];
 
         let onSettingSelect = (eventKey) => console.log(eventKey);
-
+        let selectedStatus = projectStatuses.filter(item => item.key === status)[0];
         return (
             <div
                 className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.HalfContent} ${mainStyles.WithoutOverflow} ${styles.ProjectDescription} col-xs-5`}>
                 <DescriptionHeader headerText={project.name}
                                    settingsOptions={settingsOptions}
                                    onSettingSelect={onSettingSelect}
-                                   headerStyle={styles.ProjectDescriptionHeader}/>
+                                   headerStyle={`${styles.ProjectDescriptionHeader} ${selectedStatus.headerStyle}`}/>
                 <div className={styles.FieldList}>
                     <div className={styles.ParticipantsWrapper}>
                         <div>Участники</div>
@@ -91,7 +92,7 @@ class ProjectDescription extends Component {
                     <div>
                         <div>Status</div>
                         <div className={styles.Separator}>|</div>
-                        <DropdownButton id="project-status" bsStyle="default" title={"Желтый"}
+                        <DropdownButton id="project-status" bsStyle="default" title={selectedStatus.text}
                                         className={styles.ProjectStatusDropdown}>
                             {this.statusItems()}
                         </DropdownButton>

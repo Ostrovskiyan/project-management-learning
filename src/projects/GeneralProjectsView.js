@@ -7,12 +7,7 @@ import WrappedContainer from "../general/wrapped-container/WrappedContainer";
 import IssueItem from "../components/issue-item/IssueItem";
 import {forLater, forNextWeek, forThisWeek, forToday} from "../util/filters";
 import IssueStatusDropdown from "../components/issue-status-dropdown/IssueStatusDropdown";
-
-const Menu = {
-    LIST: "LIST",
-    TABLE: "TABLE",
-    TIMELINE: "TIMELINE",
-};
+import {Menu} from "./constants/constants";
 
 class GeneralProjectsView extends Component {
 
@@ -32,19 +27,24 @@ class GeneralProjectsView extends Component {
             issues,
             headerText,
             fullContent,
+            currentPath,
+            selectedProjectMenuItem,
         } = this.props;
         let menuOptions = [
             {
                 key: Menu.LIST,
                 text: "СПИСОК",
+                to: currentPath,
             },
             {
                 key: Menu.TABLE,
                 text: "ТАБЛИЦА",
+                to: currentPath + "/table",
             },
             {
                 key: Menu.TIMELINE,
                 text: "ВРЕМЕННАЯ ШКАЛА",
+                to: currentPath + "/timeline",
             }
         ];
 
@@ -83,7 +83,7 @@ class GeneralProjectsView extends Component {
                 <div className={styles.GeneralHeader}>
                     {headerText ? headerText : "Проекты"}
                 </div>
-                <UnderlineMenu options={menuOptions} selected={Menu.LIST}/>
+                <UnderlineMenu options={menuOptions} selected={selectedProjectMenuItem} withoutClickHandling/>
                 <div className={styles.FilterHeader}>
                     <IssueStatusDropdown id="filter-status-dropdown"
                                          wrapperStyle={styles.FilterDropdown}

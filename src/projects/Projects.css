@@ -75,8 +75,8 @@
 }
 
 .ProjectDescriptionHeader {
-    border-top: 10px solid #ff0;
     padding-bottom: 30px;
+    border-top: 10px solid transparent;
 }
 
 .FieldList {
@@ -147,10 +147,6 @@
     padding-left: 0 !important;
 }
 
-.DataRangePickerDropdown > ul {
-    left: -300px;
-}
-
 .DataRangePickerDropdown > button {
     padding: 0;
     border: 0;
@@ -196,4 +192,28 @@
 .ProjectStatusItem:hover > a {
     background-color: #eee !important;
     background-image: none !important;
+}
+
+.HeaderWithYellowStatus {
+    border-color: #F9A825;
+}
+
+.HeaderWithGreenStatus {
+    border-color: #2bb417;
+}
+
+.HeaderWithRedStatus {
+    border-color: #bd0e07;
+}
+
+.HeaderWithDoneStatus {
+    border-color: #586ce1;
+}
+
+.HeaderWithSuspendedStatus {
+    border-color: #bd0182;
+}
+
+.HeaderWithCanceledStatus {
+    border-color: #000000;
 }

@@ -1,4 +1,4 @@
-import {ADD_ISSUE, ADD_ISSUE_END, CLICK_ADD_ISSUE, UPDATE_ISSUE} from "../actions/issues";
+import {ADD_ISSUE, UPDATE_ISSUE} from "../actions/issues";
 import moment from "moment";
 
 let initialIssueId = 0;

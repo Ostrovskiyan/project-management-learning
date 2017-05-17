@@ -6,6 +6,7 @@ import IssueDescription from "../issues/issue-decription/IssueDescription";
 import {connect} from "react-redux";
 import {byId} from "../util/filters";
 import ProjectDescription from "./project-description/ProjectDescription";
+import {Menu} from "./constants/constants";
 
 class Projects extends Component {
 
@@ -19,14 +20,38 @@ class Projects extends Component {
             <Switch>
                 <Route exact
                        path="/projects"
-                       component={() => <GeneralProjectsView issues={issues} fullContent/>}/>)
+                       component={() => (
+                           <GeneralProjectsView issues={issues}
+                                                selectedProjectMenuItem={Menu.LIST}
+                                                currentPath="/projects"
+                                                fullContent/>
+                       )}/>)
+                <Route exact
+                       path="/projects/table"
+                       component={() => (
+                           <GeneralProjectsView issues={issues}
+                                                selectedProjectMenuItem={Menu.TABLE}
+                                                currentPath="/projects"
+                                                fullContent/>
+                       )}/>)
+                <Route exact
+                       path="/projects/timeline"
+                       component={() => (
+                           <GeneralProjectsView issues={issues}
+                                                selectedProjectMenuItem={Menu.TIMELINE}
+                                                currentPath="/projects"
+                                                fullContent/>
+                       )}/>)
                 <Route exact path="/projects/:id"
                        render={props => {
                            let selectedId = props.match.params.id;
                            let project = byId(projects, selectedId);
                            return (
                                <div className={mainStyles.FullHeight}>
-                                   <GeneralProjectsView headerText={project.name} issues={issues}/>
+                                   <GeneralProjectsView headerText={project.name}
+                                                        currentPath={`/projects/${selectedId}`}
+                                                        selectedProjectMenuItem={Menu.LIST}
+                                                        issues={issues}/>
                                    <ProjectDescription project={project}/>
                                </div>
                            )
@@ -36,8 +61,12 @@ class Projects extends Component {
                            let selectedId = props.match.params.id;
                            return (
                                <div className={mainStyles.FullHeight}>
-                                   <GeneralProjectsView selectedIssueId={selectedId} issues={issues}/>
-                                   <div className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.HalfContent} ${mainStyles.WithoutOverflow} col-xs-5`}>
+                                   <GeneralProjectsView selectedIssueId={selectedId}
+                                                        selectedProjectMenuItem={Menu.LIST}
+                                                        currentPath="/projects"
+                                                        issues={issues}/>
+                                   <div
+                                       className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.HalfContent} ${mainStyles.WithoutOverflow} col-xs-5`}>
                                        <IssueDescription issue={byId(issues, selectedId)}/>
                                    </div>
                                </div>

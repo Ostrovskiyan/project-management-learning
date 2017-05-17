@@ -56,7 +56,7 @@ class AppMenu extends Component {
                         </div>
                     </Link>
                 )}/>
-                <Route path="/projects(/issues/\d+)?" exact children={({match}) => (
+                <Route path="/projects(/issues/\d+)?(/table)?(/timeline)?" exact children={({match}) => (
                     <Link to="/projects">
                         <div id={projectsId} className={`${styles.MenuButton} ${match && styles.Selected}`}>
                             ПРОЕКТЫ

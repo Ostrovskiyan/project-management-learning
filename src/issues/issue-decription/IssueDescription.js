@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Button, Glyphicon} from "react-bootstrap";
+import {Glyphicon} from "react-bootstrap";
 import styles from "../Issues.css";
 import mainStyles from "../../common/Main.css";
 import {updateIssue} from "../../actions/issues";

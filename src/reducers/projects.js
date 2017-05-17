@@ -8,7 +8,8 @@ const projects = (state = {list: []}, action) => {
                     ...state.list,
                     {
                         id: action.id,
-                        name: action.name
+                        name: action.name,
+                        status: action.status,
                     }
                 ]
             };

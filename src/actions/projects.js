@@ -8,7 +8,8 @@ const createProjectAction = (id, name) => {
     return {
         type: CREATE_PROJECT,
         id,
-        name
+        name,
+        status: "YELLOW",
     }
 };
 

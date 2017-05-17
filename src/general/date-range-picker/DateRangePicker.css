@@ -312,4 +312,9 @@
     border: none;
     box-shadow: 0 0 5px 1px #888888;
     cursor: auto;
+    position: fixed;
+    top: inherit;
+    right: 5px;
+    bottom: 25px;
+    left: inherit;
 }

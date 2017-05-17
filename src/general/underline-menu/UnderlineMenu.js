@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import styles from "./UnderlineMenu.css";
+import {Link} from "react-router-dom";
 
 class UnderlineMenu extends Component {
 
@@ -27,7 +28,8 @@ class UnderlineMenu extends Component {
     render() {
         let {
             menuStyle,
-            selectedStyle
+            selectedStyle,
+            withoutClickHandling,
         } = this.props;
         let {
             options,
@@ -36,12 +38,14 @@ class UnderlineMenu extends Component {
         return (
             <div className={`${styles.Menu} ${menuStyle}`}>
                 {
-                    options.map(option =>
-                        <div key={option.key}
-                             className={`${styles.Option} ${option.key === selected ? `${selectedStyle || ""} ${styles.Selected}` : ""}`}
-                             onClick={this.handleSelect(option.key)}>
-                            {option.text}
-                        </div>)
+                    options.map(option => (
+                        <Link key={option.key} to={option.to}>
+                            <div className={`${styles.Option} ${option.key === selected ? `${selectedStyle || ""} ${styles.Selected}` : ""}`}
+                                 onClick={!withoutClickHandling ? this.handleSelect(option.key) : event => {}}>
+                                {option.text}
+                            </div>
+                        </Link>
+                    ))
                 }
             </div>
         )

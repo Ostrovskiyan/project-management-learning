@@ -225,12 +225,6 @@
     height: 100%;
 }
 
-:global #update-issue-date + .dropdown-menu {
-    top: -100px;
-    left: -30px;
-    width: 41vw;
-}
-
 .Subtasks {
     background-color: #f8f8f8;
     width: 100%;
