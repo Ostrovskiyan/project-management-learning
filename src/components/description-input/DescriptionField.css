@@ -1,0 +1,13 @@
+.DescriptionField {
+    margin-left: 0 !important;
+    padding-left: 35px;
+    min-height: 150px;
+    border-bottom: solid 1px #cccccc;
+}
+
+.DescriptionField > button, .DescriptionField > button:active, .DescriptionField > button:hover, .DescriptionField > button:focus {
+    color: #aaaaaa;
+    font-size: 16px;
+    margin-top: 25px;
+    padding-left: 0;
+}

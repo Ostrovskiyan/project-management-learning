@@ -304,3 +304,12 @@
     color: #ddd;
     cursor: pointer;
 }
+
+.Dropdown > ul {
+    min-width: 600px;
+    padding: 10px 0 40px 0;
+    border-radius: 0;
+    border: none;
+    box-shadow: 0 0 5px 1px #888888;
+    cursor: auto;
+}

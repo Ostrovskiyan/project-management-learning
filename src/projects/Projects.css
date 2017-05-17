@@ -38,6 +38,7 @@
     font-weight: bold;
     cursor: pointer;
     border-radius: 20px;
+    user-select: none;
 }
 
 .FilterText:hover {
@@ -75,4 +76,124 @@
 
 .ProjectDescriptionHeader {
     border-top: 10px solid #ff0;
+    padding-bottom: 30px;
+}
+
+.FieldList {
+    background-color: #FAFAFA;
+    border-top: 1px solid #cccccc;
+    border-bottom: 1px solid #cccccc;
+}
+
+.FieldList, .FieldList > div  {
+    width: 100%;
+}
+
+.FieldList > div  {
+    margin: 15px 0;
+}
+
+.FieldList > div > * {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.FieldList > div > div:first-child {
+    font-weight: bold;
+    padding-right: 15px;
+}
+
+.ParticipantsWrapper {
+    position: relative;
+}
+
+.Participants {
+    position: absolute;
+    top: -10px;
+}
+
+.Participants > img {
+    height: 40px;
+}
+
+.Separator {
+    vertical-align: top !important;
+    padding-right: 15px;
+    color: #ccc;
+}
+
+.Glyphicon {
+    margin-left: 20px;
+    color: #ccc;
+}
+
+.Glyphicon:hover, .DataRangePickerDropdown > button:hover > .Glyphicon {
+    color: #888;
+    cursor: pointer;
+}
+
+.Glyphicon:active, .DataRangePickerDropdown > button:active > .Glyphicon{
+    color: #000;
+}
+
+.FieldList > div > div > :global.glyphicon.glyphicon-plus {
+    font-family: verdana;
+    font-size: 18px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.DescriptionWrapper {
+    padding-left: 0 !important;
+}
+
+.DataRangePickerDropdown > ul {
+    left: -300px;
+}
+
+.DataRangePickerDropdown > button {
+    padding: 0;
+    border: 0;
+}
+
+.ProjectStatusDropdown[aria-expanded="false"], .ProjectStatusDropdown[aria-expanded="false"]:active {
+    padding: 0;
+    border: 0;
+    background: transparent;
+    box-shadow: none !important;
+}
+
+.ProjectStatusDropdown[aria-expanded="false"] > :global.caret{
+    display: none;
+}
+
+.ProjectStatusDropdown[aria-expanded="true"] {
+    position: absolute;
+    top: -13px;
+    left: -19px;
+    background-color: #fff !important;
+    box-shadow: none !important;
+    padding: 2px 10px 2px 18px;
+    border-color: #0d85d7 !important;
+}
+
+.ProjectStatusDropdown[aria-expanded="true"] > :global.caret {
+    margin-left: 5px !important;
+}
+
+.ProjectStatusDropdown[aria-expanded="true"] + ul{
+    top: 11px;
+    left: -19px;
+    padding: 0;
+    box-shadow: 0 2px 4px 0.5px #aaa;
+    border-radius: 0;
+}
+
+.ProjectStatusItem > a {
+    color: #000 !important;
+}
+
+.ProjectStatusItem:hover > a {
+    background-color: #eee !important;
+    background-image: none !important;
 }

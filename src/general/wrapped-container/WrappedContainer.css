@@ -9,6 +9,7 @@
     cursor: pointer;
     padding: 3px 0 3px 10px;
     border-top: 1px solid #e8e8e8;
+    user-select: none;
 }
 
 .Header > i {

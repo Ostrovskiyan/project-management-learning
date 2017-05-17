@@ -331,6 +331,10 @@ class DateRangePicker extends Component {
             withWeekends,
         } = this.state;
 
+        let {
+            header,
+        } = this.props;
+
         let days = daysDraft || this.getDays(startDate, endDate, withWeekends);
 
         let inputStartDateValue = startDateDraft || startDate.format(DATE_PATTERN);
@@ -342,7 +346,7 @@ class DateRangePicker extends Component {
 
         return (
             <div className={styles.Main} onClick={this.handleClick}>
-                <div className={styles.Header}>Когда эта задача должна быть готова?</div>
+                <div className={styles.Header}>{header}</div>
                 <div className={styles.Options}>
                     <div
                         className={`${styles.Option} ${this.state.selectedOption === Options.IN_QUEUE ? styles.Selected : ""}`}

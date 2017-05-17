@@ -1,5 +1,6 @@
 import {idGenerator} from "../util/generators";
 export const CREATE_PROJECT = "CREATE_PROJECT";
+export const UPDATE_PROJECT = "UPDATE_PROJECT";
 
 let gen = idGenerator();
 
@@ -16,3 +17,10 @@ export function createProject(name) {
         dispatch(createProjectAction(gen.next().value, name));
     }
 }
+
+export const updateProject = (project) => {
+    return {
+        type: UPDATE_PROJECT,
+        project,
+    }
+};

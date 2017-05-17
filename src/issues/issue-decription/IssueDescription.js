@@ -12,6 +12,7 @@ import {getUsers} from "../../actions/users";
 import {connect} from "react-redux";
 import DescriptionStatusDropdown from "./DescriptionStatusDropdown";
 import DescriptionHeader from "../../components/description-header/DescriptionHeader";
+import DescriptionField from "../../components/description-input/DescriptionField";
 
 class IssueDescription extends Component {
 
@@ -159,11 +160,8 @@ class IssueDescription extends Component {
                                             onSubmit={this.handleNewSubtask}/>
                         </div>
                         :
-                        <div className={styles.IssueDescriptionField}>
-                            <Button bsStyle="link" className={styles.AddDescriptionLinkBtn}>
-                                Нажмите, чтобы добавить описание
-                            </Button>
-                        </div>
+                        <DescriptionField/>
+
                 }
             </div>
         )

@@ -27,3 +27,27 @@
     width: 50%;
     display: inline-block;
 }
+
+.SettingsMenu {
+    padding: 0;
+    top: 95%;
+    right: 15px;
+    left: inherit;
+    border-radius: 0;
+    box-shadow: 0 0 5px 1px #888888;
+}
+
+.SettingsMenu:empty {
+    box-shadow: none;
+    border: none;
+}
+
+.SettingsMenu > li > a {
+    padding: 10px 30px;
+    color: #000 !important;
+}
+
+.SettingsMenu > li:hover > a {
+    background-color: #eee !important;
+    background-image: none !important;
+}

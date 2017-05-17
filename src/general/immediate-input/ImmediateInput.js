@@ -18,19 +18,21 @@ class ImmediateInput extends Component {
         this.setState({
             isActive,
         });
-        onToggle(isActive);
+        if (onToggle) {
+            onToggle(isActive);
+        }
     };
 
     componentDidMount() {
         let {isActive} = this.state;
-        if(isActive) {
+        if (isActive) {
             this.input.focus();
         }
     }
 
     componentDidUpdate() {
         let {isActive} = this.state;
-        if(isActive) {
+        if (isActive) {
             this.input.focus();
         }
     }
@@ -69,41 +71,41 @@ class ImmediateInput extends Component {
         let {isActive} = this.state;
 
         if (isActive) {
-            if(ActiveComponent) {
+            if (ActiveComponent) {
                 return <ActiveComponent ref={(input) => {
-                                            this.input = input
-                                        }}
+                    this.input = input
+                }}
                                         onSubmit={this.handleSubmit}
                                         onBlur={this.handleFocusEnd}
                                         {...activeProps}/>
             } else {
-                return  <Form inline className={activeStyle || ""} onSubmit={this.handleSubmit}>
-                            <input type="text"
-                                   className={`form-control ${activeInputStyle || ""}`}
-                                   placeholder={placeholder}
-                                   ref={(input) => {
-                                       this.input = input
-                                   }}
-                                   onBlur={this.handleFocusEnd}/>
-                        </Form>;
+                return <Form inline className={activeStyle || ""} onSubmit={this.handleSubmit}>
+                    <input type="text"
+                           className={`form-control ${activeInputStyle || ""}`}
+                           placeholder={placeholder}
+                           ref={(input) => {
+                               this.input = input
+                           }}
+                           onBlur={this.handleFocusEnd}/>
+                </Form>;
             }
 
         } else {
-            if(InactiveComponent) {
+            if (InactiveComponent) {
                 return <InactiveComponent onClick={this.handleClick}
                                           {...inactiveProps}/>
             } else {
-                return  <div className={inactiveWrapperStyle}>
-                            <Button bsStyle="link"
-                                    className={`${styles.Button} ${inactiveStyle || ""}`}
-                                    onClick={this.handleClick}>
-                                <Glyphicon glyph="glyphicon glyphicon-plus"
-                                           className={glyphStyle || ""}/>
-                                <span className={textStyle || ""}>
+                return <div className={inactiveWrapperStyle}>
+                    <Button bsStyle="link"
+                            className={`${styles.Button} ${inactiveStyle || ""}`}
+                            onClick={this.handleClick}>
+                        <Glyphicon glyph="glyphicon glyphicon-plus"
+                                   className={glyphStyle || ""}/>
+                        <span className={textStyle || ""}>
                                     {text}
                                 </span>
-                            </Button>
-                        </div>
+                    </Button>
+                </div>
             }
         }
     }
