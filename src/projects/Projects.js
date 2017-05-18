@@ -7,6 +7,8 @@ import {connect} from "react-redux";
 import {byId} from "../util/filters";
 import ProjectDescription from "./project-description/ProjectDescription";
 import {Menu} from "./constants/constants";
+import TableView from "./TableView";
+import TimelineView from "./timeline/TimelineView";
 
 class Projects extends Component {
 
@@ -29,18 +31,16 @@ class Projects extends Component {
                 <Route exact
                        path="/projects/table"
                        component={() => (
-                           <GeneralProjectsView issues={issues}
-                                                selectedProjectMenuItem={Menu.TABLE}
-                                                currentPath="/projects"
-                                                fullContent/>
+                           <TableView issues={issues}
+                                      selectedProjectMenuItem={Menu.TABLE}
+                                      currentPath="/projects"/>
                        )}/>)
                 <Route exact
                        path="/projects/timeline"
                        component={() => (
-                           <GeneralProjectsView issues={issues}
-                                                selectedProjectMenuItem={Menu.TIMELINE}
-                                                currentPath="/projects"
-                                                fullContent/>
+                           <TimelineView issues={issues}
+                                      selectedProjectMenuItem={Menu.TIMELINE}
+                                      currentPath="/projects"/>
                        )}/>)
                 <Route exact path="/projects/:id"
                        render={props => {

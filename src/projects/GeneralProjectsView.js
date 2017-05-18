@@ -7,7 +7,8 @@ import WrappedContainer from "../general/wrapped-container/WrappedContainer";
 import IssueItem from "../components/issue-item/IssueItem";
 import {forLater, forNextWeek, forThisWeek, forToday} from "../util/filters";
 import IssueStatusDropdown from "../components/issue-status-dropdown/IssueStatusDropdown";
-import {Menu} from "./constants/constants";
+import ProjectMenu from "./components/ProjectMenu";
+import FilterPanel from "./components/FilterPanel";
 
 class GeneralProjectsView extends Component {
 
@@ -30,23 +31,7 @@ class GeneralProjectsView extends Component {
             currentPath,
             selectedProjectMenuItem,
         } = this.props;
-        let menuOptions = [
-            {
-                key: Menu.LIST,
-                text: "СПИСОК",
-                to: currentPath,
-            },
-            {
-                key: Menu.TABLE,
-                text: "ТАБЛИЦА",
-                to: currentPath + "/table",
-            },
-            {
-                key: Menu.TIMELINE,
-                text: "ВРЕМЕННАЯ ШКАЛА",
-                to: currentPath + "/timeline",
-            }
-        ];
+
 
         let today = null;
         let thisWeek = null;
@@ -83,19 +68,8 @@ class GeneralProjectsView extends Component {
                 <div className={styles.GeneralHeader}>
                     {headerText ? headerText : "Проекты"}
                 </div>
-                <UnderlineMenu options={menuOptions} selected={selectedProjectMenuItem} withoutClickHandling/>
-                <div className={styles.FilterHeader}>
-                    <IssueStatusDropdown id="filter-status-dropdown"
-                                         wrapperStyle={styles.FilterDropdown}
-                                         button={() => (
-                                             <div className={styles.FilterText}>
-                                                 СТАТУС: Любой
-                                             </div>
-                                         )}/>
-                    <div className={styles.FilterText}>
-                        ИСПОЛНИТЕЛЬ: Все
-                    </div>
-                </div>
+                <ProjectMenu basePath={currentPath} selectedItem={selectedProjectMenuItem}/>
+                <FilterPanel/>
                 <AddIssue inactiveStyle={styles.InactiveAddIssue} activeStyle={styles.ActiveAddIssue}/>
                 <div className={styles.Wrappers}>
                     {today}

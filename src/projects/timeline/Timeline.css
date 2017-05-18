@@ -1,0 +1,36 @@
+.Timeline {
+    border-bottom: 1px solid #ccc;
+}
+
+.Timeline > thead {
+    background-color: #F6F6F6;
+}
+
+.Timeline > thead > tr:first-child > td{
+    text-align: center;
+}
+
+.Timeline > thead > tr > td{
+    border: 1px solid #ccc;
+    padding: 0 8px;
+}
+
+.Content {
+    border-top: 1px solid transparent !important;
+}
+
+.Saturday {
+    border-right: 1px solid #dfdfdf !important;
+}
+
+.Sunday {
+    border-left: 1px solid #dfdfdf !important;
+}
+
+.Saturday, .Sunday {
+    background-color: #F3F3F3;
+}
+
+.Today {
+    border-left: 1px solid #f00 !important;
+}
