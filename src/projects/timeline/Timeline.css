@@ -1,5 +1,33 @@
+.WrapperScroll {
+    overflow: auto;
+    height: 80%;
+}
+
+.WrapperScroll::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+}
+
+.WrapperScroll::-webkit-scrollbar-corner {
+    background-color: #D3D3D3;
+}
+
+.WrapperScroll::-webkit-scrollbar-track {
+    color: #D3D3D3;
+    background-color: #D3D3D3;
+}
+
+.WrapperScroll::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    color: #8C8C8C;
+    background-color: #8C8C8C;
+    background-clip: padding-box;
+    border: 3px solid #D3D3D3;
+}
+
 .Timeline {
     border-bottom: 1px solid #ccc;
+    margin: 0;
 }
 
 .Timeline > thead {
@@ -33,4 +61,68 @@
 
 .Today {
     border-left: 1px solid #f00 !important;
+}
+
+.Fat:not(.Label) {
+    background-color: #A9BDDF;
+    border-top: 1px solid #7C97CA !important;
+    border-bottom: 1px solid #7C97CA !important;
+}
+
+.FatStart {
+    border-left: 1px solid #7C97CA !important;
+}
+
+.FatEnd {
+    border-right: 1px solid #7C97CA !important;
+}
+
+.Relative {
+    position: relative;
+}
+
+.Label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    white-space: nowrap;
+}
+
+.Label.Fat {
+    color: #7C97CA;
+}
+
+.Label.Thin {
+    font-weight: bold;
+}
+
+.Label.Thin > i {
+    margin-right: 5px;
+}
+
+.Thin:not(.Label) {
+    border-bottom: 3px solid #43A047;
+    height: 25px;
+}
+
+.ThinStart {
+    position: absolute;
+    top: 0;
+    left: 0;
+    border: 8px solid #43A047;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-width: 0;
+    border-left-width: 0;
+}
+
+.ThinEnd {
+    position: absolute;
+    top: 0;
+    right: 0;
+    border: 8px solid #43A047;
+    border-left-color: transparent;
+    border-right-color: transparent;
+    border-bottom-width: 0;
+    border-right-width: 0;
 }

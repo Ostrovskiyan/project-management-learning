@@ -257,6 +257,7 @@
 .IssueTable > thead > tr > th, .IssueTable > tbody > tr > td {
     border: 1px solid #cccccc;
     text-overflow: ellipsis;
+    white-space: nowrap;
     overflow: hidden;
     padding: 5px 8px;
 }
