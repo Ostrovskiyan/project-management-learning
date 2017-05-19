@@ -8,6 +8,7 @@ export default function ProjectDateRangePicker(props) {
         id,
         startDate,
         endDate,
+        onDatesChanges,
     } = props;
 
     return (
@@ -16,6 +17,7 @@ export default function ProjectDateRangePicker(props) {
                                  endDate={endDate}
                                  dateRangePickerHeader="Когда этот проект должен быть готов?"
                                  dropdownStyle={styles.DataRangePickerDropdown}
+                                 onDateChange={onDatesChanges}
                                  toggleComponent={() => (
                                      <Glyphicon glyph="glyphicon glyphicon-calendar" className={styles.Glyphicon}/>
                                  )}/>

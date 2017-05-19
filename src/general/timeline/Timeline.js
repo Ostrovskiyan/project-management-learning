@@ -100,8 +100,8 @@ class Timeline extends Component {
                 if (cellObject.isThinStart && cellObject.isThinEnd) {
                     classes.push(styles.Relative);
                     content = [
-                        <div className={styles.ThinStart}/>,
-                        <div className={styles.ThinEnd}/>
+                        <div key="left" className={styles.ThinStart}/>,
+                        <div key="right" className={styles.ThinEnd}/>
                     ]
                 }
 

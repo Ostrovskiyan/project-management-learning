@@ -34,7 +34,8 @@ class DateRangePicker extends Component {
             endDate,
             selectedDate: undefined,
             daysDraft: undefined,
-            withWeekends: false
+            withWeekends: false,
+            isStretchSelecting: false,
         };
         this.handleDaysFocus = this.handleDaysFocus.bind(this);
         this.handleDaysBlur = this.handleDaysBlur.bind(this);
@@ -68,6 +69,8 @@ class DateRangePicker extends Component {
                 return moment().startOf('day');
             case Options.TOMORROW:
                 return moment().startOf('day').add(1, "day");
+            case Options.NEXT_WEEK:
+                return moment().startOf('day').day(5).add(7, 'days');
             default:
                 return undefined;
         }
@@ -82,7 +85,7 @@ class DateRangePicker extends Component {
     }
 
     static correctAnotherDate(selectedDate, selectedDateName, anotherDate) {
-        if((selectedDateName === START_DATE && anotherDate.isBefore(selectedDate, "days")) ||
+        if ((selectedDateName === START_DATE && anotherDate.isBefore(selectedDate, "days")) ||
             (selectedDateName === END_DATE && anotherDate.isAfter(selectedDate, "days"))) {
             return moment(selectedDate);
         } else {
@@ -156,7 +159,11 @@ class DateRangePicker extends Component {
     };
 
     handleCalendarDayClick = (date) => {
-        let selectedDate = this.state.selectedDate;
+        let {
+            selectedDate,
+            isStretchSelecting,
+            stretchSelectedDate,
+        } = this.state;
         if (selectedDate) {
             let newDate = moment(date);
             let notSelected = DateRangePicker.getAnotherDateName(selectedDate);
@@ -167,6 +174,43 @@ class DateRangePicker extends Component {
                 [notSelected]: anotherDate,
             });
             this[selectedDate + "Input"].focus();
+        } else if (isStretchSelecting) {
+            if(stretchSelectedDate.isSameOrBefore(moment(date))) {
+                this.setState({
+                    isStretchSelecting: false,
+                    stretchSelectedDate: undefined,
+                    possibleStretchEnd: undefined,
+                    startDate: stretchSelectedDate,
+                    endDate: moment(date),
+                })
+            } else {
+                this.setState({
+                    isStretchSelecting: false,
+                    stretchSelectedDate: undefined,
+                    possibleStretchEnd: undefined,
+                })
+            }
+        } else {
+            this.setState({
+                isStretchSelecting: true,
+                stretchSelectedDate: moment(date),
+            });
+        }
+    };
+
+    handleCalendarDayHover = (date) => {
+        let {
+            isStretchSelecting,
+            stretchSelectedDate,
+        } = this.state;
+        if(isStretchSelecting && stretchSelectedDate.isSameOrBefore(moment(date))) {
+            this.setState({
+                possibleStretchEnd: moment(date),
+            });
+        } else {
+            this.setState({
+                possibleStretchEnd: undefined,
+            });
         }
     };
 
@@ -329,6 +373,8 @@ class DateRangePicker extends Component {
             endDateDraft,
             daysDraft,
             withWeekends,
+            stretchSelectedDate,
+            possibleStretchEnd,
         } = this.state;
 
         let {
@@ -455,8 +501,11 @@ class DateRangePicker extends Component {
                                        startDate={startDate}
                                        endDate={endDate}
                                        onDayClick={this.handleCalendarDayClick}
+                                       onDayHover={this.handleCalendarDayHover}
                                        handleNextSelectedDate={this.handleNextSelectedDate}
                                        handlePreviousSelectedDate={this.handlePreviousSelectedDate}
+                                       stretchStart={stretchSelectedDate}
+                                       stretchEnd={possibleStretchEnd || stretchSelectedDate}
                                        withWeekends={withWeekends}/>
                         <MonthCalendar month={nextMonth.month()}
                                        year={nextMonth.year()}
@@ -464,8 +513,11 @@ class DateRangePicker extends Component {
                                        startDate={startDate}
                                        endDate={endDate}
                                        onDayClick={this.handleCalendarDayClick}
+                                       onDayHover={this.handleCalendarDayHover}
                                        handleNextSelectedDate={this.handleNextSelectedDate}
                                        handlePreviousSelectedDate={this.handlePreviousSelectedDate}
+                                       stretchStart={stretchSelectedDate}
+                                       stretchEnd={possibleStretchEnd || stretchSelectedDate}
                                        withWeekends={withWeekends}
                                        right/>
                     </div>

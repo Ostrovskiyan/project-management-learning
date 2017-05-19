@@ -6,7 +6,7 @@ import SelectedDay from "./SelectedDay";
 
 class MonthCalendar extends Component {
 
-    static createHandleDayClick(handler, date, toBind) {
+    static createHandleDayEvent(handler, date, toBind) {
         return function (event) {
             event.preventDefault();
             event.stopPropagation();
@@ -23,7 +23,10 @@ class MonthCalendar extends Component {
             startDate,
             endDate,
             onDayClick,
+            onDayHover,
             withWeekends,
+            stretchStart,
+            stretchEnd,
         } = this.props;
         for (let i = 0; i < daysInWeek; i++) {
             if(!(i >= emptyDays && month === date.month())) {
@@ -56,11 +59,16 @@ class MonthCalendar extends Component {
                     classes.push(styles.Between);
                 }
 
+                if(stretchStart && date.isSameOrAfter(stretchStart) && date.isSameOrBefore(stretchEnd)) {
+                    classes.push(styles.Stretch);
+                }
+
                 let className = classes.length > 0 ? classes.reduce((prev, cur) => `${prev} ${cur}`) : "";
 
 
                 result[i] = <td key={i.toString()}
-                                onClick={MonthCalendar.createHandleDayClick(onDayClick, moment(date), this)}
+                                onClick={MonthCalendar.createHandleDayEvent(onDayClick, moment(date), this)}
+                                onMouseOver={MonthCalendar.createHandleDayEvent(onDayHover, moment(date), this)}
                                 className={className}>
                                 {date.date()}
                             </td>;
@@ -72,7 +80,7 @@ class MonthCalendar extends Component {
 
     generateWeeks = (month, year) => {
         let weeks = [];
-        let firstDate = moment().date(1).month(month).year(year);
+        let firstDate = moment().startOf("day").date(1).month(month).year(year);
         let emptyDays = firstDate.day();
 
         for (let i = 0; i < 6; i++) {

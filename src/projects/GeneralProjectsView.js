@@ -1,12 +1,10 @@
 import React, {Component} from "react";
 import mainStyles from "../common/Main.css";
 import styles from "./Projects.css";
-import UnderlineMenu from "../general/underline-menu/UnderlineMenu";
 import AddIssue from "../components/new-issue/AddIssue";
 import WrappedContainer from "../general/wrapped-container/WrappedContainer";
 import IssueItem from "../components/issue-item/IssueItem";
 import {forLater, forNextWeek, forThisWeek, forToday} from "../util/filters";
-import IssueStatusDropdown from "../components/issue-status-dropdown/IssueStatusDropdown";
 import ProjectMenu from "./components/ProjectMenu";
 import FilterPanel from "./components/FilterPanel";
 
@@ -15,12 +13,21 @@ class GeneralProjectsView extends Component {
     toIssueItemList(issues, filterFunction) {
         let {
             selectedIssueId,
+            projects,
+            currentPath,
         } = this.props;
-        return filterFunction(issues).map(issue => <IssueItem issue={issue}
-                                                              key={issue.id}
-                                                              to={`/projects/issues/${issue.id}`}
-                                                              selected={selectedIssueId === issue.id.toString()}
-                                                              projectView/>);
+        return filterFunction(issues).map(issue => {
+            let projectName = undefined;
+            if(issue.projectId !== undefined) {
+                projectName = projects.filter(project => project.id === issue.projectId)[0].name;
+            }
+            return (<IssueItem issue={issue}
+                               projectName={projectName}
+                               key={issue.id}
+                               to={`${currentPath}/issues/${issue.id}`}
+                               selected={selectedIssueId === issue.id.toString()}
+                               projectView/>);
+        })
     }
 
     render() {
@@ -31,7 +38,6 @@ class GeneralProjectsView extends Component {
             currentPath,
             selectedProjectMenuItem,
         } = this.props;
-
 
         let today = null;
         let thisWeek = null;
@@ -82,4 +88,6 @@ class GeneralProjectsView extends Component {
     }
 }
 
-export default GeneralProjectsView;
+export
+default
+GeneralProjectsView;

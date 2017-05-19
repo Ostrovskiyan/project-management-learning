@@ -47,7 +47,7 @@ class DateRangePickerDropdown extends Component {
             endDate,
             toggleComponent: ToggleComponent,
             dropdownStyle,
-            dateRangePickerHeader
+            dateRangePickerHeader,
         } = this.props;
 
         let isOpen = this.state.open;

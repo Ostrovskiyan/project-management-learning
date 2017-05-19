@@ -43,8 +43,10 @@
     padding-top: 0;
 }
 
-.AddInFolderFont {
+.AddInFolderText {
     color: #777777;
+    display: inline-block;
+    padding-top: 1px;
 }
 
 .AddInFolderFontPlus {
@@ -52,23 +54,48 @@
     font-family: "Verdana";
     font-size: 18px;
     font-weight: bold;
+    margin-right: 5px;
 }
 
-:global #add-issue-in-folder + .dropdown-menu {
+.AddToProjectDropdown {
     border-radius: 0;
     border: none;
     box-shadow: 0 0 5px 1px #888888;
     top: -95%;
     left: -30px;
-    height: 385%;
+    min-height: 385%;
     width: 400px;
-    padding: 15px;
-    margin: 0;
+    padding: 15px 0;
+}
+
+.AddToProjectDropdown > div:first-child {
+    padding: 0 15px;
+}
+
+.AddToProjectDropdown > div:first-child > form {
+    margin-bottom: 10px;
 }
 
 .FoldersForView {
     margin-top: 20px;
     font-size: 13px;
+}
+
+.ProjectDropdownItem {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.ProjectDropdownItem:hover {
+    background-color: #e1e3e9;
+}
+
+.ProjectDropdownItem:active {
+    background-color: #ccc;
+}
+
+.ProjectDropdownItem > i {
+    margin-right: 5px;
 }
 
 .IssueDescription > div {

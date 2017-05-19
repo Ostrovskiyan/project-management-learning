@@ -1,3 +1,4 @@
+import {idGenerator} from "../util/generators";
 export function getUser() {
     return getUsers()[0];
 }
@@ -16,4 +17,14 @@ export function getUsers() {
         email: "ostrovskiyan15@gmail.com",
         id: 2,
     },];
+}
+
+let projectGen = idGenerator();
+
+export function createProject(name) {
+    return {
+        id: projectGen.next().value,
+        name,
+        status: "YELLOW",
+    }
 }

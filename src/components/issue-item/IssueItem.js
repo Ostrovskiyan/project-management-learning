@@ -11,13 +11,13 @@ class IssueItem extends Component {
             selected,
             projectView = false,
             to,
+            projectName,
         } = this.props;
         let {
             startDate,
             author,
             assigned,
             name,
-            project,
         } = issue;
         return (
             <Link to={to}>
@@ -29,8 +29,8 @@ class IssueItem extends Component {
                     }
                     <span className={styles.IssueName}>{name}</span>
                     {
-                        projectView && project ?
-                            <span className={styles.ProjectName}>{project}</span>
+                        projectView && projectName ?
+                            <span className={styles.ProjectName}>{projectName}</span>
                             : null
                     }
                     <span className={styles.IssueDates}>

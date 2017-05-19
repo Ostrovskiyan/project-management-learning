@@ -24,6 +24,7 @@ class Projects extends Component {
                        path="/projects"
                        component={() => (
                            <GeneralProjectsView issues={issues}
+                                                projects={projects}
                                                 selectedProjectMenuItem={Menu.LIST}
                                                 currentPath="/projects"
                                                 fullContent/>
@@ -39,9 +40,26 @@ class Projects extends Component {
                        path="/projects/timeline"
                        component={() => (
                            <TimelineView issues={issues}
-                                      selectedProjectMenuItem={Menu.TIMELINE}
-                                      currentPath="/projects"/>
+                                         selectedProjectMenuItem={Menu.TIMELINE}
+                                         currentPath="/projects"/>
                        )}/>)
+                <Route exact path="/projects/issues/:id"
+                       render={props => {
+                           let selectedId = props.match.params.id;
+                           return (
+                               <div className={mainStyles.FullHeight}>
+                                   <GeneralProjectsView selectedIssueId={selectedId}
+                                                        selectedProjectMenuItem={Menu.LIST}
+                                                        currentPath="/projects"
+                                                        issues={issues}
+                                                        projects={projects}/>
+                                   <div
+                                       className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.HalfContent} ${mainStyles.WithoutOverflow} col-xs-5`}>
+                                       <IssueDescription issue={byId(issues, selectedId)}/>
+                                   </div>
+                               </div>
+                           )
+                       }}/>
                 <Route exact path="/projects/:id"
                        render={props => {
                            let selectedId = props.match.params.id;
@@ -51,23 +69,49 @@ class Projects extends Component {
                                    <GeneralProjectsView headerText={project.name}
                                                         currentPath={`/projects/${selectedId}`}
                                                         selectedProjectMenuItem={Menu.LIST}
-                                                        issues={issues}/>
+                                                        issues={issues}
+                                                        project={project}/>
                                    <ProjectDescription project={project}/>
                                </div>
                            )
                        }}/>
-                <Route exact path="/projects/issues/:id"
+                <Route exact path="/projects/:id/table"
                        render={props => {
                            let selectedId = props.match.params.id;
+                           let project = byId(projects, selectedId);
+                           return (
+                               <TableView issues={issues}
+                                          selectedProjectMenuItem={Menu.TABLE}
+                                          currentPath={`/projects/${selectedId}`}
+                                          project={project}/>
+                           )
+                       }}/>
+                <Route exact path="/projects/:id/timeline"
+                       render={props => {
+                           let selectedId = props.match.params.id;
+                           let project = byId(projects, selectedId);
+                           return (
+                               <TimelineView issues={issues}
+                                             selectedProjectMenuItem={Menu.TIMELINE}
+                                             currentPath={`/projects/${selectedId}`}
+                                             project={project}/>
+                           )
+                       }}/>
+                <Route exact path="/projects/:id/issues/:issueId"
+                       render={props => {
+                           let selectedId = props.match.params.id;
+                           let selectedIssueId = props.match.params.issueId;
+                           let project = byId(projects, selectedId);
                            return (
                                <div className={mainStyles.FullHeight}>
-                                   <GeneralProjectsView selectedIssueId={selectedId}
+                                   <GeneralProjectsView selectedIssueId={selectedIssueId}
                                                         selectedProjectMenuItem={Menu.LIST}
                                                         currentPath="/projects"
-                                                        issues={issues}/>
+                                                        issues={issues}
+                                                        projects={projects}/>
                                    <div
                                        className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.HalfContent} ${mainStyles.WithoutOverflow} col-xs-5`}>
-                                       <IssueDescription issue={byId(issues, selectedId)}/>
+                                       <IssueDescription issue={byId(issues, selectedIssueId)}/>
                                    </div>
                                </div>
                            )

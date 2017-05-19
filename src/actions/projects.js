@@ -1,21 +1,21 @@
-import {idGenerator} from "../util/generators";
+import {createProject as createProjectApi} from "../api/api";
 export const CREATE_PROJECT = "CREATE_PROJECT";
 export const UPDATE_PROJECT = "UPDATE_PROJECT";
+export const REMOVE_PROJECT = "REMOVE_PROJECT";
 
-let gen = idGenerator();
-
-const createProjectAction = (id, name) => {
+export const createProjectAction = ({id, name, status}) => {
     return {
         type: CREATE_PROJECT,
         id,
         name,
-        status: "YELLOW",
+        status,
     }
 };
 
 export function createProject(name) {
     return dispatch => {
-        dispatch(createProjectAction(gen.next().value, name));
+        new Promise((resolve) => resolve(createProjectApi(name)))
+            .then(project => dispatch(createProjectAction(project)));
     }
 }
 
@@ -23,5 +23,12 @@ export const updateProject = (project) => {
     return {
         type: UPDATE_PROJECT,
         project,
+    }
+};
+
+export const removeProject = (id) => {
+    return {
+        type: REMOVE_PROJECT,
+        id,
     }
 };

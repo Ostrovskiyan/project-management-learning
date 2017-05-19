@@ -7,7 +7,7 @@ import moment from "moment";
 import DescriptionField from "../../components/description-input/DescriptionField";
 import ProjectDateRangePicker from "./ProjectDateRangePicker";
 import {connect} from "react-redux";
-import {updateProject} from "../../actions/projects";
+import {removeProject, updateProject} from "../../actions/projects";
 import {projectStatuses} from "../constants/constants";
 
 
@@ -35,6 +35,30 @@ class ProjectDescription extends Component {
         }));
     };
 
+    handleUpdateDates = (startDate, endDate) => {
+        let {
+            project,
+            dispatch,
+        } = this.props;
+        dispatch(updateProject({
+            ...project,
+            startDate,
+            endDate
+        }));
+    };
+
+    onSettingSelect = (eventKey) => {
+        let {
+            project,
+            dispatch,
+        } = this.props;
+        switch (eventKey) {
+            case "REMOVE_PROJECT":
+                dispatch(removeProject(project.id));
+                break;
+        }
+    };
+
     render() {
         let {
             project,
@@ -42,23 +66,24 @@ class ProjectDescription extends Component {
 
         let {
             status,
+            startDate,
+            endDate,
         } = project;
 
         let settingsOptions = [
             {
                 text: "Удалить проект",
-                eventKey: "REMOVE_PROJECT"
+                eventKey: "REMOVE_PROJECT",
             }
         ];
 
-        let onSettingSelect = (eventKey) => console.log(eventKey);
         let selectedStatus = projectStatuses.filter(item => item.key === status)[0];
         return (
             <div
                 className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.HalfContent} ${mainStyles.WithoutOverflow} ${styles.ProjectDescription} col-xs-5`}>
                 <DescriptionHeader headerText={project.name}
                                    settingsOptions={settingsOptions}
-                                   onSettingSelect={onSettingSelect}
+                                   onSettingSelect={this.onSettingSelect}
                                    headerStyle={`${styles.ProjectDescriptionHeader} ${selectedStatus.headerStyle}`}/>
                 <div className={styles.FieldList}>
                     <div className={styles.ParticipantsWrapper}>
@@ -73,20 +98,22 @@ class ProjectDescription extends Component {
                         <div>Дата начала проекта</div>
                         <div className={styles.Separator}>|</div>
                         <div>
-                            {moment().format("DD/MM/YYYY")}
+                            {startDate ? startDate.format("DD/MM/YYYY") : "не задано"}
                             <ProjectDateRangePicker id="update-project-start-date"
-                                                    startDate={moment()}
-                                                    endDate={moment()}/>
+                                                    onDatesChanges={this.handleUpdateDates}
+                                                    startDate={moment(startDate)}
+                                                    endDate={moment(endDate)}/>
                         </div>
                     </div>
                     <div>
                         <div>Дата завершения проекта</div>
                         <div className={styles.Separator}>|</div>
                         <div>
-                            {moment().format("DD/MM/YYYY")}
+                            {endDate ? endDate.format("DD/MM/YYYY") : "не задано"}
                             <ProjectDateRangePicker id="update-project-end-date"
-                                                    startDate={moment()}
-                                                    endDate={moment()}/>
+                                                    onDatesChanges={this.handleUpdateDates}
+                                                    startDate={moment(startDate)}
+                                                    endDate={moment(endDate)}/>
                         </div>
                     </div>
                     <div>

@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Glyphicon} from "react-bootstrap";
 import styles from "../Issues.css";
 import mainStyles from "../../common/Main.css";
-import {updateIssue} from "../../actions/issues";
+import {addIssueToNewProject, updateIssue} from "../../actions/issues";
 import IssueToProjectDropdown from "./IssueToProjectDropdown";
 import UpdateIssueDateDropdown from "./UpdateIssueDateDropdown";
 import ImmediateInput from "../../general/immediate-input/ImmediateInput";
@@ -18,7 +18,6 @@ class IssueDescription extends Component {
 
     constructor(props) {
         super(props);
-        this.addInProject = this.addInProject.bind(this);
         this.state = {
             subtasksIsOpen: false,
         };
@@ -28,20 +27,25 @@ class IssueDescription extends Component {
         this.props.dispatch(getUsers());
     }
 
-    addInProject(project) {
+    handleAddToNewProject = (projectId) => {
+        let {issue} = this.props;
+        this.props.dispatch(addIssueToNewProject(issue, projectId));
+    };
+
+    handleUpdateProject = (projectId) => {
         let {issue} = this.props;
         this.props.dispatch(updateIssue({
             ...issue,
-            project
+            projectId
         }));
-    }
+    };
 
     changeDates = (startDate, endDate) => {
         let {issue} = this.props;
         this.props.dispatch(updateIssue({
             ...issue,
             startDate,
-            endDate
+            endDate,
         }));
     };
 
@@ -108,6 +112,7 @@ class IssueDescription extends Component {
     render() {
         let {
             issue,
+            projects,
         } = this.props;
         let {
             subtasksIsOpen,
@@ -121,7 +126,10 @@ class IssueDescription extends Component {
             <div className={`${mainStyles.FullHeight} ${styles.IssueDescription}`}>
                 <DescriptionHeader headerText={issue.name}
                                    headerBottomComponent={() =>
-                                       <IssueToProjectDropdown addInProject={this.addInProject} issue={issue}/>
+                                       <IssueToProjectDropdown issue={issue}
+                                                               projects={projects}
+                                                               onAddToNewProject={this.handleAddToNewProject}
+                                                               onSelectProject={this.handleUpdateProject}/>
                                    }/>
                 <div className={styles.IssueSubHeader}>
                     <DescriptionStatusDropdown/>
@@ -171,6 +179,7 @@ class IssueDescription extends Component {
 function mapStateToProps(state) {
     return {
         users: state.users.list,
+        projects: state.projects.list,
     }
 }
 
