@@ -3,7 +3,7 @@ import styles from "./AddIssue.css";
 import {connect} from "react-redux";
 import AddIssueInput from "./AddIssueInput";
 import ImmediateInput from "../../general/immediate-input/ImmediateInput";
-import {processAddIssue} from "../../actions/issues";
+import {createIssue} from "../../actions/issues";
 
 class AddIssue extends Component {
 
@@ -15,7 +15,7 @@ class AddIssue extends Component {
     }
 
     handleAddIssue = (issueName) => {
-        this.props.dispatch(processAddIssue(issueName));
+        this.props.dispatch(createIssue(issueName));
     };
 
     render() {
@@ -24,7 +24,6 @@ class AddIssue extends Component {
             activeStyle,
             inactiveStyle,
         } = this.props;
-        let {} = this.state;
         return <ImmediateInput activeComponent={AddIssueInput}
                                activeProps={{
                                    userAvatar: avatar,

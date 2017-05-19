@@ -112,6 +112,14 @@
     border-right-width: 0;
 }
 
+.Saturday > .ThinEnd{
+    right: -1px;
+}
+
+.Sunday > .ThinStart{
+    left: -1px;
+}
+
 .Timeline > tbody > tr > td:first-child, .Timeline > thead > tr > td:first-child {
     padding: 0 4px !important;
 }

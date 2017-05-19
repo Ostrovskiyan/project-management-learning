@@ -1,7 +1,4 @@
-import {ADD_ISSUE, UPDATE_ISSUE} from "../actions/issues";
-import moment from "moment";
-
-let initialIssueId = 0;
+import {ADD_ISSUE, REMOVE_ISSUE, UPDATE_ISSUE} from "../actions/issues";
 
 const issues = (state = {list: []}, action) => {
     switch (action.type) {
@@ -11,14 +8,7 @@ const issues = (state = {list: []}, action) => {
                 list: [
                     ...state.list,
                     {
-                        id: initialIssueId++,
-                        name: action.issueName,
-                        startDate: moment().startOf("day"),
-                        endDate: moment().startOf("day"),
-                        creatingDate: moment(),
-                        author: action.author,
-                        assigned: action.assigned,
-                        subtasks: [],
+                        ...action.issue,
                     }
                 ]
             };
@@ -27,6 +17,11 @@ const issues = (state = {list: []}, action) => {
             return {
                 ...state,
                 list: newList
+            };
+        case REMOVE_ISSUE:
+            return {
+                ...state,
+                list: state.list.filter(issue => issue.id !== action.id),
             };
         default:
             return state;

@@ -10,6 +10,7 @@ import {connect} from "react-redux";
 import {removeProject, updateProject} from "../../actions/projects";
 import {projectStatuses} from "../constants/constants";
 
+const REMOVE_PROJECT = "REMOVE_PROJECT";
 
 class ProjectDescription extends Component {
 
@@ -47,14 +48,16 @@ class ProjectDescription extends Component {
         }));
     };
 
-    onSettingSelect = (eventKey) => {
+    handleSettingSelect = (eventKey) => {
         let {
             project,
             dispatch,
         } = this.props;
         switch (eventKey) {
-            case "REMOVE_PROJECT":
+            case REMOVE_PROJECT:
                 dispatch(removeProject(project.id));
+                break;
+            default:
                 break;
         }
     };
@@ -73,7 +76,7 @@ class ProjectDescription extends Component {
         let settingsOptions = [
             {
                 text: "Удалить проект",
-                eventKey: "REMOVE_PROJECT",
+                eventKey: REMOVE_PROJECT,
             }
         ];
 
@@ -83,7 +86,7 @@ class ProjectDescription extends Component {
                 className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.HalfContent} ${mainStyles.WithoutOverflow} ${styles.ProjectDescription} col-xs-5`}>
                 <DescriptionHeader headerText={project.name}
                                    settingsOptions={settingsOptions}
-                                   onSettingSelect={this.onSettingSelect}
+                                   onSettingSelect={this.handleSettingSelect}
                                    headerStyle={`${styles.ProjectDescriptionHeader} ${selectedStatus.headerStyle}`}/>
                 <div className={styles.FieldList}>
                     <div className={styles.ParticipantsWrapper}>

@@ -8,7 +8,7 @@ import {getUser} from "../api/api";
 import IssueItem from "../components/issue-item/IssueItem";
 import IssueDescription from "./issue-decription/IssueDescription";
 import moment from "moment";
-import {Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import AddIssue from "../components/new-issue/AddIssue";
 import {byId, forLater, forNextWeek, forThisWeek, forToday} from "../util/filters";
 
@@ -103,6 +103,10 @@ class Issues extends Component {
                 <Route exact path="/issues/:id"
                        render={props => {
                            let selectedId = props.match.params.id;
+                           let issue = byId(issues, selectedId);
+                           if (!issue) {
+                               return <Redirect to="/issues"/>
+                           }
                            return (
                                <div className={mainStyles.FullHeight}>
                                    <div
@@ -117,7 +121,7 @@ class Issues extends Component {
                                    </div>
                                    <div
                                        className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.HalfContent} ${mainStyles.WithoutOverflow} col-xs-5`}>
-                                       <IssueDescription issue={byId(issues, selectedId)}/>
+                                       <IssueDescription issue={issue}/>
                                    </div>
                                </div>
                            )

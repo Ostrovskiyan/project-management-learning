@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {Dropdown} from "react-bootstrap";
-import styles from "./DropdownInput.css";
 import mainStyles from "../../common/Main.css";
 
 class DropdownInput extends Component {

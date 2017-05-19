@@ -130,12 +130,10 @@ class Timeline extends Component {
             this.cellObjects[curRowLevel][toOptionStart].isThinLabel = true;
             this.cellObjects[curRowLevel][toOptionStart].label = option.label;
 
-            this.cellObjects[curRowLevel + 1][toOptionStart].isEmpty = false;
             this.cellObjects[curRowLevel + 1][toOptionStart].isThinStart = true;
             for (let j = toOptionStart; j <= toOptionEnd; j++) {
                 this.cellObjects[curRowLevel][j].isThin = true;
             }
-            this.cellObjects[curRowLevel + 1][toOptionEnd].isEmpty = false;
             this.cellObjects[curRowLevel + 1][toOptionEnd].isThinEnd = true;
 
             curRowLevel += 2;

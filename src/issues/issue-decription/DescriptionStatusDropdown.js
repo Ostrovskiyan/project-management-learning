@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import styles from "../Issues.css";
 import IssueStatusDropdown from "../../components/issue-status-dropdown/IssueStatusDropdown";
+import {issueStatuses} from "../constants/constants";
 
 class DescriptionStatusDropdown extends Component {
 
@@ -29,16 +30,23 @@ class DescriptionStatusDropdown extends Component {
         let {
             showTooltip
         } = this.state;
+        let {
+            selectedStatus,
+        } = this.props;
+        console.log(selectedStatus);
         return (
             <IssueStatusDropdown id="issue-status-dropdown"
                                  wrapperStyle={styles.MarkSuccessWrapper}
+                                 selectedStatus={selectedStatus}
                                  button={() => (
-                                     <div onMouseEnter={this.handleShowTooltip}
-                                          onMouseLeave={this.handleHideTooltip}>
-                                         <div className={`${styles.IssuesStatusTooltip} ${showTooltip ? "" : styles.NotDisplayed}`}>
+                                     <div>
+                                         <div
+                                             className={`${styles.IssuesStatusTooltip} ${showTooltip ? "" : styles.NotDisplayed}`}>
                                              <span>Отметить задачу как завершена</span>
                                          </div>
-                                         <div className={styles.IssueStatus}/>
+                                         <div onMouseEnter={this.handleShowTooltip}
+                                              onMouseLeave={this.handleHideTooltip}
+                                              className={`${styles.IssueStatus} ${selectedStatus ? issueStatuses[selectedStatus].style : ""}`}/>
                                      </div>
                                  )}/>
         )

@@ -14,11 +14,12 @@ class GeneralProjectsView extends Component {
         let {
             selectedIssueId,
             projects,
+            project,
             currentPath,
         } = this.props;
         return filterFunction(issues).map(issue => {
-            let projectName = undefined;
-            if(issue.projectId !== undefined) {
+            let projectName = project ? project.name : undefined;
+            if(!projectName && issue.projectId !== undefined) {
                 projectName = projects.filter(project => project.id === issue.projectId)[0].name;
             }
             return (<IssueItem issue={issue}

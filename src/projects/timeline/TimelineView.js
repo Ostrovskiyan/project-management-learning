@@ -1,20 +1,16 @@
 import React, {Component} from "react";
 import mainStyles from "../../common/Main.css";
 import styles from "../Projects.css";
-import style from "../../general/timeline/Timeline.css";
 import FilterPanel from "../components/FilterPanel";
 import ProjectMenu from "../components/ProjectMenu";
-import {Table} from "react-bootstrap";
 import moment from "moment";
 import Timeline from "../../general/timeline/Timeline";
-
-const HEADER_FORMAT = "MMM DD YYYY";
 
 class TimelineView extends Component {
 
     render() {
         let {
-            issues,
+            // issues,
             headerText,
             currentPath,
             selectedProjectMenuItem,

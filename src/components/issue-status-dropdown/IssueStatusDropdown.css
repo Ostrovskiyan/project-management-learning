@@ -35,24 +35,24 @@ a > .IssueStatus {
     margin-top: 5px;
 }
 
-.IssueStatus.active {
-    background-color: #2296F4;
+.IssueStatus.active, .IssueStatus.done, .IssueStatus.postponed, .IssueStatus.canceled {
     border: none;
 }
 
-.IssueStatus.ended {
-    background-color: #8CC34C;
-    border: none;
+.active {
+    background-color: #2296F4 !important;
 }
 
-.IssueStatus.postponed {
-    background-color: #683AB8;
-    border: none;
+.done {
+    background-color: #8CC34C !important;
 }
 
-.IssueStatus.canceled {
-    background-color: #9F9D9F;
-    border: none;
+.postponed {
+    background-color: #683AB8 !important;
+}
+
+.canceled {
+    background-color: #9F9D9F !important;
 }
 
 .IssueStatusName {

@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import mainStyles from "../common/Main.css";
-import {Route, Switch} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import GeneralProjectsView from "./GeneralProjectsView";
 import IssueDescription from "../issues/issue-decription/IssueDescription";
 import {connect} from "react-redux";
@@ -46,6 +46,10 @@ class Projects extends Component {
                 <Route exact path="/projects/issues/:id"
                        render={props => {
                            let selectedId = props.match.params.id;
+                           let issue = byId(issues, selectedId);
+                           if(!issue) {
+                               return <Redirect to="/projects"/>
+                           }
                            return (
                                <div className={mainStyles.FullHeight}>
                                    <GeneralProjectsView selectedIssueId={selectedId}
@@ -55,7 +59,7 @@ class Projects extends Component {
                                                         projects={projects}/>
                                    <div
                                        className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.HalfContent} ${mainStyles.WithoutOverflow} col-xs-5`}>
-                                       <IssueDescription issue={byId(issues, selectedId)}/>
+                                       <IssueDescription issue={issue}/>
                                    </div>
                                </div>
                            )
@@ -64,6 +68,10 @@ class Projects extends Component {
                        render={props => {
                            let selectedId = props.match.params.id;
                            let project = byId(projects, selectedId);
+                           if(!project) {
+                               return <Redirect to="/projects"/>
+                           }
+
                            return (
                                <div className={mainStyles.FullHeight}>
                                    <GeneralProjectsView headerText={project.name}
@@ -79,6 +87,9 @@ class Projects extends Component {
                        render={props => {
                            let selectedId = props.match.params.id;
                            let project = byId(projects, selectedId);
+                           if(!project) {
+                               return <Redirect to="/projects"/>
+                           }
                            return (
                                <TableView issues={issues}
                                           selectedProjectMenuItem={Menu.TABLE}
@@ -90,6 +101,9 @@ class Projects extends Component {
                        render={props => {
                            let selectedId = props.match.params.id;
                            let project = byId(projects, selectedId);
+                           if(!project) {
+                               return <Redirect to="/projects"/>
+                           }
                            return (
                                <TimelineView issues={issues}
                                              selectedProjectMenuItem={Menu.TIMELINE}
@@ -102,6 +116,12 @@ class Projects extends Component {
                            let selectedId = props.match.params.id;
                            let selectedIssueId = props.match.params.issueId;
                            let project = byId(projects, selectedId);
+                           if(!project) {
+                               return <Redirect to="/projects"/>
+                           }
+                           if(!byId(issues, selectedIssueId)) {
+                               return <Redirect to={`/projects/${selectedId}`}/>
+                           }
                            return (
                                <div className={mainStyles.FullHeight}>
                                    <GeneralProjectsView selectedIssueId={selectedIssueId}

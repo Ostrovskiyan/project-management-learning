@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Glyphicon} from "react-bootstrap";
 import styles from "../Issues.css";
 import mainStyles from "../../common/Main.css";
-import {addIssueToNewProject, updateIssue} from "../../actions/issues";
+import {addIssueToNewProject, removeIssue, updateIssue} from "../../actions/issues";
 import IssueToProjectDropdown from "./IssueToProjectDropdown";
 import UpdateIssueDateDropdown from "./UpdateIssueDateDropdown";
 import ImmediateInput from "../../general/immediate-input/ImmediateInput";
@@ -13,6 +13,8 @@ import {connect} from "react-redux";
 import DescriptionStatusDropdown from "./DescriptionStatusDropdown";
 import DescriptionHeader from "../../components/description-header/DescriptionHeader";
 import DescriptionField from "../../components/description-input/DescriptionField";
+
+const REMOVE_ISSUE = "REMOVE_ISSUE";
 
 class IssueDescription extends Component {
 
@@ -75,8 +77,6 @@ class IssueDescription extends Component {
         let {issue} = this.props;
         let {subtasks} = issue;
 
-        console.log(subtaskId);
-        console.log(userId);
         let newSubtasks = subtasks
             .map(subtask => subtask.id === subtaskId ? {...subtask, userId} : subtask);
 
@@ -86,6 +86,20 @@ class IssueDescription extends Component {
                 ...newSubtasks
             ],
         }));
+    };
+
+    handleSettingSelect = (eventKey) => {
+        let {
+            issue,
+            dispatch,
+        } = this.props;
+        switch (eventKey) {
+            case REMOVE_ISSUE:
+                dispatch(removeIssue(issue.id));
+                break;
+            default:
+                break;
+        }
     };
 
     toggleSubtasks = (event) => {
@@ -120,11 +134,22 @@ class IssueDescription extends Component {
         let {
             creatingDate,
             startDate,
-            endDate
+            endDate,
+            status,
         } = issue;
+
+        let settingsOptions = [
+            {
+                text: "Удалить задачу",
+                eventKey: REMOVE_ISSUE,
+            }
+        ];
+
         return (
             <div className={`${mainStyles.FullHeight} ${styles.IssueDescription}`}>
                 <DescriptionHeader headerText={issue.name}
+                                   settingsOptions={settingsOptions}
+                                   onSettingSelect={this.handleSettingSelect}
                                    headerBottomComponent={() =>
                                        <IssueToProjectDropdown issue={issue}
                                                                projects={projects}
@@ -132,7 +157,7 @@ class IssueDescription extends Component {
                                                                onSelectProject={this.handleUpdateProject}/>
                                    }/>
                 <div className={styles.IssueSubHeader}>
-                    <DescriptionStatusDropdown/>
+                    <DescriptionStatusDropdown selectedStatus={status}/>
                     <div className={styles.IssueAssigners}>
                         <img alt="assigned" src={issue.assigned.avatar} className={styles.IssueAssignedAvatar}/>
                         {issue.assigned.name}
