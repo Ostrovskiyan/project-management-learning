@@ -21,10 +21,12 @@ class TableView extends Component {
         return (
             <div
                 className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.FullContent} ${styles.TableView} col-xs-5`}>
-                <div className={styles.GeneralHeader}>
-                    {headerText ? headerText : "Проекты"}
+                <div>
+                    <div className={styles.GeneralHeader}>
+                        {headerText ? headerText : "Проекты"}
+                    </div>
+                    <ProjectMenu basePath={currentPath} selectedItem={selectedProjectMenuItem} floatRight/>
                 </div>
-                <ProjectMenu basePath={currentPath} selectedItem={selectedProjectMenuItem} floatRight/>
                 <FilterPanel withShowLabel/>
                 <Table className={styles.IssueTable}>
                     <thead>

@@ -86,11 +86,11 @@
     border-bottom: 1px solid #cccccc;
 }
 
-.FieldList, .FieldList > div  {
+.FieldList, .FieldList > div {
     width: 100%;
 }
 
-.FieldList > div  {
+.FieldList > div {
     margin: 15px 0;
 }
 
@@ -133,7 +133,7 @@
     cursor: pointer;
 }
 
-.Glyphicon:active, .DataRangePickerDropdown > button:active > .Glyphicon{
+.Glyphicon:active, .DataRangePickerDropdown > button:active > .Glyphicon {
     color: #000;
 }
 
@@ -160,7 +160,7 @@
     box-shadow: none !important;
 }
 
-.ProjectStatusDropdown[aria-expanded="false"] > :global.caret{
+.ProjectStatusDropdown[aria-expanded="false"] > :global.caret {
     display: none;
 }
 
@@ -178,7 +178,7 @@
     margin-left: 5px !important;
 }
 
-.ProjectStatusDropdown[aria-expanded="true"] + ul{
+.ProjectStatusDropdown[aria-expanded="true"] + ul {
     top: 11px;
     left: -19px;
     padding: 0;
@@ -225,21 +225,16 @@
     width: auto !important;
 }
 
-.TableView {
-    padding-top: 10px;
+.TableView, .TimelineView {
+    padding-top: 20px;
 }
 
-.TableView > .FloatRightMenu{
-    padding-top: 10px;
-}
-
-.TableView > .FloatRightMenu > a > div{
+.TableView > div > .FloatRightMenu > a > div, .TimelineView > div > .FloatRightMenu > a > div {
     padding-bottom: 20px;
 }
 
-.TableView > .GeneralHeader{
+.TableView > div:first-child, .TimelineView > div:first-child {
     padding-left: 30px;
-    padding-bottom: 20px;
 }
 
 .FilterShowLabel {
@@ -272,7 +267,7 @@
     background-color: #E6E7E9;
 }
 
-.IssueTable > tbody > .ProjectRow, .IssueTable > tbody > .IssueRow > td:first-child{
+.IssueTable > tbody > .ProjectRow, .IssueTable > tbody > .IssueRow > td:first-child {
     background-color: #F3F3F3;
     color: #888;
 }
@@ -286,7 +281,7 @@
     font-weight: bold;
 }
 
-.IssueTable > tbody > .IssueRow > td:first-child{
+.IssueTable > tbody > .IssueRow > td:first-child {
     text-align: right;
 }
 
@@ -319,4 +314,17 @@
 
 .IssueRow > .IssueName > .Text {
     margin-left: 20px;
+}
+
+.TimelineView {
+    display: flex;
+    flex-flow: column;
+}
+
+.TimelineProjectLabel {
+    font-weight: bold;
+}
+
+.TimelineProjectIcon {
+    margin-right: 5px;
 }

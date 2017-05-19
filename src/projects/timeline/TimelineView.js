@@ -1,12 +1,12 @@
 import React, {Component} from "react";
 import mainStyles from "../../common/Main.css";
 import styles from "../Projects.css";
-import style from "./Timeline.css";
+import style from "../../general/timeline/Timeline.css";
 import FilterPanel from "../components/FilterPanel";
 import ProjectMenu from "../components/ProjectMenu";
 import {Table} from "react-bootstrap";
 import moment from "moment";
-import Timeline from "./Timeline";
+import Timeline from "../../general/timeline/Timeline";
 
 const HEADER_FORMAT = "MMM DD YYYY";
 
@@ -22,7 +22,7 @@ class TimelineView extends Component {
 
 
         const startDate = moment().startOf("days").subtract(7, "day");
-        const endDate = moment().startOf("days").add(21, "days");
+        const endDate = moment().startOf("days").add(56, "days");
 
         let fatLineOptions = [
             {
@@ -39,24 +39,32 @@ class TimelineView extends Component {
 
         let thinLineOptions = [
             {
-                startDate: moment().startOf("day").subtract(10, "day"),
+                startDate: moment().startOf("day").add(3, "day"),
                 endDate: moment().startOf("day").add(3, "day"),
-                label: "project name",
+                label: [
+                        <i key="icon" className={`fa fa-file-text-o ${styles.TimelineProjectIcon}`} aria-hidden="true"/>,
+                        <span key="text" className={styles.TimelineProjectLabel}>project name</span>
+                ],
             },
             {
                 startDate: moment().startOf("day").add(4, "day"),
                 endDate: moment().startOf("day").add(7, "day"),
-                label: "ILP",
+                label: [
+                    <i key="icon" className={`fa fa-file-text-o ${styles.TimelineProjectIcon}`} aria-hidden="true"/>,
+                    <span key="text" className={styles.TimelineProjectLabel}>ILP</span>
+                ],
             },
         ];
 
         return (
             <div
-                className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.FullContent} ${styles.TableView} col-xs-5`}>
-                <div className={styles.GeneralHeader}>
-                    {headerText ? headerText : "Проекты"}
+                className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.FullContent} ${styles.TimelineView} col-xs-5`}>
+                <div>
+                    <div className={styles.GeneralHeader}>
+                        {headerText ? headerText : "Проекты"}
+                    </div>
+                    <ProjectMenu basePath={currentPath} selectedItem={selectedProjectMenuItem} floatRight/>
                 </div>
-                <ProjectMenu basePath={currentPath} selectedItem={selectedProjectMenuItem} floatRight/>
                 <FilterPanel withShowLabel withoutExecutorFilter/>
                 <Timeline startDate={startDate}
                           endDate={endDate}

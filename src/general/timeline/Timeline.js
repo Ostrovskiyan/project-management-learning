@@ -12,12 +12,15 @@ class Timeline extends Component {
         let {
             startDate,
             endDate,
+            thinLineOptions = [],
+            fatLineOptions = [],
         } = this.props;
 
         this.startDate = startDate.day(0);
         this.endDate = endDate.day(6);
         let today = getToday(startDate);
-        this.cellObjects = generateEmptyCellObjects(50, this.getDayCount(), today);
+        let height = 2 * (thinLineOptions.length + fatLineOptions.length) + 2;
+        this.cellObjects = generateEmptyCellObjects(height, this.getDayCount(), today);
     }
 
     getWeekCount() {
@@ -39,6 +42,7 @@ class Timeline extends Component {
         let rowLength = this.cellObjects[0].length;
         for (let i = 0; i < columnLength; i++) {
             let resultRow = [];
+            resultRow.push(<td key="empty"/>);
             for (let j = 0; j < rowLength; j++) {
                 let classes = [];
                 let cellObject = this.cellObjects[i][j];
@@ -70,28 +74,35 @@ class Timeline extends Component {
                     classes.push(styles.Relative);
                     content = (
                         <div className={`${styles.Label} ${styles.Thin}`}>
-                            <i className="fa fa-file-text-o" aria-hidden="true"/>
                             {cellObject.label}
                         </div>
                     );
                 }
 
-                if(cellObject.isThin) {
+                if (cellObject.isThin) {
                     classes.push(styles.Thin);
                 }
 
-                if(cellObject.isThinStart) {
+                if (cellObject.isThinStart) {
                     classes.push(styles.Relative);
                     content = (
                         <div className={styles.ThinStart}/>
                     )
                 }
 
-                if(cellObject.isThinEnd) {
+                if (cellObject.isThinEnd) {
                     classes.push(styles.Relative);
                     content = (
                         <div className={styles.ThinEnd}/>
                     )
+                }
+
+                if (cellObject.isThinStart && cellObject.isThinEnd) {
+                    classes.push(styles.Relative);
+                    content = [
+                        <div className={styles.ThinStart}/>,
+                        <div className={styles.ThinEnd}/>
+                    ]
                 }
 
                 let className = classes.reduce((prev, cur) => prev + " " + cur);
@@ -160,23 +171,26 @@ class Timeline extends Component {
         this.applyThinTimelineOptions();
         this.applyFatTimelineOptions();
         return (
+            <div className={styles.Wrapper}>
+                <div/>
                 <div className={styles.WrapperScroll}>
-                <Table className={styles.Timeline}>
-                    <thead>
-                    <tr>
-                        {generateFirstLevelCells(this.startDate, this.getWeekCount())}
-                    </tr>
-                    <tr>
-                        {generateSecondLevelCells(this.getWeekCount())}
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {
-                        this.generateContentDays()
-                    }
-                    </tbody>
-                </Table>
+                    <Table className={styles.Timeline}>
+                        <thead>
+                        <tr>
+                            {generateFirstLevelCells(this.startDate, this.getWeekCount())}
+                        </tr>
+                        <tr>
+                            {generateSecondLevelCells(this.getWeekCount())}
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {
+                            this.generateContentDays()
+                        }
+                        </tbody>
+                    </Table>
                 </div>
+            </div>
         );
     }
 }
@@ -206,12 +220,12 @@ function generateEmptyCellObjects(height, width, today) {
 
 function getToday(startDate) {
     return moment().startOf("day").diff(startDate, "day");
-    1
 }
 
 function generateSecondLevelCells(weekCount) {
     let startKey = 0;
     let result = [];
+    result.push(<td key="empty"/>);
     for (let i = 0; i < weekCount; i++) {
         pushWeekNames(result, startKey);
         startKey += 7;
@@ -222,6 +236,7 @@ function generateSecondLevelCells(weekCount) {
 function generateFirstLevelCells(startDate, weekCount) {
     let date = moment(startDate);
     let result = [];
+    result.push(<td key="empty"/>);
     for (let i = 0; i < weekCount; i++) {
         result.push(
             <td colSpan="7" key={date.unix()}>
