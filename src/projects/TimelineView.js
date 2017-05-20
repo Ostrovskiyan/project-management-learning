@@ -5,53 +5,79 @@ import FilterPanel from "./components/FilterPanel";
 import ProjectMenu from "./components/ProjectMenu";
 import moment from "moment";
 import Timeline from "../general/timeline/Timeline";
+import {byId, issuesWithExecutor, issuesWithStatus} from "../util/filters";
+import {connect} from "react-redux";
 
 class TimelineView extends Component {
 
     render() {
         let {
-            // issues,
+            issues,
+            projects,
             headerText,
             currentPath,
             selectedProjectMenuItem,
             users,
+            statusFilter,
+            executorFilter,
         } = this.props;
 
+        if (statusFilter) {
+            issues = issuesWithStatus(issues, statusFilter);
+        }
+        if (executorFilter) {
+            issues = issuesWithExecutor(issues, executorFilter);
+        }
 
-        const startDate = moment().startOf("days").subtract(7, "day");
-        const endDate = moment().startOf("days").add(56, "days");
+        issues = issues.filter(issue => issue.startDate && issue.endDate)
+            .sort((i1, i2) => moment(i1.startDate).diff(moment(i2.startDate)));
+        projects = projects.filter(project => project.startDate && project.startDate)
+            .sort((p1, p2) => moment(p1.startDate).diff(moment(p2.startDate)));
 
-        let fatLineOptions = [
-            {
-                startDate: moment().startOf("day"),
-                endDate: moment().startOf("day"),
-                label: "first hernya",
-            },
-            {
-                startDate: moment().startOf("day").add(4, "day"),
-                endDate: moment().startOf("day").add(7, "day"),
-                label: "second hernya",
-            },
-        ];
+        let startDate;
+        let endDate;
+        if (issues.length !== 0 && projects.length !== 0) {
+            startDate = issues[0].startDate.isBefore(projects[0].startDate) ?
+                moment(issues[0].startDate)
+                : moment(projects[0].startDate);
+            startDate.subtract(7, 'days');
+            let maxIssueEndDate = maxEndDate(issues);
+            let maxProjectEndDate = maxEndDate(projects);
+            endDate = maxIssueEndDate.isAfter(maxProjectEndDate) ? moment(maxIssueEndDate) : moment(maxProjectEndDate);
+            endDate.add(7, 'days');
+        } else if (issues.length) {
+            startDate = moment(issues[0].startDate);
+            startDate.subtract(7, 'days');
+            endDate = moment(maxEndDate(issues));
+            endDate.add(7, 'days');
+        } else if (projects.length) {
+            startDate = moment(projects[0].startDate);
+            startDate.subtract(7, 'days');
+            endDate = moment(maxEndDate(projects));
+            endDate.add(7, 'days');
+        }
 
-        let thinLineOptions = [
-            {
-                startDate: moment().startOf("day").add(3, "day"),
-                endDate: moment().startOf("day").add(3, "day"),
+        let fatLineOptions = issues.map(issue => {
+            return {
+                startDate: moment(issue.startDate),
+                endDate: moment(issue.endDate),
+                label: `${issue.name} / ${issue.executors.map(id => `${byId(users, id).name} ${byId(users, id).surname}`).join(", ")}`,
+            }
+        });
+
+        let thinLineOptions = projects.map(project => {
+            return {
+                startDate: moment(project.startDate),
+                endDate: moment(project.endDate),
                 label: [
-                        <i key="icon" className={`fa fa-file-text-o ${styles.TimelineProjectIcon}`} aria-hidden="true"/>,
-                        <span key="text" className={styles.TimelineProjectLabel}>project name</span>
+                    <i key="icon" className={`fa fa-file-text-o ${styles.TimelineProjectIcon}`}
+                       aria-hidden="true"/>,
+                    <span key="text" className={styles.TimelineProjectLabel}>
+                        {`${project.name} (${project.participants.map(id => byId(users, id)).map(user => `${user.name} ${user.surname}`).join(", ")})`}
+                    </span>
                 ],
-            },
-            {
-                startDate: moment().startOf("day").add(4, "day"),
-                endDate: moment().startOf("day").add(7, "day"),
-                label: [
-                    <i key="icon" className={`fa fa-file-text-o ${styles.TimelineProjectIcon}`} aria-hidden="true"/>,
-                    <span key="text" className={styles.TimelineProjectLabel}>ILP</span>
-                ],
-            },
-        ];
+            }
+        });
 
         return (
             <div
@@ -63,13 +89,28 @@ class TimelineView extends Component {
                     <ProjectMenu basePath={currentPath} selectedItem={selectedProjectMenuItem} floatRight/>
                 </div>
                 <FilterPanel withShowLabel withoutExecutorFilter users={users}/>
-                <Timeline startDate={startDate}
-                          endDate={endDate}
-                          fatLineOptions={fatLineOptions}
-                          thinLineOptions={thinLineOptions}/>
+                {
+                    issues.length !== 0 || projects.length !== 0 ?
+                        <Timeline startDate={startDate}
+                                  endDate={endDate}
+                                  fatLineOptions={fatLineOptions}
+                                  thinLineOptions={thinLineOptions}/>
+                        : null
+                }
             </div>
         );
     }
 }
 
-export default TimelineView;
+function maxEndDate(list) {
+    return list.map(item => item.endDate).reduce((prev, cur) => cur.isAfter(prev) ? cur : prev)
+}
+
+function mapStateToProps(state) {
+    return {
+        statusFilter: state.filters.issueStatusFilterProjectView,
+        executorFilter: state.filters.issueExecutorFilterProjectView,
+    }
+}
+
+export default connect(mapStateToProps)(TimelineView);

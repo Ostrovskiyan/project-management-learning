@@ -2,7 +2,7 @@ import moment from "moment";
 
 export function forToday(issues) {
     let now = moment().startOf("day");
-    return issues.filter(issue => !!issue.startDate && now.isSame(issue.startDate, "day"));
+    return issues.filter(issue => !!issue.startDate && now.isSameOrAfter(issue.startDate, "day"));
 }
 
 export function forThisWeek(issues) {
@@ -28,6 +28,10 @@ export function issuesWithStatus(issues, status) {
 
 export function issuesWithExecutor(issues, executorId) {
     return issues.filter(issue => issue.executors.indexOf(executorId) >= 0);
+}
+
+export function issuesInProject(issues, projectId) {
+    return issues.filter(issue => issue.projectId === projectId);
 }
 
 export function byId(items, id) {

@@ -131,8 +131,7 @@
     margin-right: 10px;
 }
 
-
-.ParticipantsNotEmpty > div > img{
+.ParticipantsNotEmpty > div > img {
     margin-right: 0;
 }
 
@@ -290,9 +289,10 @@
     background-color: #E6E7E9;
 }
 
-.IssueTable > tbody > .ProjectRow, .IssueTable > tbody > .IssueRow > td:first-child {
+.IssueTable > tbody > .ProjectRow, .IssueTable > tbody > tr > td:first-child {
     background-color: #F3F3F3;
     color: #888;
+    text-align: right;
 }
 
 .IssueTable > thead > tr > th > :global.caret {
@@ -302,10 +302,6 @@
 
 .ProjectRow > td {
     font-weight: bold;
-}
-
-.IssueTable > tbody > .IssueRow > td:first-child {
-    text-align: right;
 }
 
 .IssueTable > thead > tr > th.Number, .IssueTable > thead > tr > th.Duration {
@@ -337,6 +333,10 @@
 
 .IssueRow > .IssueName > .Text {
     margin-left: 20px;
+}
+
+.SabtaskRow > .Name {
+    margin-left: 40px;
 }
 
 .TimelineView {

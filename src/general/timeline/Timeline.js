@@ -20,6 +20,9 @@ class Timeline extends Component {
         this.endDate = endDate.day(6);
         let today = getToday(startDate);
         let height = 2 * (thinLineOptions.length + fatLineOptions.length) + 2;
+        if(thinLineOptions.length === 0) {
+            height += 2;
+        }
         this.cellObjects = generateEmptyCellObjects(height, this.getDayCount(), today);
     }
 
@@ -141,8 +144,12 @@ class Timeline extends Component {
     }
 
     applyFatTimelineOptions() {
-        let options = this.props.fatLineOptions;
-        let curRowLevel = this.props.thinLineOptions.length * 2;
+        let {
+            fatLineOptions,
+            thinLineOptions,
+        } = this.props;
+        let options = fatLineOptions;
+        let curRowLevel = thinLineOptions.length > 0 ? thinLineOptions.length * 2 : 2;
         for (let i = 0; i < options.length; i++) {
             let option = options[i];
             let toOptionStart = option.startDate.diff(this.startDate, "days");

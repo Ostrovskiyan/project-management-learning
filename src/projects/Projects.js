@@ -3,7 +3,7 @@ import mainStyles from "../common/Main.css";
 import {Redirect, Route, Switch} from "react-router-dom";
 import IssueDescription from "../issues/issue-decription/IssueDescription";
 import {connect} from "react-redux";
-import {byId} from "../util/filters";
+import {byId, issuesInProject} from "../util/filters";
 import ProjectDescription from "./project-description/ProjectDescription";
 import {Menu} from "./constants/constants";
 import TableView from "./TableView";
@@ -43,6 +43,8 @@ class Projects extends Component {
                        path="/projects/table"
                        component={() => (
                            <TableView issues={issues}
+                                      projects={projects}
+                                      showIssuesWithoutProject
                                       selectedProjectMenuItem={Menu.TABLE}
                                       users={users}
                                       currentPath="/projects"/>
@@ -51,6 +53,7 @@ class Projects extends Component {
                        path="/projects/timeline"
                        component={() => (
                            <TimelineView issues={issues}
+                                         projects={projects}
                                          selectedProjectMenuItem={Menu.TIMELINE}
                                          users={users}
                                          currentPath="/projects"/>
@@ -59,7 +62,7 @@ class Projects extends Component {
                        render={props => {
                            let selectedId = props.match.params.id;
                            let issue = byId(issues, selectedId);
-                           if(!issue) {
+                           if (!issue) {
                                return <Redirect to="/projects"/>
                            }
                            return (
@@ -82,10 +85,10 @@ class Projects extends Component {
                        render={props => {
                            let selectedId = props.match.params.id;
                            let project = byId(projects, selectedId);
-                           if(!project) {
+                           if (!project) {
                                return <Redirect to="/projects"/>
                            }
-
+                           issues = issuesInProject(issues, project.id);
                            return (
                                <div className={mainStyles.FullHeight}>
                                    <ListView headerText={project.name}
@@ -102,30 +105,32 @@ class Projects extends Component {
                        render={props => {
                            let selectedId = props.match.params.id;
                            let project = byId(projects, selectedId);
-                           if(!project) {
+                           if (!project) {
                                return <Redirect to="/projects"/>
                            }
+                           issues = issuesInProject(issues, project.id);
                            return (
                                <TableView issues={issues}
                                           selectedProjectMenuItem={Menu.TABLE}
                                           currentPath={`/projects/${selectedId}`}
                                           users={users}
-                                          project={project}/>
+                                          projects={[project]}/>
                            )
                        }}/>
                 <Route exact path="/projects/:id/timeline"
                        render={props => {
                            let selectedId = props.match.params.id;
                            let project = byId(projects, selectedId);
-                           if(!project) {
+                           if (!project) {
                                return <Redirect to="/projects"/>
                            }
+                           issues = issuesInProject(issues, project.id);
                            return (
                                <TimelineView issues={issues}
                                              selectedProjectMenuItem={Menu.TIMELINE}
                                              currentPath={`/projects/${selectedId}`}
                                              users={users}
-                                             project={project}/>
+                                             projects={[project]}/>
                            )
                        }}/>
                 <Route exact path="/projects/:id/issues/:issueId"
@@ -133,12 +138,14 @@ class Projects extends Component {
                            let selectedId = props.match.params.id;
                            let selectedIssueId = props.match.params.issueId;
                            let project = byId(projects, selectedId);
-                           if(!project) {
+                           if (!project) {
                                return <Redirect to="/projects"/>
                            }
-                           if(!byId(issues, selectedIssueId)) {
+                           if (!byId(issues, selectedIssueId)) {
                                return <Redirect to={`/projects/${selectedId}`}/>
                            }
+                           let selectedIssue = byId(issues, selectedIssueId);
+                           issues = issuesInProject(issues, project.id);
                            return (
                                <div className={mainStyles.FullHeight}>
                                    <ListView selectedIssueId={selectedIssueId}
@@ -149,7 +156,7 @@ class Projects extends Component {
                                              project={project}/>
                                    <div
                                        className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.HalfContent} ${mainStyles.WithoutOverflow} col-xs-5`}>
-                                       <IssueDescription issue={byId(issues, selectedIssueId)}
+                                       <IssueDescription issue={selectedIssue}
                                                          users={users}/>
                                    </div>
                                </div>

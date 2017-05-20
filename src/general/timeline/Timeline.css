@@ -6,6 +6,7 @@
 .Wrapper > div:first-child {
     flex: 1 0 25px;
     background-color: #F0F0F0;
+    max-width: 25px;
 }
 
 .WrapperScroll {
