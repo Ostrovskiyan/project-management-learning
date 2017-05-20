@@ -59,6 +59,14 @@ class IssueDescription extends Component {
         }));
     };
 
+    handleUpdateDescription = (description) => {
+        let {issue} = this.props;
+        this.props.dispatch(updateIssue({
+            ...issue,
+            description,
+        }));
+    };
+
     handleNewSubtask = (name) => {
         let {issue} = this.props;
         let {subtasks} = issue;
@@ -200,6 +208,7 @@ class IssueDescription extends Component {
             status,
             executors,
             subtasks,
+            description,
         } = issue;
 
         let settingsOptions = [
@@ -261,7 +270,8 @@ class IssueDescription extends Component {
                                             onSubmit={this.handleNewSubtask}/>
                         </div>
                         :
-                        <DescriptionField/>
+                        <DescriptionField description={description}
+                                          onChange={this.handleUpdateDescription}/>
 
                 }
             </div>

@@ -50,6 +50,17 @@ class ProjectDescription extends Component {
         }));
     };
 
+    handleUpdateDescription = (description) => {
+        let {
+            project,
+            dispatch,
+        } = this.props;
+        dispatch(updateProject({
+            ...project,
+            description,
+        }));
+    };
+
     handleSettingSelect = (eventKey) => {
         let {
             project,
@@ -103,6 +114,7 @@ class ProjectDescription extends Component {
             status,
             startDate,
             endDate,
+            description,
         } = project;
 
         let participants = project.participants.map(id => byId(users, id));
@@ -168,7 +180,8 @@ class ProjectDescription extends Component {
                     </div>
                 </div>
                 <div className={styles.DescriptionWrapper}>
-                    <DescriptionField/>
+                    <DescriptionField description={description}
+                                      onChange={this.handleUpdateDescription}/>
                 </div>
             </div>
         );

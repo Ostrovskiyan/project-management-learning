@@ -38,6 +38,10 @@ class ImmediateInput extends Component {
     }
 
     handleFocusEnd = (event) => {
+        if(this.props.submitOnBlur) {
+            this.handleSubmit(event);
+            return;
+        }
         event.preventDefault();
         this.toggleActive(false);
     };
@@ -67,6 +71,10 @@ class ImmediateInput extends Component {
             activeComponent: ActiveComponent,
             activeProps,
             placeholder,
+            textArea,
+            textAreaRows,
+            defaultValue = "",
+            withoutPlus,
         } = this.props;
         let {isActive} = this.state;
 
@@ -79,15 +87,31 @@ class ImmediateInput extends Component {
                                         onBlur={this.handleFocusEnd}
                                         {...activeProps}/>
             } else {
-                return <Form inline className={activeStyle || ""} onSubmit={this.handleSubmit}>
-                    <input type="text"
-                           className={`form-control ${activeInputStyle || ""}`}
-                           placeholder={placeholder}
-                           ref={(input) => {
-                               this.input = input
-                           }}
-                           onBlur={this.handleFocusEnd}/>
-                </Form>;
+                return (
+                    <Form inline className={activeStyle || ""} onSubmit={this.handleSubmit}>
+                        {
+                            !textArea ?
+                                <input type="text"
+                                       className={`form-control ${activeInputStyle || ""}`}
+                                       placeholder={placeholder}
+                                       ref={(input) => {
+                                           this.input = input
+                                       }}
+                                       onBlur={this.handleFocusEnd}
+                                       defaultValue={defaultValue}/>
+                                :
+                                <textarea className={`form-control ${activeInputStyle || ""}`}
+                                          rows={textAreaRows ? textAreaRows.toString() : "5"}
+                                          placeholder={placeholder}
+                                          ref={(input) => {
+                                              this.input = input
+                                          }}
+                                          onBlur={this.handleFocusEnd}
+                                          defaultValue={defaultValue}/>
+
+                        }
+                    </Form>
+                );
             }
 
         } else {
@@ -95,17 +119,23 @@ class ImmediateInput extends Component {
                 return <InactiveComponent onClick={this.handleClick}
                                           {...inactiveProps}/>
             } else {
-                return <div className={inactiveWrapperStyle}>
-                    <Button bsStyle="link"
-                            className={`${styles.Button} ${inactiveStyle || ""}`}
-                            onClick={this.handleClick}>
-                        <Glyphicon glyph="glyphicon glyphicon-plus"
-                                   className={glyphStyle || ""}/>
-                        <span className={textStyle || ""}>
-                                    {text}
-                                </span>
-                    </Button>
-                </div>
+                return (
+                    <div className={inactiveWrapperStyle}>
+                        <Button bsStyle="link"
+                                className={`${styles.Button} ${inactiveStyle || ""}`}
+                                onClick={this.handleClick}>
+                            {
+                                !withoutPlus ?
+                                    <Glyphicon glyph="glyphicon glyphicon-plus"
+                                               className={glyphStyle || ""}/>
+                                    : null
+                            }
+                            <span className={textStyle || ""}>
+                                {text}
+                            </span>
+                        </Button>
+                    </div>
+                )
             }
         }
     }

@@ -1,13 +1,34 @@
 .DescriptionField {
     margin-left: 0 !important;
-    padding-left: 35px;
+    padding: 15px 35px;
     min-height: 150px;
     border-bottom: solid 1px #cccccc;
 }
 
-.DescriptionField > button, .DescriptionField > button:active, .DescriptionField > button:hover, .DescriptionField > button:focus {
+.DescriptionField > div > button, .DescriptionField > div > button:active, .DescriptionField > div > button:hover, .DescriptionField > div > button:focus {
     color: #aaaaaa;
     font-size: 16px;
-    margin-top: 25px;
     padding-left: 0;
+}
+
+.DescriptionField > form {
+    width: 100% !important;;
+}
+
+.DescriptionField > form > textarea {
+    width: 100% !important;
+    resize: vertical;
+}
+
+.Desc {
+    white-space: pre;
+    color: #888888;
+}
+
+.DescriptionField:hover > .Desc {
+    color: #000;
+}
+
+.DescriptionField {
+    cursor: pointer;
 }
