@@ -217,6 +217,10 @@
     padding: 20px 35px;
 }
 
+.IssueSettingTab.SubtaskTab > span {
+    margin-right: 5px;
+}
+
 .IssueSettingTab.SubtaskTab.Selected {
     background-color: #f8f8f8;
     border-bottom: 1px solid #e8e8e8;

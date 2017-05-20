@@ -23,12 +23,9 @@ export function forLater(issues) {
 }
 
 export function filterIssuesByName(issues, name) {
-    console.log(issues);
-    console.log(name);
     if(name === "") {
         return issues;
     }
-    console.log(issues.filter(issue => issue.name.indexOf(name) !== -1));
     return issues.filter(issue => issue.name.indexOf(name) !== -1);
 }
 

@@ -8,7 +8,6 @@ import UpdateIssueDateDropdown from "./UpdateIssueDateDropdown";
 import ImmediateInput from "../../general/immediate-input/ImmediateInput";
 import SubtaskInput from "../components/SubtaskInput";
 import Subtask from "../components/Subtask";
-import {getUsers} from "../../actions/users";
 import {connect} from "react-redux";
 import DescriptionStatusDropdown from "./DescriptionStatusDropdown";
 import DescriptionHeader from "../../components/description-header/DescriptionHeader";
@@ -71,6 +70,7 @@ class IssueDescription extends Component {
         let newSubtask = {
             name,
             id,
+            done: false,
         };
 
         this.props.dispatch(updateIssue({
@@ -88,6 +88,21 @@ class IssueDescription extends Component {
 
         let newSubtasks = subtasks
             .map(subtask => subtask.id === subtaskId ? {...subtask, userId} : subtask);
+
+        this.props.dispatch(updateIssue({
+            ...issue,
+            subtasks: [
+                ...newSubtasks
+            ],
+        }));
+    };
+
+    handleChangeSubtaskStatus = (subtaskId, done) => {
+        let {issue} = this.props;
+        let {subtasks} = issue;
+
+        let newSubtasks = subtasks
+            .map(subtask => subtask.id === subtaskId ? {...subtask, done} : subtask);
 
         this.props.dispatch(updateIssue({
             ...issue,
@@ -163,8 +178,10 @@ class IssueDescription extends Component {
                                                 id={subtask.id}
                                                 name={subtask.name}
                                                 userId={subtask.userId}
+                                                done={subtask.done}
                                                 users={executors.map(executorId => byId(users, executorId))}
-                                                onChangeSubtaskUser={this.handleChangeSubtaskUser}/>);
+                                                onChangeSubtaskUser={this.handleChangeSubtaskUser}
+                                                onChangeSubtaskStatus={this.handleChangeSubtaskStatus}/>);
     }
 
     render() {
@@ -182,6 +199,7 @@ class IssueDescription extends Component {
             endDate,
             status,
             executors,
+            subtasks,
         } = issue;
 
         let settingsOptions = [
@@ -229,7 +247,7 @@ class IssueDescription extends Component {
                         className={`${styles.IssueSettingTab} ${styles.SubtaskTab} ${subtasksIsOpen ? styles.Selected : ""}`}
                         onClick={this.toggleSubtasks}>
                         <Glyphicon glyph="glyphicon glyphicon-th-list"/>
-                        <span>Добавить подзадачу</span>
+                        <span>{subtasks.length === 0 ? "Добавить подзадачу" : `${subtasks.length} subtasks`}</span>
                     </div>
                 </div>
                 {

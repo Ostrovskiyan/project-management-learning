@@ -292,6 +292,9 @@
 .IssueTable > tbody > .ProjectRow, .IssueTable > tbody > tr > td:first-child {
     background-color: #F3F3F3;
     color: #888;
+}
+
+.IssueTable > tbody > tr > td:first-child {
     text-align: right;
 }
 
@@ -305,20 +308,20 @@
 }
 
 .IssueTable > thead > tr > th.Number, .IssueTable > thead > tr > th.Duration {
-    width: 4%;
+    width: 5%;
 }
 
 .IssueTable > thead > tr > th.Heading {
-    width: 50%;
+    width: 44%;
     padding-left: 30px;
 }
 
 .IssueTable > thead > tr > th.StartDate, .IssueTable > thead > tr > th.EndDate, .IssueTable > thead > tr > th.Executors {
-    width: 10%;
+    width: 11%;
 }
 
 .IssueTable > thead > tr > th.Status {
-    width: 6%;
+    width: 7%;
 }
 
 .IssueRow > .IssueName {
@@ -335,8 +338,8 @@
     margin-left: 20px;
 }
 
-.SabtaskRow > .Name {
-    margin-left: 40px;
+.SubtaskRow > .Name {
+    padding-left: 40px;
 }
 
 .TimelineView {

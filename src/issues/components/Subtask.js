@@ -13,7 +13,9 @@ class Subtask extends Component {
             users,
             id,
             onChangeSubtaskUser,
-            userId
+            onChangeSubtaskStatus,
+            userId,
+            done,
         } = this.props;
 
         let user = users.filter(user => user.id === userId)[0];
@@ -25,13 +27,16 @@ class Subtask extends Component {
         let avatar = <DropdownInput id="select-subtask-user"
                                 toggle={Avatar}
                                 contentProps={{
-                                    users
+                                    users,
                                 }}
                                 onSubmit={(userId) => onChangeSubtaskUser(id, userId)}
                                 content={SelectUser}/>;
         return (
             <div className={styles.Subtask}>
-                <Checkbox wrapperStyle={styles.SubtaskCheckbox} withoutText/>
+                <Checkbox wrapperStyle={styles.SubtaskCheckbox}
+                          withoutText
+                          onChange={isDone => onChangeSubtaskStatus(id, isDone)}
+                          checked={done}/>
                 {avatar}
                 <div role="name">
                     {name}

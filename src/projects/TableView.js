@@ -43,7 +43,7 @@ class TableView extends Component {
                     <td/>
                     <td/>
                     <td/>
-                    <td/>
+                    <td>{subtask.done ? "Выполнена" : "Активна"}</td>
                     <td>
                         {subtask.userId ? `${byId(users, subtask.userId).name} ${byId(users, subtask.userId).surname}` : ""}
                     </td>
@@ -65,7 +65,7 @@ class TableView extends Component {
         if (statusFilter) {
             issues = issuesWithStatus(issues, statusFilter);
         }
-        if(executorFilter) {
+        if (executorFilter) {
             issues = issuesWithExecutor(issues, executorFilter);
         }
 

@@ -16,13 +16,12 @@ class Checkbox extends Component {
         let {onChange, readOnly} = this.props;
         let {checked} = this.state;
 
-        let newResult = !checked;
+        const newResult = !checked;
         if (readOnly) {
-            newResult = checked;
-        } else {
-            if (onChange) {
-                onChange(newResult);
-            }
+            return;
+        }
+        if (onChange) {
+            onChange(newResult);
         }
         this.setState({
             checked: newResult
