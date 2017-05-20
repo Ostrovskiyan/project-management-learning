@@ -3,7 +3,7 @@ import mainStyles from "../common/Main.css";
 import {Redirect, Route, Switch} from "react-router-dom";
 import IssueDescription from "../issues/issue-decription/IssueDescription";
 import {connect} from "react-redux";
-import {byId, issuesInProject} from "../util/filters";
+import {byId, filterIssuesByName, issuesInProject} from "../util/filters";
 import ProjectDescription from "./project-description/ProjectDescription";
 import {Menu} from "./constants/constants";
 import TableView from "./TableView";
@@ -25,6 +25,7 @@ class Projects extends Component {
             issues,
             projects,
             users,
+            filterIssueName,
         } = this.props;
 
         return (
@@ -32,7 +33,7 @@ class Projects extends Component {
                 <Route exact
                        path="/projects"
                        component={() => (
-                           <ListView issues={issues}
+                           <ListView issues={filterIssuesByName(issues, filterIssueName)}
                                      projects={projects}
                                      selectedProjectMenuItem={Menu.LIST}
                                      currentPath="/projects"
@@ -70,7 +71,7 @@ class Projects extends Component {
                                    <ListView selectedIssueId={selectedId}
                                              selectedProjectMenuItem={Menu.LIST}
                                              currentPath="/projects"
-                                             issues={issues}
+                                             issues={filterIssuesByName(issues, filterIssueName)}
                                              users={users}
                                              projects={projects}/>
                                    <div
@@ -94,7 +95,7 @@ class Projects extends Component {
                                    <ListView headerText={project.name}
                                              currentPath={`/projects/${selectedId}`}
                                              selectedProjectMenuItem={Menu.LIST}
-                                             issues={issues}
+                                             issues={filterIssuesByName(issues, filterIssueName)}
                                              users={users}
                                              project={project}/>
                                    <ProjectDescription project={project} users={users}/>
@@ -151,7 +152,7 @@ class Projects extends Component {
                                    <ListView selectedIssueId={selectedIssueId}
                                              selectedProjectMenuItem={Menu.LIST}
                                              currentPath={`/projects/${selectedId}`}
-                                             issues={issues}
+                                             issues={filterIssuesByName(issues, filterIssueName)}
                                              users={users}
                                              project={project}/>
                                    <div
@@ -173,6 +174,7 @@ function mapStateToProps(state) {
         projects: state.projects.list,
         statusFilter: state.filters.issueStatusFilterProjectView,
         users: state.users.list,
+        filterIssueName: state.filters.issueName,
     };
 }
 

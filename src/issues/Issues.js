@@ -9,7 +9,7 @@ import IssueDescription from "./issue-decription/IssueDescription";
 import moment from "moment";
 import {Redirect, Route, Switch} from "react-router-dom";
 import AddIssue from "../components/new-issue/AddIssue";
-import {byId, forLater, forNextWeek, forThisWeek, forToday} from "../util/filters";
+import {byId, filterIssuesByName, forLater, forNextWeek, forThisWeek, forTodayOrEarly} from "../util/filters";
 import {getUsers} from "../actions/users";
 
 class Issues extends Component {
@@ -35,9 +35,9 @@ class Issues extends Component {
             users,
         } = this.props;
         let now = moment().startOf("day");
-        let issuesToday = forToday(issues).map(issue => Issues.toIssueItem(issue, selectedId, users));
+        let issuesToday = forTodayOrEarly(issues).map(issue => Issues.toIssueItem(issue, selectedId, users));
         return <div>
-            <IssueTimeHeader title="НА СЕГОДНЯ" startDate={now.format("MMM DD")} issueCount={issuesToday.length}/>
+            <IssueTimeHeader title="НА СЕГОДНЯ ИЛИ РАНЬШЕ" startDate={now.format("MMM DD")} issueCount={issuesToday.length}/>
             <AddIssue/>
             {issuesToday}
         </div>;
@@ -94,10 +94,12 @@ class Issues extends Component {
     render() {
         let {
             issues,
+            filterIssueName,
             users,
         } = this.props;
 
         let issueDoneIcon = <Glyphicon className={styles.IssueDoneIcon} glyph="glyphicon glyphicon-ok"/>;
+        issues = filterIssuesByName(issues, filterIssueName);
 
         return (
             <Switch>
@@ -121,7 +123,7 @@ class Issues extends Component {
                 <Route exact path="/issues/:id"
                        render={props => {
                            let selectedId = props.match.params.id;
-                           let issue = byId(issues, selectedId);
+                           let issue = byId(this.props.issues, selectedId);
                            if (!issue) {
                                return <Redirect to="/issues"/>
                            }
@@ -155,6 +157,7 @@ function mapStateToProps(state) {
         addingIssue: state.issues.addingIssue,
         issues: state.issues.list,
         users: state.users.list,
+        filterIssueName: state.filters.issueName,
     }
 }
 

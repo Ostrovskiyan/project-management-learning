@@ -1,6 +1,6 @@
 import moment from "moment";
 
-export function forToday(issues) {
+export function forTodayOrEarly(issues) {
     let now = moment().startOf("day");
     return issues.filter(issue => !!issue.startDate && now.isSameOrAfter(issue.startDate, "day"));
 }
@@ -20,6 +20,16 @@ export function forNextWeek(issues) {
 export function forLater(issues) {
     let nextWeekEnd = moment().startOf("day").add(13, "day");
     return issues.filter(issue => !issue.startDate || issue.startDate.isAfter(nextWeekEnd, "day"));
+}
+
+export function filterIssuesByName(issues, name) {
+    console.log(issues);
+    console.log(name);
+    if(name === "") {
+        return issues;
+    }
+    console.log(issues.filter(issue => issue.name.indexOf(name) !== -1));
+    return issues.filter(issue => issue.name.indexOf(name) !== -1);
 }
 
 export function issuesWithStatus(issues, status) {

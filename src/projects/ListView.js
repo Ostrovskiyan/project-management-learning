@@ -4,7 +4,7 @@ import styles from "./Projects.css";
 import AddIssue from "../components/new-issue/AddIssue";
 import WrappedContainer from "../general/wrapped-container/WrappedContainer";
 import IssueItem from "../components/issue-item/IssueItem";
-import {forLater, forNextWeek, forThisWeek, forToday, issuesWithExecutor, issuesWithStatus} from "../util/filters";
+import {forLater, forNextWeek, forThisWeek, forTodayOrEarly, issuesWithExecutor, issuesWithStatus} from "../util/filters";
 import ProjectMenu from "./components/ProjectMenu";
 import FilterPanel from "./components/FilterPanel";
 import {connect} from "react-redux";
@@ -63,9 +63,9 @@ class ListView extends Component {
         let nextWeek = null;
         let later = null;
 
-        if (forToday(issues).length > 0) {
-            today = <WrappedContainer headerText="Сегодня"
-                                      content={this.toIssueItemList(issues, forToday)}
+        if (forTodayOrEarly(issues).length > 0) {
+            today = <WrappedContainer headerText="Сегодня или раньше"
+                                      content={this.toIssueItemList(issues, forTodayOrEarly)}
                                       open/>
         }
 

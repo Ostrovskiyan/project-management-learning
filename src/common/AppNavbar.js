@@ -3,6 +3,7 @@ import {Dropdown, FormControl, FormGroup, Glyphicon, MenuItem, Nav, Navbar} from
 import {getUser, logout} from "../actions/profile";
 import {connect} from "react-redux";
 import styles from "./Main.css";
+import {filterIssuesByName} from "../actions/filters";
 
 class AppNavbar extends Component {
 
@@ -24,18 +25,33 @@ class AppNavbar extends Component {
         event.preventDefault();
     }
 
+    handleFilter = (event) => {
+        event.preventDefault();
+        let value = event.target.value;
+        let {
+            dispatch,
+        } = this.props;
+        dispatch(filterIssuesByName(value));
+    };
+
     render() {
         let {
-            user
+            user,
+            filterName,
         } = this.props;
         if (!user) {
             return null;
         }
+
         return (
             <Navbar inverse className={styles.AppNavbar}>
                 <Navbar.Form pullLeft className={styles.NavbarSearchWrapper}>
                     <FormGroup className={styles.NavbarSearchFormGroup}>
-                        <FormControl className={styles.NavbarSearch} type="text" placeholder="Поиск задач"/>
+                        <FormControl className={styles.NavbarSearch}
+                                     type="text"
+                                     placeholder="Поиск задач"
+                                     value={filterName}
+                                     onChange={this.handleFilter}/>
                         <FormControl.Feedback>
                             <Glyphicon glyph="glyphicon glyphicon-search" className={styles.NavbarSearchIcon}/>
                         </FormControl.Feedback>
@@ -66,6 +82,7 @@ function mapStateToProps(state) {
     return {
         token: state.profile.token,
         user: state.profile.user,
+        filterName: state.filters.issueName,
     }
 }
 
