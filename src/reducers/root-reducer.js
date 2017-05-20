@@ -3,12 +3,14 @@ import profile from "./profile";
 import issues from "./issues";
 import users from "./users";
 import projects from "./projects";
+import filters from "./filters";
 
 const rootReducer = combineReducers({
     profile,
     issues,
     users,
-    projects
+    projects,
+    filters,
 });
 
 export default rootReducer;

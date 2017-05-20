@@ -1,10 +1,10 @@
 import React, {Component} from "react";
-import mainStyles from "../../common/Main.css";
-import styles from "../Projects.css";
-import FilterPanel from "../components/FilterPanel";
-import ProjectMenu from "../components/ProjectMenu";
+import mainStyles from "../common/Main.css";
+import styles from "./Projects.css";
+import FilterPanel from "./components/FilterPanel";
+import ProjectMenu from "./components/ProjectMenu";
 import moment from "moment";
-import Timeline from "../../general/timeline/Timeline";
+import Timeline from "../general/timeline/Timeline";
 
 class TimelineView extends Component {
 
@@ -14,6 +14,7 @@ class TimelineView extends Component {
             headerText,
             currentPath,
             selectedProjectMenuItem,
+            users,
         } = this.props;
 
 
@@ -61,7 +62,7 @@ class TimelineView extends Component {
                     </div>
                     <ProjectMenu basePath={currentPath} selectedItem={selectedProjectMenuItem} floatRight/>
                 </div>
-                <FilterPanel withShowLabel withoutExecutorFilter/>
+                <FilterPanel withShowLabel withoutExecutorFilter users={users}/>
                 <Timeline startDate={startDate}
                           endDate={endDate}
                           fatLineOptions={fatLineOptions}

@@ -9,6 +9,8 @@ import ProjectDateRangePicker from "./ProjectDateRangePicker";
 import {connect} from "react-redux";
 import {removeProject, updateProject} from "../../actions/projects";
 import {projectStatuses} from "../constants/constants";
+import Participants from "../../components/participants/Participants";
+import {byId} from "../../util/filters";
 
 const REMOVE_PROJECT = "REMOVE_PROJECT";
 
@@ -62,9 +64,39 @@ class ProjectDescription extends Component {
         }
     };
 
+    handleAddParticipant = (userId) => {
+        let {
+            project,
+            dispatch,
+        } = this.props;
+        dispatch(updateProject({
+            ...project,
+            participants: [
+                ...project.participants,
+                userId,
+            ],
+        }));
+    };
+
+    createRemoveExecutorParticipant = (userId) => {
+        let {
+            project,
+            dispatch,
+        } = this.props;
+        return (event) => {
+            event.preventDefault();
+            let newParticipants = project.participants.filter(id => id !== userId);
+            dispatch(updateProject({
+                ...project,
+                participants: newParticipants,
+            }));
+        }
+    };
+
     render() {
         let {
             project,
+            users,
         } = this.props;
 
         let {
@@ -72,6 +104,9 @@ class ProjectDescription extends Component {
             startDate,
             endDate,
         } = project;
+
+        let participants = project.participants.map(id => byId(users, id));
+        let usersForAdding = users.filter(user => project.participants.indexOf(user.id) < 0);
 
         let settingsOptions = [
             {
@@ -92,10 +127,14 @@ class ProjectDescription extends Component {
                     <div className={styles.ParticipantsWrapper}>
                         <div>Участники</div>
                         <div className={styles.Separator}>|</div>
-                        <div className={styles.Participants}>
-                            <img alt="participant" src={"/images/avatars/example.jpg"} className={""}/>
-                            <Glyphicon className={styles.Glyphicon} glyph="glyphicon glyphicon-plus"/>
-                        </div>
+                        <Participants addDropdownId="select-project-user"
+                                      addParticipantBtnText="Добавить участника"
+                                      participants={participants}
+                                      usersForAdding={usersForAdding}
+                                      participantDoubleClickHanlerBuilder={this.createRemoveExecutorParticipant}
+                                      onAddParticipant={this.handleAddParticipant}
+                                      boxStyle={`${styles.Participants} ${participants.length > 0 ? styles.ParticipantsNotEmpty : ""}`}
+                                      withoutNames/>
                     </div>
                     <div>
                         <div>Дата начала проекта</div>

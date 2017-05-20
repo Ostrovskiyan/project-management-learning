@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Button, Col, Form, FormGroup, Row} from "react-bootstrap";
 import Logo from "./Logo"
 import LoginMessage from "./LoginMessage";
-import {proccessLogining} from "../actions/profile";
+import {processLogining} from "../actions/profile";
 import {connect} from "react-redux";
 import styles from "./LoginPage.css";
 
@@ -14,7 +14,7 @@ class LoginForm extends Component {
     }
 
     handleSubmit(event) {
-        this.props.dispatch(proccessLogining(this.login.value, this.password.value));
+        this.props.dispatch(processLogining(this.login.value, this.password.value));
         event.preventDefault();
     }
 

@@ -1,0 +1,41 @@
+.SelectUser {
+    width: 300px;
+}
+
+.SelectUser > div.Header {
+    height: 25px;
+    color: #999;
+    padding: 3px 10px;
+    border-bottom: 1px solid #cccccc;
+    font-size: 12px;
+}
+
+.SelectUser > div.UserItem:hover {
+    background-color: #eee;
+    cursor: pointer;
+}
+
+.SelectUser > div.UserItem > div {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.SelectUser > div.UserItem > div > img {
+    height: 35px;
+    margin: 5px 10px 5px 5px;
+}
+
+.SelectUser > div.UserItem > div > div.Email {
+    color: #aaaaaa;
+}
+
+.Empty {
+    height: 45px;
+    width: 100%;
+    text-align: center;
+    padding-top: 15px;
+}
+
+.Selected {
+    background-color: #5385B9;
+}

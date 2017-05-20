@@ -7,13 +7,13 @@ import styles from "./index.css";
 
 class App extends Component {
     render() {
-        let authorized = this.props.authorized;
+        let token = this.props.token;
         return <BrowserRouter>
             <div className={styles.App}>
                 <Switch>
 
                     <Route path="/login" render={props => (
-                        !authorized ? (
+                        !token ? (
                             <LoginPage {...props}/>
                         ) : (
                             <Redirect to={{
@@ -24,7 +24,7 @@ class App extends Component {
                     )}
                     />
                     <Route path="/" render={props => (
-                        authorized ? (
+                        token ? (
                             <PageTemplate {...props}/>
                         ) : (
                             <Redirect to={{
@@ -41,7 +41,7 @@ class App extends Component {
 
 function mapStateToProps(state) {
     return {
-        authorized: state.profile.authorized
+        token: state.profile.token,
     }
 }
 

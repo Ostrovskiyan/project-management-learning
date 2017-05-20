@@ -15,7 +15,11 @@ class AddIssue extends Component {
     }
 
     handleAddIssue = (issueName) => {
-        this.props.dispatch(createIssue(issueName));
+        let {
+            token,
+            dispatch,
+        } = this.props;
+        dispatch(createIssue(issueName, token));
     };
 
     render() {
@@ -38,7 +42,8 @@ class AddIssue extends Component {
 
 function mapStateToProps(state) {
     return {
-        avatar: state.profile.avatar,
+        avatar: state.profile.user.avatar,
+        token: state.profile.token,
     };
 }
 

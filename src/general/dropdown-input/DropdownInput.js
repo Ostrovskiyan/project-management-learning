@@ -40,14 +40,15 @@ class DropdownInput extends Component {
             toggle: Toggle,
             contentProps,
             content: Content,
-            id
+            id,
+            className,
         } = this.props;
         let {
             open
         } = this.state;
 
         return (
-            <Dropdown id={id} bsStyle="link" open={open} onToggle={this.handleToggle}>
+            <Dropdown id={id} bsStyle="link" open={open} onToggle={this.handleToggle} className={className}>
                 <Dropdown.Toggle bsStyle="link" noCaret
                                  className={mainStyles.MinimizeDropdown}
                                  onClick={this.handleClick}>

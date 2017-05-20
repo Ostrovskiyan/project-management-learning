@@ -6,11 +6,7 @@ const projects = (state = {list: []}, action) => {
                 ...state,
                 list: [
                     ...state.list,
-                    {
-                        id: action.id,
-                        name: action.name,
-                        status: action.status,
-                    }
+                    action.project,
                 ]
             };
         case UPDATE_PROJECT:

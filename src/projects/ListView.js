@@ -4,11 +4,16 @@ import styles from "./Projects.css";
 import AddIssue from "../components/new-issue/AddIssue";
 import WrappedContainer from "../general/wrapped-container/WrappedContainer";
 import IssueItem from "../components/issue-item/IssueItem";
-import {forLater, forNextWeek, forThisWeek, forToday} from "../util/filters";
+import {forLater, forNextWeek, forThisWeek, forToday, issuesWithExecutor, issuesWithStatus} from "../util/filters";
 import ProjectMenu from "./components/ProjectMenu";
 import FilterPanel from "./components/FilterPanel";
+import {connect} from "react-redux";
 
-class GeneralProjectsView extends Component {
+class ListView extends Component {
+
+    constructor(props) {
+        super(props);
+    }
 
     toIssueItemList(issues, filterFunction) {
         let {
@@ -16,10 +21,12 @@ class GeneralProjectsView extends Component {
             projects,
             project,
             currentPath,
+            users,
         } = this.props;
+
         return filterFunction(issues).map(issue => {
             let projectName = project ? project.name : undefined;
-            if(!projectName && issue.projectId !== undefined) {
+            if (!projectName && issue.projectId !== undefined) {
                 projectName = projects.filter(project => project.id === issue.projectId)[0].name;
             }
             return (<IssueItem issue={issue}
@@ -27,6 +34,7 @@ class GeneralProjectsView extends Component {
                                key={issue.id}
                                to={`${currentPath}/issues/${issue.id}`}
                                selected={selectedIssueId === issue.id.toString()}
+                               users={users}
                                projectView/>);
         })
     }
@@ -38,7 +46,17 @@ class GeneralProjectsView extends Component {
             fullContent,
             currentPath,
             selectedProjectMenuItem,
+            statusFilter,
+            executorFilter,
+            users,
         } = this.props;
+
+        if (statusFilter) {
+            issues = issuesWithStatus(issues, statusFilter);
+        }
+        if(executorFilter) {
+            issues = issuesWithExecutor(issues, executorFilter);
+        }
 
         let today = null;
         let thisWeek = null;
@@ -76,7 +94,9 @@ class GeneralProjectsView extends Component {
                     {headerText ? headerText : "Проекты"}
                 </div>
                 <ProjectMenu basePath={currentPath} selectedItem={selectedProjectMenuItem}/>
-                <FilterPanel/>
+                <FilterPanel onStatusFilterChange={this.handleChangeStatusFilter}
+                             selectedStatusFilter={statusFilter}
+                             users={users}/>
                 <AddIssue inactiveStyle={styles.InactiveAddIssue} activeStyle={styles.ActiveAddIssue}/>
                 <div className={styles.Wrappers}>
                     {today}
@@ -89,6 +109,12 @@ class GeneralProjectsView extends Component {
     }
 }
 
-export
-default
-GeneralProjectsView;
+function mapStateToProps(state) {
+    return {
+        statusFilter: state.filters.issueStatusFilterProjectView,
+        executorFilter: state.filters.issueExecutorFilterProjectView,
+        users: state.users.list,
+    };
+}
+
+export default connect(mapStateToProps)(ListView);

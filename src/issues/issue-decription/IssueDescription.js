@@ -13,6 +13,8 @@ import {connect} from "react-redux";
 import DescriptionStatusDropdown from "./DescriptionStatusDropdown";
 import DescriptionHeader from "../../components/description-header/DescriptionHeader";
 import DescriptionField from "../../components/description-input/DescriptionField";
+import {byId} from "../../util/filters";
+import Participants from "../../components/participants/Participants";
 
 const REMOVE_ISSUE = "REMOVE_ISSUE";
 
@@ -25,13 +27,12 @@ class IssueDescription extends Component {
         };
     }
 
-    componentDidMount() {
-        this.props.dispatch(getUsers());
-    }
-
     handleAddToNewProject = (projectId) => {
-        let {issue} = this.props;
-        this.props.dispatch(addIssueToNewProject(issue, projectId));
+        let {
+            issue,
+            token,
+        } = this.props;
+        this.props.dispatch(addIssueToNewProject(issue, projectId, token));
     };
 
     handleUpdateProject = (projectId) => {
@@ -48,6 +49,14 @@ class IssueDescription extends Component {
             ...issue,
             startDate,
             endDate,
+        }));
+    };
+
+    handleUpdateStatus = (status) => {
+        let {issue} = this.props;
+        this.props.dispatch(updateIssue({
+            ...issue,
+            status,
         }));
     };
 
@@ -102,6 +111,35 @@ class IssueDescription extends Component {
         }
     };
 
+    handleAddExecutor = (userId) => {
+        let {
+            issue,
+            dispatch,
+        } = this.props;
+        dispatch(updateIssue({
+            ...issue,
+            executors: [
+                ...issue.executors,
+                userId,
+            ],
+        }));
+    };
+
+    createRemoveExecutorHandler = (userId) => {
+        let {
+            issue,
+            dispatch,
+        } = this.props;
+        return (event) => {
+            event.preventDefault();
+            let newExecutors = issue.executors.filter(id => id !== userId);
+            dispatch(updateIssue({
+                ...issue,
+                executors: newExecutors,
+            }));
+        }
+    };
+
     toggleSubtasks = (event) => {
         event.preventDefault();
         this.setState({
@@ -110,16 +148,22 @@ class IssueDescription extends Component {
     };
 
     getSubtasks() {
-        let subtasks = this.props.issue.subtasks;
+        let {
+            issue,
+            users,
+        } = this.props;
+        let {
+            executors,
+            subtasks,
+        } = issue;
         if (subtasks === undefined || subtasks.length === 0) {
             return null;
         }
-        let users = this.props.users;
         return subtasks.map(subtask => <Subtask key={subtask.id}
                                                 id={subtask.id}
                                                 name={subtask.name}
                                                 userId={subtask.userId}
-                                                users={users}
+                                                users={executors.map(executorId => byId(users, executorId))}
                                                 onChangeSubtaskUser={this.handleChangeSubtaskUser}/>);
     }
 
@@ -127,6 +171,7 @@ class IssueDescription extends Component {
         let {
             issue,
             projects,
+            users,
         } = this.props;
         let {
             subtasksIsOpen,
@@ -136,6 +181,7 @@ class IssueDescription extends Component {
             startDate,
             endDate,
             status,
+            executors,
         } = issue;
 
         let settingsOptions = [
@@ -144,6 +190,9 @@ class IssueDescription extends Component {
                 eventKey: REMOVE_ISSUE,
             }
         ];
+
+        let executorUsers = executors.map(executorId => byId(users, executorId));
+        let unassignedUsers = users.filter(user => executors.indexOf(user.id) < 0);
 
         return (
             <div className={`${mainStyles.FullHeight} ${styles.IssueDescription}`}>
@@ -157,12 +206,13 @@ class IssueDescription extends Component {
                                                                onSelectProject={this.handleUpdateProject}/>
                                    }/>
                 <div className={styles.IssueSubHeader}>
-                    <DescriptionStatusDropdown selectedStatus={status}/>
-                    <div className={styles.IssueAssigners}>
-                        <img alt="assigned" src={issue.assigned.avatar} className={styles.IssueAssignedAvatar}/>
-                        {issue.assigned.name}
-                        <Glyphicon className={styles.AddAssignedIcon} glyph="glyphicon glyphicon-plus"/>
-                    </div>
+                    <DescriptionStatusDropdown selectedStatus={status} onSelect={this.handleUpdateStatus}/>
+                    <Participants addDropdownId="select-issue-user"
+                                  addParticipantBtnText="Добавить исполнителя"
+                                  participants={executorUsers}
+                                  usersForAdding={unassignedUsers}
+                                  participantDoubleClickHanlerBuilder={this.createRemoveExecutorHandler}
+                                  onAddParticipant={this.handleAddExecutor}/>
                     <div className={styles.IssueAuthorWrapper}>
                         <span className={styles.IssueAuthor}>
                             автор:
@@ -179,7 +229,7 @@ class IssueDescription extends Component {
                         className={`${styles.IssueSettingTab} ${styles.SubtaskTab} ${subtasksIsOpen ? styles.Selected : ""}`}
                         onClick={this.toggleSubtasks}>
                         <Glyphicon glyph="glyphicon glyphicon-th-list"/>
-                        <span> Добавить подзадачу</span>
+                        <span>Добавить подзадачу</span>
                     </div>
                 </div>
                 {
@@ -203,7 +253,7 @@ class IssueDescription extends Component {
 
 function mapStateToProps(state) {
     return {
-        users: state.users.list,
+        token: state.profile.token,
         projects: state.projects.list,
     }
 }

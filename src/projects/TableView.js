@@ -16,6 +16,7 @@ class TableView extends Component {
             headerText,
             currentPath,
             selectedProjectMenuItem,
+            users,
         } = this.props;
 
         return (
@@ -27,7 +28,7 @@ class TableView extends Component {
                     </div>
                     <ProjectMenu basePath={currentPath} selectedItem={selectedProjectMenuItem} floatRight/>
                 </div>
-                <FilterPanel withShowLabel/>
+                <FilterPanel withShowLabel users={users}/>
                 <Table className={styles.IssueTable}>
                     <thead>
                         <tr>

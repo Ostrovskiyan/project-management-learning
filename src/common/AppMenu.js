@@ -30,8 +30,9 @@ class AppMenu extends Component {
     handleCreateProject = (projectName) => {
         let {
             dispatch,
+            token,
         } = this.props;
-        dispatch(createProject(projectName));
+        dispatch(createProject(projectName, token));
     };
 
     render() {
@@ -98,6 +99,7 @@ class AppMenu extends Component {
 function mapStateToProps(state) {
     return {
         projects: state.projects.list,
+        token: state.profile.token,
     }
 }
 

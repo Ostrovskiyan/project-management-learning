@@ -12,15 +12,33 @@ class IssueStatusDropdown extends Component {
             button: ToggleButton,
             id,
             selectedStatus,
+            onSelect,
+            withEmptyStatus,
+            emptyStatusText,
         } = this.props;
 
         const menuItems = [];
         for (let statusProp in issueStatuses) {
             let status = issueStatuses[statusProp];
             menuItems.push(
-                <MenuItem key={status.key} className={status.key === selectedStatus ? styles.SelectedIssueStatus : ""}>
+                <MenuItem key={status.key}
+                          eventKey={status.key}
+                          onSelect={onSelect}
+                          className={status.key === selectedStatus ? styles.SelectedIssueStatus : ""}>
                     <div className={`${styles.IssueStatus} ${status.style}`}/>
                     <div className={styles.IssueStatusName}>{status.text}</div>
+                </MenuItem>
+            )
+        }
+
+        if (withEmptyStatus) {
+            menuItems.push(
+                <MenuItem key={"empty"}
+                          eventKey={undefined}
+                          onSelect={onSelect}
+                          className={!selectedStatus ? styles.SelectedIssueStatus : ""}>
+                    <div className={`${styles.IssueStatus}`}/>
+                    <div className={styles.IssueStatusName}>{emptyStatusText}</div>
                 </MenuItem>
             )
         }

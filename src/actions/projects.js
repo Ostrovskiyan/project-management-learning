@@ -3,18 +3,16 @@ export const CREATE_PROJECT = "CREATE_PROJECT";
 export const UPDATE_PROJECT = "UPDATE_PROJECT";
 export const REMOVE_PROJECT = "REMOVE_PROJECT";
 
-export const createProjectAction = ({id, name, status}) => {
+export const createProjectAction = (project) => {
     return {
         type: CREATE_PROJECT,
-        id,
-        name,
-        status,
+        project,
     }
 };
 
-export function createProject(name) {
+export function createProject(name, token) {
     return dispatch => {
-        new Promise((resolve) => resolve(createProjectApi(name)))
+        new Promise((resolve) => resolve(createProjectApi(name, token)))
             .then(project => dispatch(createProjectAction(project)));
     }
 }

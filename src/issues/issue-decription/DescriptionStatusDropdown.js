@@ -28,25 +28,25 @@ class DescriptionStatusDropdown extends Component {
 
     render() {
         let {
-            showTooltip
+            showTooltip,
         } = this.state;
         let {
+            onSelect,
             selectedStatus,
         } = this.props;
-        console.log(selectedStatus);
         return (
             <IssueStatusDropdown id="issue-status-dropdown"
                                  wrapperStyle={styles.MarkSuccessWrapper}
                                  selectedStatus={selectedStatus}
+                                 onSelect={onSelect}
                                  button={() => (
-                                     <div>
+                                     <div onMouseEnter={this.handleShowTooltip} onMouseLeave={this.handleHideTooltip}>
                                          <div
                                              className={`${styles.IssuesStatusTooltip} ${showTooltip ? "" : styles.NotDisplayed}`}>
                                              <span>Отметить задачу как завершена</span>
                                          </div>
-                                         <div onMouseEnter={this.handleShowTooltip}
-                                              onMouseLeave={this.handleHideTooltip}
-                                              className={`${styles.IssueStatus} ${selectedStatus ? issueStatuses[selectedStatus].style : ""}`}/>
+                                         <div
+                                             className={`${styles.IssueStatus} ${selectedStatus ? issueStatuses[selectedStatus].style : ""}`}/>
                                      </div>
                                  )}/>
         )

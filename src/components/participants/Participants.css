@@ -1,0 +1,45 @@
+.Box {
+    display: inline-block;
+    height: 100%;
+    padding-top: 15px;
+    padding-left: 10px;
+    color: #555555;
+}
+
+.Box > div > ul {
+    border-radius: 0;
+    border: none;
+    box-shadow: 0 0 5px 1px #888888;
+}
+
+.Participant {
+    display: inline-block;
+    padding-right: 5px;
+    border: 1px solid transparent;
+    cursor: pointer;
+}
+
+.Participant:hover {
+    border-color: #ccc;
+}
+
+.Participant:active {
+    border-color: #000;
+}
+
+.Participant > img {
+    height: 35px;
+    margin-right: 8px;
+}
+
+.AddParticipant > span {
+    color: #888;
+}
+
+.AddParticipant > span:first-child {
+    font-family: verdana;
+    font-size: 18px;
+    font-weight: bold;
+    color: #cccccc;
+    margin-right: 10px;
+}

@@ -154,30 +154,12 @@
     cursor: pointer;
 }
 
-.IssueAssigners {
-    display: inline-block;
-    height: 100%;
-    width: 50%;
-    padding-top: 15px;
-    padding-left: 10px;
-    color: #555555;
+:global #select-issue-user:active > div > span {
+    color: #000;
 }
 
-.IssueAssignedAvatar {
-    height: 35px;
-    margin-right: 8px;
-}
-
-.AddAssignedIcon:hover {
-    color: #000000;
-}
-
-.AddAssignedIcon, .AddAssignedIcon:active {
-    font-family: verdana;
-    margin-left: 20px;
-    font-size: 18px;
-    font-weight: bold;
-    color: #cccccc;
+:global #select-issue-user:hover > div > span:first-child {
+    color: #888;
 }
 
 .IssueStatus {
@@ -327,33 +309,3 @@
     padding-left: 0;
 }
 
-.SelectSubtaskUser {
-    width: 300px;
-}
-
-.SelectSubtaskUser > div.Header {
-    height: 25px;
-    color: #999;
-    padding: 3px 10px;
-    border-bottom: 1px solid #cccccc;
-    font-size: 12px;
-}
-
-.SelectSubtaskUser > div.UserItem:hover {
-    background-color: #eee;
-    cursor: pointer;
-}
-
-.SelectSubtaskUser > div.UserItem > div {
-    display: inline-block;
-    vertical-align: top;
-}
-
-.SelectSubtaskUser > div.UserItem > div > img {
-    height: 35px;
-    margin: 5px 10px 5px 5px;
-}
-
-.SelectSubtaskUser > div.UserItem > div > div.Email {
-    color: #aaaaaa;
-}

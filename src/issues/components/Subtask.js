@@ -1,9 +1,9 @@
 import React, {Component} from "react";
 import styles from "../Issues.css";
 import Checkbox from "../../general/checkbox/Checkbox";
-import addUserImg from "../static/add-user.png";
+import addUser from "../static/add-user.png";
 import DropdownInput from "../../general/dropdown-input/DropdownInput";
-import SelectSubtaskUser from "./SelectSubtaskUser";
+import SelectUser from "../../components/select-user/SelectUser";
 
 class Subtask extends Component {
 
@@ -19,7 +19,7 @@ class Subtask extends Component {
         let user = users.filter(user => user.id === userId)[0];
 
         function Avatar() {
-            return <img alt="avatar" src={user ? user.avatar : addUserImg} role="avatar"/>;
+            return <img alt="avatar" src={user ? user.avatar : addUser} role="avatar"/>;
         }
 
         let avatar = <DropdownInput id="select-subtask-user"
@@ -28,7 +28,7 @@ class Subtask extends Component {
                                     users
                                 }}
                                 onSubmit={(userId) => onChangeSubtaskUser(id, userId)}
-                                content={SelectSubtaskUser}/>;
+                                content={SelectUser}/>;
         return (
             <div className={styles.Subtask}>
                 <Checkbox wrapperStyle={styles.SubtaskCheckbox} withoutText/>

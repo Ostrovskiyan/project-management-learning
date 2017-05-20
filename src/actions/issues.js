@@ -1,4 +1,4 @@
-import {createIssueViaApi, createProject, getUser} from "../api/api";
+import {createIssueViaApi, createProject, getByToken} from "../api/api";
 import {createProjectAction} from "./projects";
 export const ADD_ISSUE = "ADD_ISSUE";
 export const UPDATE_ISSUE = "UPDATE_ISSUE";
@@ -12,19 +12,10 @@ const addIssue = (issue) => {
 };
 
 
-export function createIssue(name) {
+export function createIssue(name, token) {
     return dispatch => {
-        new Promise((resolve) => resolve(getUser()))
-            .then(user => {
-                return [
-                    {
-                        ...user
-                    },
-                    {
-                        ...user
-                    },
-                ]
-            }).then(users => createIssueViaApi(name, users[0], users[1]))
+        new Promise((resolve) => resolve(getByToken(token)))
+            .then(user => createIssueViaApi(name, user))
             .then(issue => dispatch(addIssue(issue)));
     }
 }
@@ -32,13 +23,13 @@ export function createIssue(name) {
 export const updateIssue = (issue) => {
     return {
         type: UPDATE_ISSUE,
-        issue
+        issue,
     }
 };
 
-export const addIssueToNewProject = (issue, projectName) => {
+export const addIssueToNewProject = (issue, projectName, token) => {
     return dispatch => {
-        new Promise((resolve) => resolve(createProject(projectName)))
+        new Promise((resolve) => resolve(createProject(projectName, token)))
             .then(project => {
                 dispatch(createProjectAction(project));
                 return project;

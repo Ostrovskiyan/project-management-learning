@@ -2,6 +2,8 @@ import React, {Component} from "react";
 import IssueDoubleImage from "./IssueDoubleImage";
 import styles from "./IssueItem.css";
 import {Link} from "react-router-dom";
+import userUndefinedImg from "./static/user-undefined.png";
+import {byId} from "../../util/filters";
 
 class IssueItem extends Component {
 
@@ -12,20 +14,29 @@ class IssueItem extends Component {
             projectView = false,
             to,
             projectName,
+            users,
         } = this.props;
         let {
             startDate,
             author,
-            assigned,
+            executors,
             name,
         } = issue;
+        let executorAvatar;
+        if(executors.length > 0) {
+            executorAvatar = byId(users, executors[0]).avatar;
+        } else {
+            executorAvatar = userUndefinedImg;
+        }
+
         return (
             <Link to={to}>
-                <div className={`${styles.Issue} ${projectView ? styles.Project : ""} ${selected ? styles.Selected : ""}`}>
+                <div
+                    className={`${styles.Issue} ${projectView ? styles.Project : ""} ${selected ? styles.Selected : ""}`}>
                     {projectView ?
-                        <img alt="assigned" className={`${styles.IssueAvatar} `} src={assigned.avatar}/>
+                        <img alt="assigned" className={`${styles.IssueAvatar} `} src={executorAvatar}/>
                         : <IssueDoubleImage bottomAvatar={author.avatar}
-                                            topAvatar={assigned.avatar}/>
+                                            topAvatar={executorAvatar}/>
                     }
                     <span className={styles.IssueName}>{name}</span>
                     {
@@ -33,9 +44,11 @@ class IssueItem extends Component {
                             <span className={styles.ProjectName}>{projectName}</span>
                             : null
                     }
-                    <span className={styles.IssueDates}>
-                        {startDate.format("MMM DD")}
-                    </span>
+                    {
+                        startDate ?
+                            <span className={styles.IssueDates}>{startDate.format("MMM DD")}</span>
+                            : null
+                    }
                 </div>
             </Link>
         )

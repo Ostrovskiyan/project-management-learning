@@ -50,6 +50,12 @@
     background-color: #DCE6F0;
 }
 
+:global #user-filter + ul {
+    border-radius: 0;
+    border: none;
+    box-shadow: 0 0 5px 1px #888888;
+}
+
 .ActiveAddIssue {
     height: 50px;
     margin: 0;
@@ -111,10 +117,27 @@
 .Participants {
     position: absolute;
     top: -10px;
+    padding: 10px 0 0 0;
+
 }
 
-.Participants > img {
-    height: 40px;
+.ParticipantsNotEmpty {
+    top: -5px;
+    padding: 0;
+}
+
+.ParticipantsNotEmpty > div {
+    padding-right: 0;
+    margin-right: 10px;
+}
+
+
+.ParticipantsNotEmpty > div > img{
+    margin-right: 0;
+}
+
+.Participants > div > button {
+    padding: 0;
 }
 
 .Separator {
