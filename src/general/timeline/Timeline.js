@@ -55,6 +55,9 @@ class Timeline extends Component {
                     if (cellObject.isToday) {
                         classes.push(styles.Today);
                     }
+                    if(cellObject.withoutRightBorder) {
+                        classes.push(styles.WithoutRightBorder);
+                    }
                     if (cellObject.isSunday) {
                         classes.push(styles.Sunday);
                     } else if (cellObject.isSaturday) {
@@ -215,7 +218,8 @@ function generateEmptyCellObjects(height, width, today) {
                 isEmpty: true,
                 isToday: today === j,
                 isSunday: j % 7 === 0,
-                isSaturday: (j + 1) % 7 === 0
+                isSaturday: (j + 1) % 7 === 0,
+                withoutRightBorder: today - 1 === j,
             });
         }
         result.push(row);

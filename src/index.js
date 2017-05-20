@@ -6,6 +6,7 @@ import './index.css';
 import {applyMiddleware, compose, createStore} from "redux";
 import {Provider} from "react-redux";
 import rootReducer from "./reducers/root-reducer";
+import {defaultStore} from "./default-value";
 
 const composeEnhancers =
     typeof window === 'object' &&
@@ -17,11 +18,13 @@ const enhancer = composeEnhancers(
     applyMiddleware(thunkMiddleware),
 );
 
-const store = createStore(rootReducer, {
-    profile: {
-        token: localStorage.getItem("authToken")
-    }
-}, enhancer);
+// const store = createStore(rootReducer, {
+//     profile: {
+//         token: localStorage.getItem("authToken")
+//     }
+// }, enhancer);
+
+const store = createStore(rootReducer, defaultStore(), enhancer);
 
 ReactDOM.render(
     <Provider store={store}>

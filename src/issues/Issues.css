@@ -1,3 +1,12 @@
+.ListView {
+    display: flex;
+    flex-flow: column;
+}
+
+.DoneIssues {
+    margin-top: auto;
+}
+
 .IssueTimeHeader {
     width: 100%;
     height: 40px;

@@ -107,9 +107,9 @@ class Issues extends Component {
                        render={props =>
                            <div className={mainStyles.FullHeight}>
                                <div
-                                   className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.DoubleThirdContent} col-xs-5`}>
+                                   className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.DoubleThirdContent} ${styles.ListView} col-xs-5`}>
                                    {this.today(issues)}
-                                   <IssueTimeHeader className={styles.FloatDown} icon={issueDoneIcon} title="ЗАВЕРШЕНА"
+                                   <IssueTimeHeader className={styles.DoneIssues} icon={issueDoneIcon} title="ЗАВЕРШЕНА"
                                                     issueCount={0}/>
                                </div>
                                <div
@@ -130,12 +130,12 @@ class Issues extends Component {
                            return (
                                <div className={mainStyles.FullHeight}>
                                    <div
-                                       className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.HalfContent} col-xs-5`}>
+                                       className={`${mainStyles.FullHeight} ${mainStyles.Content} ${mainStyles.HalfContent} ${styles.ListView} col-xs-5`}>
                                        {this.today(issues, selectedId)}
                                        {this.thisWeek(issues, selectedId)}
                                        {this.nextWeek(issues, selectedId)}
                                        {this.later(issues, selectedId)}
-                                       <IssueTimeHeader className={styles.FloatDown} icon={issueDoneIcon}
+                                       <IssueTimeHeader className={styles.DoneIssues} icon={issueDoneIcon}
                                                         title="ЗАВЕРШЕНА"
                                                         issueCount={0}/>
                                    </div>
