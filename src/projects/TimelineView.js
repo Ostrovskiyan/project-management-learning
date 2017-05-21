@@ -5,7 +5,7 @@ import FilterPanel from "./components/FilterPanel";
 import ProjectMenu from "./components/ProjectMenu";
 import moment from "moment";
 import Timeline from "../general/timeline/Timeline";
-import {byId, issuesWithExecutor, issuesWithStatus} from "../util/filters";
+import {byId, issuesWithStatus} from "../util/filters";
 import {connect} from "react-redux";
 
 class TimelineView extends Component {
@@ -19,14 +19,10 @@ class TimelineView extends Component {
             selectedProjectMenuItem,
             users,
             statusFilter,
-            executorFilter,
         } = this.props;
 
         if (statusFilter) {
             issues = issuesWithStatus(issues, statusFilter);
-        }
-        if (executorFilter) {
-            issues = issuesWithExecutor(issues, executorFilter);
         }
 
         issues = issues.filter(issue => issue.startDate && issue.endDate)
@@ -109,7 +105,6 @@ function maxEndDate(list) {
 function mapStateToProps(state) {
     return {
         statusFilter: state.filters.issueStatusFilterProjectView,
-        executorFilter: state.filters.issueExecutorFilterProjectView,
     }
 }
 

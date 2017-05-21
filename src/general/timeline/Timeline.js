@@ -15,47 +15,64 @@ class Timeline extends Component {
             thinLineOptions = [],
             fatLineOptions = [],
         } = this.props;
-
-        this.startDate = startDate.day(0);
-        this.endDate = endDate.day(6);
-        let today = getToday(startDate);
+        startDate = startDate.day(0);
+        endDate = endDate.day(6);
         let height = 2 * (thinLineOptions.length + fatLineOptions.length) + 2;
-        if(thinLineOptions.length === 0) {
+        if (thinLineOptions.length === 0) {
             height += 2;
         }
-        this.cellObjects = generateEmptyCellObjects(height, this.getDayCount(), today);
+        let cells = generateEmptyCellObjects(height, getDayCount(startDate, endDate), getToday(startDate));
+        cells = this.applyThinTimelineOptions(cells, startDate, thinLineOptions);
+        cells = this.applyFatTimelineOptions(cells, startDate, fatLineOptions, thinLineOptions);
+        this.state = {
+            startDate,
+            endDate,
+            today: getToday(startDate),
+            cellObjects: cells,
+        };
     }
 
-    getWeekCount() {
+    componentWillReceiveProps(nextProps) {
         let {
             startDate,
             endDate,
-        } = this;
-        let diff = endDate.diff(startDate, "days") + 1;
-        return diff / 7;
+            thinLineOptions = [],
+            fatLineOptions = [],
+        } = nextProps;
+        startDate = startDate.day(0);
+        endDate = endDate.day(6);
+        let height = 2 * (thinLineOptions.length + fatLineOptions.length) + 2;
+        if (thinLineOptions.length === 0) {
+            height += 2;
+        }
+        let cells = generateEmptyCellObjects(height, getDayCount(startDate, endDate), getToday(startDate));
+        cells = this.applyThinTimelineOptions(cells, startDate, thinLineOptions);
+        cells = this.applyFatTimelineOptions(cells, startDate, fatLineOptions, thinLineOptions);
+        this.setState({
+            startDate,
+            endDate,
+            today: getToday(startDate),
+            cellObjects: cells,
+        });
     }
-
-    getDayCount() {
-        return this.getWeekCount() * 7;
-    }
-
-    generateContentDays() {
+    
+    generateContentDays(cellObjects) {
         let result = [];
-        let columnLength = this.cellObjects.length;
-        let rowLength = this.cellObjects[0].length;
+        let columnLength = cellObjects.length;
+        let rowLength = cellObjects[0].length;
         for (let i = 0; i < columnLength; i++) {
             let resultRow = [];
             resultRow.push(<td key="empty"/>);
             for (let j = 0; j < rowLength; j++) {
                 let classes = [];
-                let cellObject = this.cellObjects[i][j];
+                let cellObject = cellObjects[i][j];
                 let content = null;
                 if (cellObject.isEmpty) {
                     classes.push(styles.Content);
                     if (cellObject.isToday) {
                         classes.push(styles.Today);
                     }
-                    if(cellObject.withoutRightBorder) {
+                    if (cellObject.withoutRightBorder) {
                         classes.push(styles.WithoutRightBorder);
                     }
                     if (cellObject.isSunday) {
@@ -125,59 +142,59 @@ class Timeline extends Component {
         return result;
     }
 
-    applyThinTimelineOptions() {
-        let options = this.props.thinLineOptions;
+    applyThinTimelineOptions(cellObjects, startDate, options) {
         let curRowLevel = 0;
         for (let i = 0; i < options.length; i++) {
             let option = options[i];
-            let toOptionStart = option.startDate.diff(this.startDate, "days");
-            let toOptionEnd = option.endDate.diff(this.startDate, "days");
+            let toOptionStart = option.startDate.diff(startDate, "days");
+            let toOptionEnd = option.endDate.diff(startDate, "days");
 
-            this.cellObjects[curRowLevel][toOptionStart].isThinLabel = true;
-            this.cellObjects[curRowLevel][toOptionStart].label = option.label;
+            cellObjects[curRowLevel][toOptionStart].isThinLabel = true;
+            cellObjects[curRowLevel][toOptionStart].label = option.label;
 
-            this.cellObjects[curRowLevel + 1][toOptionStart].isThinStart = true;
+            cellObjects[curRowLevel + 1][toOptionStart].isThinStart = true;
             for (let j = toOptionStart; j <= toOptionEnd; j++) {
-                this.cellObjects[curRowLevel][j].isThin = true;
+                cellObjects[curRowLevel][j].isThin = true;
             }
-            this.cellObjects[curRowLevel + 1][toOptionEnd].isThinEnd = true;
+            cellObjects[curRowLevel + 1][toOptionEnd].isThinEnd = true;
 
             curRowLevel += 2;
         }
+        return cellObjects;
     }
 
-    applyFatTimelineOptions() {
-        let {
-            fatLineOptions,
-            thinLineOptions,
-        } = this.props;
+    applyFatTimelineOptions(cellObjects, startDate, fatLineOptions, thinLineOptions) {
         let options = fatLineOptions;
         let curRowLevel = thinLineOptions.length > 0 ? thinLineOptions.length * 2 : 2;
         for (let i = 0; i < options.length; i++) {
             let option = options[i];
-            let toOptionStart = option.startDate.diff(this.startDate, "days");
-            let toOptionEnd = option.endDate.diff(this.startDate, "days");
+            let toOptionStart = option.startDate.diff(startDate, "days");
+            let toOptionEnd = option.endDate.diff(startDate, "days");
 
-            this.cellObjects[curRowLevel][toOptionStart].isEmpty = false;
-            this.cellObjects[curRowLevel][toOptionStart].isFat = true;
-            this.cellObjects[curRowLevel][toOptionStart].isFatStart = true;
+            cellObjects[curRowLevel][toOptionStart].isEmpty = false;
+            cellObjects[curRowLevel][toOptionStart].isFat = true;
+            cellObjects[curRowLevel][toOptionStart].isFatStart = true;
             for (let j = toOptionStart; j <= toOptionEnd; j++) {
-                this.cellObjects[curRowLevel][j].isEmpty = false;
-                this.cellObjects[curRowLevel][j].isFat = true;
+                cellObjects[curRowLevel][j].isEmpty = false;
+                cellObjects[curRowLevel][j].isFat = true;
             }
-            this.cellObjects[curRowLevel][toOptionEnd].isEmpty = false;
-            this.cellObjects[curRowLevel][toOptionEnd].isFat = true;
-            this.cellObjects[curRowLevel][toOptionEnd].isFatEnd = true;
+            cellObjects[curRowLevel][toOptionEnd].isEmpty = false;
+            cellObjects[curRowLevel][toOptionEnd].isFat = true;
+            cellObjects[curRowLevel][toOptionEnd].isFatEnd = true;
 
-            this.cellObjects[curRowLevel + 1][toOptionStart].isFatLabel = true;
-            this.cellObjects[curRowLevel + 1][toOptionStart].label = option.label;
+            cellObjects[curRowLevel + 1][toOptionStart].isFatLabel = true;
+            cellObjects[curRowLevel + 1][toOptionStart].label = option.label;
             curRowLevel += 2;
         }
+        return cellObjects;
     }
 
     render() {
-        this.applyThinTimelineOptions();
-        this.applyFatTimelineOptions();
+        let {
+            startDate,
+            endDate,
+            cellObjects,
+        } = this.state;
         return (
             <div className={styles.Wrapper}>
                 <div/>
@@ -185,15 +202,15 @@ class Timeline extends Component {
                     <Table className={styles.Timeline}>
                         <thead>
                         <tr>
-                            {generateFirstLevelCells(this.startDate, this.getWeekCount())}
+                            {generateFirstLevelCells(startDate, getWeekCount(startDate, endDate) )}
                         </tr>
                         <tr>
-                            {generateSecondLevelCells(this.getWeekCount())}
+                            {generateSecondLevelCells(getWeekCount(startDate, endDate) )}
                         </tr>
                         </thead>
                         <tbody>
                         {
-                            this.generateContentDays()
+                            this.generateContentDays(cellObjects)
                         }
                         </tbody>
                     </Table>
@@ -214,15 +231,18 @@ function generateEmptyCellObjects(height, width, today) {
     for (let i = 0; i < height; i++) {
         let row = [];
         for (let j = 0; j < width; j++) {
-            row.push({
+            row[j] = {
                 isEmpty: true,
+                isFat:false,
+                isFatStart:false,
+                isFatEnd:false,
                 isToday: today === j,
                 isSunday: j % 7 === 0,
                 isSaturday: (j + 1) % 7 === 0,
                 withoutRightBorder: today - 1 === j,
-            });
+            };
         }
-        result.push(row);
+        result[i] = row;
     }
     return result;
 }
@@ -256,5 +276,15 @@ function generateFirstLevelCells(startDate, weekCount) {
     }
     return result;
 }
+
+function getWeekCount(startDate, endDate) {
+    let diff = endDate.diff(startDate, "days") + 1;
+    return diff / 7;
+}
+
+function getDayCount(startDate, endDate)  {
+    return getWeekCount(startDate, endDate)  * 7;
+}
+
 
 export default Timeline;
