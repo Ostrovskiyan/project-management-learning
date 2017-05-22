@@ -7,8 +7,13 @@ class UnderlineMenu extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            options: props.options || [],
             selected: props.selected,
+        };
+    }
+
+    componentWillReceiveProps(next) {
+        this.state = {
+            selected: next.selected,
         };
     }
 
@@ -29,10 +34,10 @@ class UnderlineMenu extends Component {
         let {
             menuStyle,
             selectedStyle,
+            options = [],
             withoutClickHandling,
         } = this.props;
         let {
-            options,
             selected,
         } = this.state;
         return (
