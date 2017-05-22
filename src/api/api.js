@@ -43,7 +43,7 @@ export function getUsers() {
     ];
 }
 
-let projectGen = idGenerator();
+let projectGen = idGenerator(100);
 
 export function createProject(name, token) {
     return {
@@ -54,7 +54,7 @@ export function createProject(name, token) {
     }
 }
 
-let issueGen = idGenerator();
+let issueGen = idGenerator(100);
 
 export function createIssueViaApi(name, author) {
     return {
