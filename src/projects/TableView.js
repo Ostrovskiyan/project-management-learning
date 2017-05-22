@@ -16,7 +16,7 @@ class TableView extends Component {
     processIssue(issue, result, issueCount, users) {
         result.push(
             <tr key={result.length} className={styles.IssueRow}>
-                <td>{issueCount++}</td>
+                <td>{issueCount}</td>
                 <td className={styles.IssueName}>
                     <span>&#8870;</span>
                     <span className={styles.Text}>{issue.name}</span>
@@ -36,7 +36,7 @@ class TableView extends Component {
         for (let subtask of issue.subtasks) {
             result.push(
                 <tr key={result.length} className={styles.SubtaskRow}>
-                    <td>{`${issueCount - 1}.${subtaskCount++}`}</td>
+                    <td>{`${issueCount}.${subtaskCount++}`}</td>
                     <td className={styles.Name}>
                         {subtask.name}
                     </td>
@@ -85,7 +85,7 @@ class TableView extends Component {
             );
             const projectIssues = issuesInProject(issues, project.id);
             for (let issue of projectIssues) {
-                this.processIssue(issue, result, issueCount, users);
+                this.processIssue(issue, result, issueCount++, users);
             }
         }
         const withoutProject = issuesInProject(issues, undefined);
